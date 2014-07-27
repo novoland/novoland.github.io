@@ -6,9 +6,20 @@
     <atom:link href="place_your_blog_url_here/rss.xml" rel="self" type="application/rss+xml" />
     <description>place_your_blog_description_here</description>
     <language>place_your_blog_language_here</language>
-    <pubDate>Sun, 27 Jul 2014 14:29:24 +0800</pubDate>
-    <lastBuildDate>Sun, 27 Jul 2014 14:29:24 +0800</lastBuildDate>
+    <pubDate>Sun, 27 Jul 2014 16:23:13 +0800</pubDate>
+    <lastBuildDate>Sun, 27 Jul 2014 16:23:13 +0800</lastBuildDate>
 
+    
+    <item>
+      <title>JVM GC调优</title>
+      <link>place_your_blog_url_here/jvm/2014/07/27/gc.html</link>
+      <pubDate>27 Jul 2014</pubDate>
+      <author>place_your_name_here</author>
+      <guid>place_your_blog_url_here/jvm/2014/07/27/gc</guid>
+      <description>&lt;p&gt;以前写过的一个 ppt，关于 GC 的。&lt;/p&gt;
+
+&lt;script async class=&quot;speakerdeck-embed&quot; data-id=&quot;c10db6507f000130879e1231381969d1&quot; data-ratio=&quot;1.33333333333333&quot; src=&quot;http://speakerdeck.com/assets/embed.js&quot;&gt;&lt;/script&gt;</description>
+    </item>
     
     <item>
       <title>高性能网络通讯笔记</title>
@@ -1275,173 +1286,6 @@ size = [&lt;span style=&quot;color: #ae81ff;&quot;&gt;1&lt;/span&gt;] * len(raw)
 
 test()
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</description>
-    </item>
-    
-    <item>
-      <title>并发集合</title>
-      <link>place_your_blog_url_here/%E5%B9%B6%E5%8F%91/2014/07/26/%E5%B9%B6%E5%8F%91%E9%9B%86%E5%90%88.html</link>
-      <pubDate>26 Jul 2014</pubDate>
-      <author>place_your_name_here</author>
-      <guid>place_your_blog_url_here/%E5%B9%B6%E5%8F%91/2014/07/26/并发集合</guid>
-      <description>&lt;div style=&quot;line-height: 1.6; font-family: Helvetica Neue, Arial, Hiragino Sans GB, STHeiti, Microsoft YaHei, WenQuanYi Micro Hei, SimSun, Song, sans-serif;&quot;&gt;
-&lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;1. &lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;&quot;&gt;Collections&lt;/code&gt; 类提供的线程安全的集合&lt;/h2&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;&quot;&gt;java.util.Collections&lt;/code&gt;提供了一系列方法将一个普通的集合包装成线程安全的集合，如&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;&quot;&gt;Collections.synchronizedCollection() / Collections.synchronizedSet()&lt;/code&gt; 等。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;它们的实现很简单，&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;&quot;&gt;Collections&lt;/code&gt;内部定义了一系列集合类，它们的作用就是包装用户传进来的集合并把操作都代理给后者，唯一不同的是，这些内部集合类的每个方法都是&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;&quot;&gt;synchronized&lt;/code&gt;的，保证每个方法的互斥，虽然正确，但是效率不高，不推荐使用。&lt;/p&gt;
-&lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;2. &lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;&quot;&gt;JUC&lt;/code&gt; 提供的并发集合&lt;/h2&gt;
-&lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;2.1 ConcurrentLinkedQueue&lt;/h3&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;基于&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;&quot;&gt;lock-free&lt;/code&gt;算法实现的无界队列，关于&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;&quot;&gt;lock-free&lt;/code&gt;可以参见笔记《Lock-Free 算法》。&lt;/p&gt;
-&lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;2.2 ConcurrentHashMap&lt;/h3&gt;
-&lt;blockquote style=&quot;padding: 15px 20px; margin: 0 0 15px 0; font-size: 14px; border-left: 5px solid #ddd; background-color: rgba(102, 128, 153, 0.05);&quot;&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; font-size: 14px; font-weight: 300; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;strong style=&quot;font-weight: bold;&quot;&gt;拆分锁&lt;/strong&gt;&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; margin-bottom: 0; line-height: 1.6; font-size: 14px; font-weight: 300; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;一个动作只会影响结构的一部分，则把整体拆分成若干部分，每个部分一个锁，部分A被锁不会影响部分B，从而提高并发程度。&lt;/p&gt;
-&lt;/blockquote&gt;&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;内部用若干 segment 保存 entry；每个segment是一个小hashmap，它继承 ReentrantLock ，内部的 update 动作均须先加锁。segment个数由参数 &lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;&quot;&gt;concurrencyLevel&lt;/code&gt; 决定。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;put/remove首先找segmengt，后者先加锁，再操作。put 插入时是插在链表头；remove 先找元素，再执行一个普通的链表节点删除操作。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;Segment 的 rehash 是不加锁的，它先创建一个新的空数组，接着将元素 rehash 到该数组，最后将新数组和旧数组切换。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;get/contains/iterator 读取操作不加锁，这是因为put/remove动作对数据结构的改变最终是个原子动作（put是一个对数组元素/Entry 指针的赋值操作；remove是一个对 entry.next 的赋值操作，rehash是一个对数组引用的赋值操作），&lt;strong style=&quot;font-weight: bold;&quot;&gt;因此read不会看到一个更新动作的中间状态&lt;/strong&gt;；但它可能和并发的put/remove方法调用重叠，它所看到的状态是其所在Segment在&lt;strong style=&quot;font-weight: bold;&quot;&gt;最后一个完成的update动作后&lt;/strong&gt;的状态，正在进行但未完成的put/remove对read是不可见的，如果前者先于read完成，read是有可能看到脏数据的。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;没有提供锁全部segment的方法，size的实现是先走几次fast-path，即不加锁统计所有segment的count和modcount两次，如果modcount发生改变，说明有并发操作，需要重新统计。如果重复该动作3次依然有问题，则依次对所有segment加锁，统计count。&lt;/p&gt;
-&lt;blockquote style=&quot;padding: 15px 20px; margin: 0 0 15px 0; font-size: 14px; border-left: 5px solid #ddd; background-color: rgba(102, 128, 153, 0.05);&quot;&gt;
-&lt;p style=&quot;margin: 0 0 10px; margin-bottom: 0; line-height: 1.6; font-size: 14px; font-weight: 300; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;hashcode 决定桶的位置，equals决定两个对象是否相同。&lt;/p&gt;
-&lt;/blockquote&gt;&lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;CopyOnWriteArrayList&lt;/h3&gt;
-&lt;blockquote style=&quot;padding: 15px 20px; margin: 0 0 15px 0; font-size: 14px; border-left: 5px solid #ddd; background-color: rgba(102, 128, 153, 0.05);&quot;&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; font-size: 14px; font-weight: 300; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;strong style=&quot;font-weight: bold;&quot;&gt; copyonwrite  &lt;/strong&gt;&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; margin-bottom: 0; line-height: 1.6; font-size: 14px; font-weight: 300; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;所有的update动作都加锁，且对当前结构创建一个snapshot，在snapshot上完成update动作后，再将其转正，丢弃原结构 **&lt;/p&gt;
-&lt;/blockquote&gt;&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;内部是个数组；&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;add/remove/set 均使用同一把 reentrantlock 实现互斥，并复制一份当前的数组，在该数组上完成write动作，最后用一个原子的引用赋值动作将snapshot切换为当前数组；即内部数组永远不会改变结构（readonly），只会发生整个数组的切换。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;get不加锁，和ConcurrentHashMap类似，由于write动作最终实质上是个原子的引用切换动作，因此get看到的要么是修改完成前的数组，要么是完成后的数组，它不会看到一个不稳定的中间状态，它也是不用加锁的。read看到的也是&lt;strong style=&quot;font-weight: bold;&quot;&gt;最后一个完成的write后&lt;/strong&gt;的数组，但很可能read时依然有进行中的write动作，这对read而言是不可见的，但如果它先于read完成，read是有可能读到脏数据的。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;iterator引用创建时的内部数组，不可对该数组write，因此它的remove/set/add都不可用；后续对CopyOnWriteArrayList的write动作对该iterator也是不可见的，这个道理很容易明白。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;strong style=&quot;font-weight: bold;&quot;&gt; write 每次创建snapshot，代价很大；read 不加锁，很快；适合读多写少的场景。&lt;/strong&gt;&lt;/p&gt;
-&lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;CopyOnWriteArraySet&lt;/h3&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;基于 &lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;&quot;&gt;CopyOnWriteArrayList&lt;/code&gt; 实现，add时创建数组副本，并用equals判重。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;不是hashset那种实现，和hashcode没关系。&lt;/p&gt;
-&lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;ConcurrentLinkedQueue&lt;/h3&gt;
-&lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;BlockingQueue&lt;/h3&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;提供了几套api&lt;/p&gt;
-&lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap; background: transparent;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 8px; display: block; background: #23241f; margin: 0 4px;&quot;&gt;Queue:      &amp;lt;--- 使用BlockingQueue时，不要用这些API
-    &lt;span style=&quot;color: #75715e;&quot;&gt;// 抛异常&lt;/span&gt;
-    add
-    remove
-
-    &lt;span style=&quot;color: #75715e;&quot;&gt;// 返回false/null&lt;/span&gt;
-    offer 
-    poll 
-
-BlockingQueue:
-    &lt;span style=&quot;color: #75715e;&quot;&gt;// timed 阻塞&lt;/span&gt;
-    offer的超时版本
-    poll的超时版本
-
-    &lt;span style=&quot;color: #75715e;&quot;&gt;//一直阻塞&lt;/span&gt;
-    put
-    take
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;所有的子类都是基于&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;&quot;&gt;lock&lt;/code&gt;和&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;&quot;&gt;condition&lt;/code&gt;实现的，实现依据不同条件阻塞和唤醒线程&lt;/p&gt;
-&lt;h4 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 25px; margin-bottom: 15px; font-size: 18px;&quot;&gt;ArrayBlockingQueue&lt;/h4&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;定长的 (实例化时一定要指定长度)，基于(循环)数组的阻塞队列，生产者消费者模型中 buffer 的典型实现。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;使用一个ReentrantLock保证数组的互斥访问，使用它派生的两个condition让线程在full-put和empty-take时阻塞和互相唤醒 (有两个独立的场合需要协作, 因此需要两个 condition), 它的核心实现如下(有改动)：&lt;/p&gt;
-&lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap; background: transparent;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 8px; display: block; background: #23241f; margin: 0 4px;&quot;&gt;&lt;span style=&quot;color: #75715e;&quot;&gt;/** The queued items */&lt;/span&gt;
-&lt;span style=&quot;color: #F92672;&quot;&gt;final&lt;/span&gt; Object[] items;
-
-&lt;span style=&quot;color: #75715e;&quot;&gt;// 首尾指针&lt;/span&gt;
-&lt;span style=&quot;color: #75715e;&quot;&gt;/** items index for next take, poll, peek or remove */&lt;/span&gt;
-&lt;span style=&quot;color: #F92672;&quot;&gt;int&lt;/span&gt; takeIndex;
-
-&lt;span style=&quot;color: #75715e;&quot;&gt;/** items index for next put, offer, or add */&lt;/span&gt;
-&lt;span style=&quot;color: #F92672;&quot;&gt;int&lt;/span&gt; putIndex;
-
-&lt;span style=&quot;color: #75715e;&quot;&gt;/** Number of elements in the queue */&lt;/span&gt;
-&lt;span style=&quot;color: #F92672;&quot;&gt;int&lt;/span&gt; count;
-
-&lt;span style=&quot;color: #75715e;&quot;&gt;/*
- * Concurrency control uses the classic two-condition algorithm
- * found in any textbook.
- */&lt;/span&gt;
-
-&lt;span style=&quot;color: #75715e;&quot;&gt;/** Main lock guarding all access */&lt;/span&gt;
-&lt;span style=&quot;color: #F92672;&quot;&gt;final&lt;/span&gt; ReentrantLock lock;
-&lt;span style=&quot;color: #75715e;&quot;&gt;/** Condition for waiting takes */&lt;/span&gt;
-&lt;span style=&quot;color: #F92672;&quot;&gt;private&lt;/span&gt; &lt;span style=&quot;color: #F92672;&quot;&gt;final&lt;/span&gt; Condition notEmpty;
-&lt;span style=&quot;color: #75715e;&quot;&gt;/** Condition for waiting puts */&lt;/span&gt;
-&lt;span style=&quot;color: #F92672;&quot;&gt;private&lt;/span&gt; &lt;span style=&quot;color: #F92672;&quot;&gt;final&lt;/span&gt; Condition notFull;
-
-&lt;span style=&quot;color: #75715e;&quot;&gt;// put&lt;/span&gt;
-&lt;span style=&quot;color: #F92672;&quot;&gt;public&lt;/span&gt; &lt;span style=&quot;color: #F92672;&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color: #a6e22e;&quot;&gt;put&lt;/span&gt;(E e) &lt;span style=&quot;color: #F92672;&quot;&gt;throws&lt;/span&gt; InterruptedException {
-    lock.lockInterruptibly();
-    &lt;span style=&quot;color: #F92672;&quot;&gt;try&lt;/span&gt; {
-        &lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt; (count == items.length)   &lt;span style=&quot;color: #75715e;&quot;&gt;// 在 notFull 上 wait&lt;/span&gt;
-            notFull.await();
-        insert(e);                      &lt;span style=&quot;color: #75715e;&quot;&gt;// 在 notEmpty 上 signal&lt;/span&gt;
-    } &lt;span style=&quot;color: #F92672;&quot;&gt;finally&lt;/span&gt; {
-        lock.unlock();
-    }
-}
-&lt;span style=&quot;color: #F92672;&quot;&gt;private&lt;/span&gt; &lt;span style=&quot;color: #F92672;&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color: #a6e22e;&quot;&gt;insert&lt;/span&gt;(E x) {
-    items[putIndex] = x;
-    putIndex = inc(putIndex);
-    ++count;
-    notEmpty.signal();
-}
-
-&lt;span style=&quot;color: #75715e;&quot;&gt;// take&lt;/span&gt;
-&lt;span style=&quot;color: #F92672;&quot;&gt;public&lt;/span&gt; E &lt;span style=&quot;color: #a6e22e;&quot;&gt;take&lt;/span&gt;() &lt;span style=&quot;color: #F92672;&quot;&gt;throws&lt;/span&gt; InterruptedException {
-    lock.lockInterruptibly();
-    &lt;span style=&quot;color: #F92672;&quot;&gt;try&lt;/span&gt; {
-        &lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt; (count == &lt;span style=&quot;color: #ae81ff;&quot;&gt;0&lt;/span&gt;)  &lt;span style=&quot;color: #75715e;&quot;&gt;// 在 notEmpty 上 wait&lt;/span&gt;
-            notEmpty.await();
-        &lt;span style=&quot;color: #F92672;&quot;&gt;return&lt;/span&gt; extract();   &lt;span style=&quot;color: #75715e;&quot;&gt;// 在 notFull 上 signal&lt;/span&gt;
-    } &lt;span style=&quot;color: #F92672;&quot;&gt;finally&lt;/span&gt; {
-        lock.unlock();
-    }
-}
-&lt;span style=&quot;color: #F92672;&quot;&gt;private&lt;/span&gt; E &lt;span style=&quot;color: #a6e22e;&quot;&gt;extract&lt;/span&gt;() {
-    E x = &lt;span style=&quot;color: #F92672;&quot;&gt;this&lt;/span&gt;.items[takeIndex];
-    items[takeIndex] = &lt;span style=&quot;color: #F92672;&quot;&gt;null&lt;/span&gt;;
-    takeIndex = inc(takeIndex);
-    --count;
-    notFull.signal();
-    &lt;span style=&quot;color: #F92672;&quot;&gt;return&lt;/span&gt; x;
-}
-
-&lt;span style=&quot;color: #75715e;&quot;&gt;// helper&lt;/span&gt;
-&lt;span style=&quot;color: #75715e;&quot;&gt;/**
- * Circularly increment i.
- */&lt;/span&gt;
-&lt;span style=&quot;color: #F92672;&quot;&gt;final&lt;/span&gt; &lt;span style=&quot;color: #F92672;&quot;&gt;int&lt;/span&gt; inc(&lt;span style=&quot;color: #F92672;&quot;&gt;int&lt;/span&gt; i) {
-    &lt;span style=&quot;color: #F92672;&quot;&gt;return&lt;/span&gt; (++i == items.length) ? &lt;span style=&quot;color: #ae81ff;&quot;&gt;0&lt;/span&gt; : i;
-}
-
-&lt;span style=&quot;color: #75715e;&quot;&gt;/**
- * Circularly decrement i.
- */&lt;/span&gt;
-&lt;span style=&quot;color: #F92672;&quot;&gt;final&lt;/span&gt; &lt;span style=&quot;color: #F92672;&quot;&gt;int&lt;/span&gt; dec(&lt;span style=&quot;color: #F92672;&quot;&gt;int&lt;/span&gt; i) {
-    &lt;span style=&quot;color: #F92672;&quot;&gt;return&lt;/span&gt; ((i == &lt;span style=&quot;color: #ae81ff;&quot;&gt;0&lt;/span&gt;) ? items.length : i) - &lt;span style=&quot;color: #ae81ff;&quot;&gt;1&lt;/span&gt;;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h4 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 25px; margin-bottom: 15px; font-size: 18px;&quot;&gt;LinkedBlockingQueue&lt;/h4&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;基于链表的 BlockingQueue, 可选指定最大长度. 实现原理和&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;&quot;&gt;ArrayBlockingQueue&lt;/code&gt;类似, 但采用了&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;&quot;&gt;two lock queue&lt;/code&gt;算法实现, 内部为 take 和 put �各用了一把锁(及一个 condition), 更精细也更复杂.&lt;/p&gt;
-&lt;h4 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 25px; margin-bottom: 15px; font-size: 18px;&quot;&gt;PriorityBlockingQueue&lt;/h4&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;内部维护一个堆, 在空间不够时自动扩容, 实现原理大部分和&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;&quot;&gt;ArrayBlockingQueue&lt;/code&gt;一致, 但没有用 &lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;&quot;&gt;notFull&lt;/code&gt; condition, 因为它没有 Full 的概念.&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;在扩容时有一个小优化, 扩容分为两个步骤, 分配更大数组 + 复制原数组, 类的实现者认为不太可能会在扩容这个地方出现激烈竞争, 因此对第一步数组的分配没有用锁, 而是用一个额外的 spinlock , 允许在扩容时并发地 take. 分配成功后再加锁, 进行第二步的复制.&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;spinlock 是&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;&quot;&gt;Lock-free&lt;/code&gt;算法的一个典型应用，它的思路是当锁被占有时让 CPU 空转等待, 锁被释放时再试图 &lt;strong style=&quot;font-weight: bold;&quot;&gt;原子地&lt;/strong&gt; 加锁, 加锁失败则继续自旋. 假设一个二元标志位, 1代表锁被占有, 0代表锁空闲, 则以下是 spinlock 的一个例子:&lt;/p&gt;
-&lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap; background: transparent;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 8px; display: block; background: #23241f; margin: 0 4px;&quot;&gt;&lt;span style=&quot;color: #F92672;&quot;&gt;volatile&lt;/span&gt; &lt;span style=&quot;color: #F92672;&quot;&gt;int&lt;/span&gt; &lt;span style=&quot;color: #F92672;&quot;&gt;lock&lt;/span&gt; = &lt;span style=&quot;color: #ae81ff;&quot;&gt;0&lt;/span&gt;;
-
-&lt;span style=&quot;color: #F92672;&quot;&gt;public&lt;/span&gt; &lt;span style=&quot;color: #F92672;&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color: #a6e22e;&quot;&gt;lockAndDoSth&lt;/span&gt;(){
-    &lt;span style=&quot;color: #F92672;&quot;&gt;for&lt;/span&gt;(;;){                            &lt;span style=&quot;color: #75715e;&quot;&gt;// &amp;lt;-- 1. 循环&lt;/span&gt;
-        &lt;span style=&quot;color: #F92672;&quot;&gt;if&lt;/span&gt;(&lt;span style=&quot;color: #F92672;&quot;&gt;lock&lt;/span&gt; == &lt;span style=&quot;color: #ae81ff;&quot;&gt;1&lt;/span&gt;) &lt;span style=&quot;color: #F92672;&quot;&gt;continue&lt;/span&gt;;
-        &lt;span style=&quot;color: #F92672;&quot;&gt;if&lt;/span&gt;(compareAndSet(&lt;span style=&quot;color: #F92672;&quot;&gt;lock&lt;/span&gt;,&lt;span style=&quot;color: #ae81ff;&quot;&gt;0&lt;/span&gt;,&lt;span style=&quot;color: #ae81ff;&quot;&gt;1&lt;/span&gt;)){    &lt;span style=&quot;color: #75715e;&quot;&gt;// &amp;lt;-- 2. CAS, 原子的 read-modify-write 指令&lt;/span&gt;
-            &lt;span style=&quot;color: #75715e;&quot;&gt;// 已经获取锁, do sth        &lt;/span&gt;
-
-            &lt;span style=&quot;color: #F92672;&quot;&gt;lock&lt;/span&gt; = &lt;span style=&quot;color: #ae81ff;&quot;&gt;1&lt;/span&gt;;                 &lt;span style=&quot;color: #75715e;&quot;&gt;// 最后释放锁&lt;/span&gt;
-        }&lt;span style=&quot;color: #F92672;&quot;&gt;else&lt;/span&gt;{
-            Thread.&lt;span style=&quot;color: #F92672;&quot;&gt;yield&lt;/span&gt;();             &lt;span style=&quot;color: #75715e;&quot;&gt;// 获取锁失败, 主动出让 CPU&lt;/span&gt;
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;关于&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;&quot;&gt;lock-free&lt;/code&gt;的更多，可以参考笔记《Lock-Free 算法》。&lt;/p&gt;
-&lt;h4 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 25px; margin-bottom: 15px; font-size: 18px;&quot;&gt;DelayQueue&lt;/h4&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;基于&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;&quot;&gt;PriorityQueue&lt;/code&gt;, 无界（自动扩容）, 存放实现了&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;&quot;&gt;Delayed&lt;/code&gt;接口的对象. &lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;&quot;&gt;Delayed#getDelay()&lt;/code&gt;表明这个对象的过期时间离当前时间有多久, 最近一个过期的对象放在堆顶. &lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;&quot;&gt;take&lt;/code&gt; 的调用方被阻塞, 直到堆顶的元素到期出队. 新对象的加入会调整堆, 并唤醒所有阻塞在&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;&quot;&gt;take&lt;/code&gt;的线程, 让它们根据新的堆顶元素调整自己的休眠时间.&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;&quot;&gt;DelayQueue&lt;/code&gt; 的典型使用场景是超时管理、定时器的实现，更多可以参考 &lt;a href=&quot;https://www.evernote.com/shard/s133/sh/d227e30b-0728-4599-9556-12c9cab77ab3/6a4d4d5c0608363acc46773d5aa27a76&quot; style=&quot;background: transparent;&quot; target=&quot;_blank&quot;&gt;笔记《定时器》&lt;/a&gt;。&lt;/p&gt;
 &lt;/div&gt;</description>
     </item>
     
