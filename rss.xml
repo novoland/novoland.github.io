@@ -6,8 +6,8 @@
     <atom:link href="place_your_blog_url_here/rss.xml" rel="self" type="application/rss+xml" />
     <description>place_your_blog_description_here</description>
     <language>place_your_blog_language_here</language>
-    <pubDate>Tue, 29 Jul 2014 09:58:54 +0800</pubDate>
-    <lastBuildDate>Tue, 29 Jul 2014 09:58:54 +0800</lastBuildDate>
+    <pubDate>Tue, 29 Jul 2014 10:06:19 +0800</pubDate>
+    <lastBuildDate>Tue, 29 Jul 2014 10:06:19 +0800</lastBuildDate>
 
     
     <item>
@@ -56,6 +56,17 @@
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;bit 数组长度 &lt;span style=&quot;display:inline-block;margin:0&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&quot;&quot;&gt;&lt;span style=&quot;white-space: nowrap;&quot;&gt;&lt;span style=&quot;width: 1.139em; display: inline-block;&quot;&gt;&lt;span style=&quot;display: inline-block; position: relative; width: 0.869em; height: 0px; font-size: 132%;&quot;&gt;&lt;span style=&quot;position: absolute; clip: rect(1.897em 1000.003em 2.654em -0.484em); top: -2.486em; left: 0.003em;&quot;&gt;&lt;span&gt;&lt;span style=&quot;font-family:MathJax_Math, serif; font-style: italic;&quot;&gt;m&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;display: inline-block; width: 0px; height: 2.492em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;border-left-width: 0.004em; border-left-style: solid; display: inline-block; overflow: hidden; width: 0px; height: 0.718em; vertical-align: -0.068em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 和 hash 函数个数 &lt;span style=&quot;display:inline-block;margin:0&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&quot;&quot;&gt;&lt;span style=&quot;white-space: nowrap;&quot;&gt;&lt;span style=&quot;width: 0.652em; display: inline-block;&quot;&gt;&lt;span style=&quot;display: inline-block; position: relative; width: 0.49em; height: 0px; font-size: 132%;&quot;&gt;&lt;span style=&quot;position: absolute; clip: rect(1.626em 1000.003em 2.654em -0.43em); top: -2.486em; left: 0.003em;&quot;&gt;&lt;span&gt;&lt;span style=&quot;font-family:MathJax_Math, serif; font-style: italic;&quot;&gt;k&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;display: inline-block; width: 0px; height: 2.492em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;border-left-width: 0.004em; border-left-style: solid; display: inline-block; overflow: hidden; width: 0px; height: 1.075em; vertical-align: -0.068em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 在初始化时由上述两个公式计算而得。&lt;/p&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;在爬虫项目中用了 BloomFilter 作为 url 的判重器，代码在&lt;a href=&quot;http://gist.github.com/novoland/9277fe26b4ec91cb3ee6&quot; style=&quot;background: transparent;&quot; target=&quot;_blank&quot;&gt;这里&lt;/a&gt;。其中 k 个 hash 函数是通过为 MD5 提供 k 个不同的 salt 构造的。实际使用中当集合规模为 500 万，误判率为万分之一时，所占空间仅为 11.5M。&lt;/p&gt;
 &lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>JVM GC调优</title>
+      <link>place_your_blog_url_here/jvm/2014/07/27/gc.html</link>
+      <pubDate>27 Jul 2014</pubDate>
+      <author>place_your_name_here</author>
+      <guid>place_your_blog_url_here/jvm/2014/07/27/gc</guid>
+      <description>&lt;p&gt; 以前写过的一个 ppt，关于 GC 的。 &lt;/p&gt;
+
+&lt;script async class=&quot;speakerdeck-embed&quot; data-id=&quot;c10db6507f000130879e1231381969d1&quot; data-ratio=&quot;1.33333333333333&quot; src=&quot;http://speakerdeck.com/assets/embed.js&quot;&gt;&lt;/script&gt;</description>
     </item>
     
     <item>
@@ -1374,77 +1385,6 @@ both     1111         f
 &lt;li style=&quot;line-height: 1.6;&quot;&gt;集合取值范围不大；&lt;/li&gt;
 &lt;li style=&quot;line-height: 1.6;&quot;&gt;不要求精确，因为不计入得分并列的人数&lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</description>
-    </item>
-    
-    <item>
-      <title>并查集</title>
-      <link>place_your_blog_url_here/%E7%AE%97%E6%B3%95/2014/07/26/%E5%B9%B6%E6%9F%A5%E9%9B%86.html</link>
-      <pubDate>26 Jul 2014</pubDate>
-      <author>place_your_name_here</author>
-      <guid>place_your_blog_url_here/%E7%AE%97%E6%B3%95/2014/07/26/并查集</guid>
-      <description>&lt;div style=&quot;line-height: 1.6; font-family: Helvetica Neue, Arial, Hiragino Sans GB, STHeiti, Microsoft YaHei, WenQuanYi Micro Hei, SimSun, Song, sans-serif;&quot;&gt;
-&lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;概述&lt;/h2&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;树形数据结构，通常用来解决连通集合相关的问题。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;一个容量为n的集合，对应的并查集是一个等长数组，a[i] 保存着第i个元素的父节点，这样递归地组成若干棵树，每个树是一个连通集合，树根的父节点指向自己。&lt;/p&gt;
-&lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;操作&lt;/h2&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;并查集最基本的两个操作：&lt;/p&gt;
-&lt;ol style=&quot;margin-top: 0; margin-bottom: 10px; line-height: 1.6;&quot;&gt;
-&lt;li style=&quot;line-height: 1.6;&quot;&gt;&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;strong style=&quot;font-weight: bold;&quot;&gt;查询元素所在集合 &lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;&quot;&gt;findSet(i)&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt; 从元素 i 向上回溯找树根即可。一个集合由其根元素标识。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li style=&quot;line-height: 1.6;&quot;&gt;&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;strong style=&quot;font-weight: bold;&quot;&gt;合并集合 &lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;&quot;&gt;union(i,j)&lt;/code&gt;：合并元素 i，j 所在集合&lt;/strong&gt;&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt; 分别找到 i，j 所在集合的根，将其中一个挂在另一个下即可。&lt;br/&gt; &lt;img alt=&quot;Alt text&quot; class=&quot;en-media&quot; longdesc=&quot;./1406021715912.png&quot; name=&quot;d9566fd0-0fc9-4666-bac0-939131a65bc9&quot; src=&quot;/assets/img/7925cf5f655305353e7c6b8d9b31af8c.png&quot; style=&quot;border: 0; max-width: 100%; border-radius: 8px;&quot;/&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;strong style=&quot;font-weight: bold;&quot;&gt;初始化：每个元素独立成为一个集合。&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;优化&lt;/h2&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;strong style=&quot;font-weight: bold;&quot;&gt;1. &lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;&quot;&gt;findSet&lt;/code&gt; 路径压缩&lt;/strong&gt;&lt;br/&gt;极端情况下一棵集合树退化成一个链表，此时查找根节点耗时O(n)。&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;&quot;&gt;findSet&lt;/code&gt;中可以做这样一个优化：在找到根后，将路上碰到的节点都直接挂在根下，树的高度被压缩成了2，之后的查询都是O(1)的。这是一个扁平化树的过程：&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;img alt=&quot;Alt text&quot; class=&quot;en-media&quot; longdesc=&quot;./1406022231178.png&quot; name=&quot;663a7ee2-8dff-42c6-988f-f36dc92eb9ef&quot; src=&quot;/assets/img/ffe478553d67a080217085fdc6779ef9.png&quot; style=&quot;border: 0; max-width: 100%; border-radius: 8px;&quot;/&gt;&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;strong style=&quot;font-weight: bold;&quot;&gt;2. &lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;&quot;&gt;union&lt;/code&gt; 按集合大小合并&lt;/strong&gt;&lt;br/&gt;合并的时候将元素少的集合合并到元素多的集合中，这样合并之后树的高度会相对较小。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;这两个动作都可以认为是&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;&quot;&gt;O(1)&lt;/code&gt;的。&lt;/p&gt;
-&lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;实现&lt;/h2&gt;
-&lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap; background: transparent;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 8px; display: block; background: #23241f; margin: 0 4px;&quot;&gt;&lt;span style=&quot;color: #75715e;&quot;&gt;#! /usr/bin/python&lt;/span&gt;
-&lt;span style=&quot;color: #75715e;&quot;&gt;# coding=utf-8&lt;/span&gt;
-
-raw = [&lt;span style=&quot;color: #ae81ff;&quot;&gt;8&lt;/span&gt;,&lt;span style=&quot;color: #ae81ff;&quot;&gt;3&lt;/span&gt;,&lt;span style=&quot;color: #ae81ff;&quot;&gt;5&lt;/span&gt;,&lt;span style=&quot;color: #ae81ff;&quot;&gt;6&lt;/span&gt;,&lt;span style=&quot;color: #ae81ff;&quot;&gt;8&lt;/span&gt;,&lt;span style=&quot;color: #ae81ff;&quot;&gt;9&lt;/span&gt;,&lt;span style=&quot;color: #ae81ff;&quot;&gt;1&lt;/span&gt;,&lt;span style=&quot;color: #ae81ff;&quot;&gt;3&lt;/span&gt;]
-set = range(len(raw))   &lt;span style=&quot;color: #75715e;&quot;&gt;# 并查集 [0,1,2...]&lt;/span&gt;
-size = [&lt;span style=&quot;color: #ae81ff;&quot;&gt;1&lt;/span&gt;] * len(raw)   &lt;span style=&quot;color: #75715e;&quot;&gt;# 每个集合的大小&lt;/span&gt;
-
-&lt;span style=&quot;color: #F92672;&quot;&gt;&lt;span style=&quot;color: #66d9ef;&quot;&gt;def&lt;/span&gt; &lt;span style=&quot;color: #a6e22e;&quot;&gt;findSet&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2;&quot;&gt;(i)&lt;/span&gt;:&lt;/span&gt;
-    &lt;span style=&quot;color: #F92672;&quot;&gt;if&lt;/span&gt; set[i] == i:
-        &lt;span style=&quot;color: #F92672;&quot;&gt;return&lt;/span&gt; i
-
-    set[i] = findSet(set[i])
-    &lt;span style=&quot;color: #F92672;&quot;&gt;return&lt;/span&gt; set[i]
-
-&lt;span style=&quot;color: #F92672;&quot;&gt;&lt;span style=&quot;color: #66d9ef;&quot;&gt;def&lt;/span&gt; &lt;span style=&quot;color: #a6e22e;&quot;&gt;union&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2;&quot;&gt;(i,j)&lt;/span&gt;:&lt;/span&gt;
-    root1 = findSet(i)
-    size1 = size[root1]
-
-    root2 = findSet(j)
-    size2 = size[root2]
-
-    &lt;span style=&quot;color: #F92672;&quot;&gt;if&lt;/span&gt; size1 &amp;gt; size2:       &lt;span style=&quot;color: #75715e;&quot;&gt;# 把2挂在1下&lt;/span&gt;
-        set[root2] = root1
-        size[root1] += size2
-        size[root2] = &lt;span style=&quot;color: #ae81ff;&quot;&gt;0&lt;/span&gt;
-    &lt;span style=&quot;color: #F92672;&quot;&gt;else&lt;/span&gt;:                   &lt;span style=&quot;color: #75715e;&quot;&gt;# 把1挂在2下&lt;/span&gt;
-        set[root1] = root2
-        size[root2] += size1
-        size[root1] = &lt;span style=&quot;color: #ae81ff;&quot;&gt;0&lt;/span&gt;
-
-&lt;span style=&quot;color: #75715e;&quot;&gt;# 测试&lt;/span&gt;
-&lt;span style=&quot;color: #F92672;&quot;&gt;&lt;span style=&quot;color: #66d9ef;&quot;&gt;def&lt;/span&gt; &lt;span style=&quot;color: #a6e22e;&quot;&gt;test&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2;&quot;&gt;()&lt;/span&gt;:&lt;/span&gt;
-    &lt;span style=&quot;color: #F92672;&quot;&gt;print&lt;/span&gt; size[&lt;span style=&quot;color: #ae81ff;&quot;&gt;3&lt;/span&gt;],size[&lt;span style=&quot;color: #ae81ff;&quot;&gt;5&lt;/span&gt;]   &lt;span style=&quot;color: #75715e;&quot;&gt;# 1,1&lt;/span&gt;
-    union(&lt;span style=&quot;color: #ae81ff;&quot;&gt;3&lt;/span&gt;,&lt;span style=&quot;color: #ae81ff;&quot;&gt;2&lt;/span&gt;)
-    union(&lt;span style=&quot;color: #ae81ff;&quot;&gt;1&lt;/span&gt;,&lt;span style=&quot;color: #ae81ff;&quot;&gt;2&lt;/span&gt;)              
-    union(&lt;span style=&quot;color: #ae81ff;&quot;&gt;5&lt;/span&gt;,&lt;span style=&quot;color: #ae81ff;&quot;&gt;6&lt;/span&gt;)
-    &lt;span style=&quot;color: #F92672;&quot;&gt;print&lt;/span&gt; findSet(&lt;span style=&quot;color: #ae81ff;&quot;&gt;3&lt;/span&gt;) == findSet(&lt;span style=&quot;color: #ae81ff;&quot;&gt;1&lt;/span&gt;), findSet(&lt;span style=&quot;color: #ae81ff;&quot;&gt;5&lt;/span&gt;) == findSet(&lt;span style=&quot;color: #ae81ff;&quot;&gt;6&lt;/span&gt;) &lt;span style=&quot;color: #75715e;&quot;&gt;# True True&lt;/span&gt;
-    &lt;span style=&quot;color: #F92672;&quot;&gt;print&lt;/span&gt; size[findSet(&lt;span style=&quot;color: #ae81ff;&quot;&gt;1&lt;/span&gt;)],size[findSet(&lt;span style=&quot;color: #ae81ff;&quot;&gt;5&lt;/span&gt;)] &lt;span style=&quot;color: #75715e;&quot;&gt;# 3,2&lt;/span&gt;
-
-test()
-&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;</description>
     </item>
     
