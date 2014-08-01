@@ -6,8 +6,8 @@
     <atom:link href="http://novoland.github.io/rss.xml" rel="self" type="application/rss+xml" />
     <description>一个程序员</description>
     <language>zh-CN</language>
-    <pubDate>Fri, 01 Aug 2014 10:25:03 +0800</pubDate>
-    <lastBuildDate>Fri, 01 Aug 2014 10:25:03 +0800</lastBuildDate>
+    <pubDate>Fri, 01 Aug 2014 12:40:33 +0800</pubDate>
+    <lastBuildDate>Fri, 01 Aug 2014 12:40:33 +0800</lastBuildDate>
 
     
     <item>
@@ -85,6 +85,17 @@
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;bit 数组长度 &lt;span style=&quot;display:inline-block;margin:0&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&quot;&quot;&gt;&lt;span style=&quot;white-space: nowrap;&quot;&gt;&lt;span style=&quot;width: 1.139em; display: inline-block;&quot;&gt;&lt;span style=&quot;display: inline-block; position: relative; width: 0.869em; height: 0px; font-size: 132%;&quot;&gt;&lt;span style=&quot;position: absolute; clip: rect(1.897em 1000.003em 2.654em -0.484em); top: -2.486em; left: 0.003em;&quot;&gt;&lt;span&gt;&lt;span style=&quot;font-family:MathJax_Math, serif; font-style: italic;&quot;&gt;m&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;display: inline-block; width: 0px; height: 2.492em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;border-left-width: 0.004em; border-left-style: solid; display: inline-block; overflow: hidden; width: 0px; height: 0.718em; vertical-align: -0.068em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 和 hash 函数个数 &lt;span style=&quot;display:inline-block;margin:0&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&quot;&quot;&gt;&lt;span style=&quot;white-space: nowrap;&quot;&gt;&lt;span style=&quot;width: 0.652em; display: inline-block;&quot;&gt;&lt;span style=&quot;display: inline-block; position: relative; width: 0.49em; height: 0px; font-size: 132%;&quot;&gt;&lt;span style=&quot;position: absolute; clip: rect(1.626em 1000.003em 2.654em -0.43em); top: -2.486em; left: 0.003em;&quot;&gt;&lt;span&gt;&lt;span style=&quot;font-family:MathJax_Math, serif; font-style: italic;&quot;&gt;k&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;display: inline-block; width: 0px; height: 2.492em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;border-left-width: 0.004em; border-left-style: solid; display: inline-block; overflow: hidden; width: 0px; height: 1.075em; vertical-align: -0.068em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 在初始化时由上述两个公式计算而得。&lt;/p&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;在爬虫项目中用了 BloomFilter 作为 url 的判重器，代码在&lt;a href=&quot;http://gist.github.com/novoland/9277fe26b4ec91cb3ee6&quot; style=&quot;background: transparent;&quot; target=&quot;_blank&quot;&gt;这里&lt;/a&gt;。其中 k 个 hash 函数是通过为 MD5 提供 k 个不同的 salt 构造的。实际使用中当集合规模为 500 万，误判率为万分之一时，所占空间仅为 11.5M。&lt;/p&gt;
 &lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>JVM GC调优</title>
+      <link>http://novoland.github.io/jvm/2014/07/27/gc.html</link>
+      <pubDate>27 Jul 2014</pubDate>
+      <author>克鲁斯卡尔</author>
+      <guid>http://novoland.github.io/jvm/2014/07/27/gc</guid>
+      <description>&lt;p&gt; 以前写过的一个 ppt，关于 GC 的。 &lt;/p&gt;
+
+&lt;script async class=&quot;speakerdeck-embed&quot; data-id=&quot;c10db6507f000130879e1231381969d1&quot; data-ratio=&quot;1.33333333333333&quot; src=&quot;http://speakerdeck.com/assets/embed.js&quot;&gt;&lt;/script&gt;</description>
     </item>
     
     <item>
@@ -1374,41 +1385,6 @@ both     1111         f
     &lt;span style=&quot;color: #75715e;&quot;&gt;#    分别进入左右子树查询，并merge这两个区间上的查询结果&lt;/span&gt;
     &lt;span style=&quot;color: #F92672;&quot;&gt;return&lt;/span&gt; _query(lc(root),start,mid(root)) + _query(rc(root),mid(root) + &lt;span style=&quot;color: #ae81ff;&quot;&gt;1&lt;/span&gt;,end)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</description>
-    </item>
-    
-    <item>
-      <title>桶排序在排行榜问题中的应用</title>
-      <link>http://novoland.github.io/%E7%AE%97%E6%B3%95/2014/07/26/%E6%A1%B6%E6%8E%92%E5%BA%8F%E5%9C%A8%E6%8E%92%E8%A1%8C%E6%A6%9C%E9%97%AE%E9%A2%98%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8.html</link>
-      <pubDate>26 Jul 2014</pubDate>
-      <author>克鲁斯卡尔</author>
-      <guid>http://novoland.github.io/%E7%AE%97%E6%B3%95/2014/07/26/桶排序在排行榜问题中的应用</guid>
-      <description>&lt;div style=&quot;line-height: 1.6; font-family: Helvetica Neue, Arial, Hiragino Sans GB, STHeiti, Microsoft YaHei, WenQuanYi Micro Hei, SimSun, Song, sans-serif;&quot;&gt;
-&lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;基本思路&lt;/h2&gt;
-&lt;ol style=&quot;margin-top: 0; margin-bottom: 10px; line-height: 1.6;&quot;&gt;
-&lt;li style=&quot;line-height: 1.6;&quot;&gt;将集合的值的范围分割成n个桶，极端情况下一个值一个桶；&lt;/li&gt;
-&lt;li style=&quot;line-height: 1.6;&quot;&gt;遍历集合，每个值入桶；&lt;/li&gt;
-&lt;li style=&quot;line-height: 1.6;&quot;&gt;桶内用其他方式如快速排序排序。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;适用场景&lt;/h2&gt;
-&lt;blockquote style=&quot;padding: 15px 20px; margin: 0 0 15px 0; font-size: 14px; border-left: 5px solid #ddd; background-color: rgba(102, 128, 153, 0.05);&quot;&gt;
-&lt;p style=&quot;margin: 0 0 10px; margin-bottom: 0; line-height: 1.6; font-size: 14px; font-weight: 300; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;集合总体取值范围较小的场景&lt;/p&gt;
-&lt;/blockquote&gt;&lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;应用&lt;/h2&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;在&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;&quot;&gt;总排名&lt;/code&gt;这种场景中经常使用，一个&lt;a href=&quot;http://blog.codingnow.com/2014/03/mmzb_db_2.html&quot; style=&quot;background: transparent;&quot; target=&quot;_blank&quot;&gt;例子&lt;/a&gt;：&lt;/p&gt;
-&lt;blockquote style=&quot;padding: 15px 20px; margin: 0 0 15px 0; font-size: 14px; border-left: 5px solid #ddd; background-color: rgba(102, 128, 153, 0.05);&quot;&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; font-size: 14px; font-weight: 300; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;针对陌陌争霸我们是这样做的：&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; font-size: 14px; font-weight: 300; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;陌陌争霸中用于排名的分数区间不大，也就是 0 分到 5000 分。而参与排名的人数众多，数以百万计。对百万用户做插入排序，每个插入即使是 O(N) 的也不可接受。可事实是大量玩家的分数相同，都是并列排名的。所以我们只需要做 5000 个桶，每个桶里仅记录这个分数有多少个人就可以了。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; font-size: 14px; font-weight: 300; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;当玩家分数变迁，把原来的桶减一，新的桶加一。这个操作就是 O(1) 的。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; font-size: 14px; font-weight: 300; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;而排行榜的查询仅需要把当前分数靠前的桶累加，就能获知查询者的名次。对于上百万玩家，看到哪些人和你并列的人的名字是没有意义的。这个查询虽然是 O(n) 复杂度，但 n 只有区区 5000 ，还可以做 cache 以应对查询频率远高于更新频率的情况。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; font-size: 14px; font-weight: 300; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;真正需要精确知道人名的是榜单的前 200 个人，而对前 200 个人做插入排序也很快，所以并不会造成性能问题。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; font-size: 14px; font-weight: 300; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;我们在系统的单点做排行榜的维持，完全没有外部数据库操作，它只是一小段操作普通内存结构的 c 代码。而这个单点远远成为不了整个系统的热点。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; margin-bottom: 0; line-height: 1.6; font-size: 14px; font-weight: 300; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;我们在系统临时退出时，把已经排好的榜单落地，下次启动的时候恢复。但也不必完全信任落地的数据，可以用离线脚本检索整个数据库重新生成一份正确的榜单。所以数据库中的榜单只是被 cache 起来而已，系统运行期间是不需要写入数据库的，也不用担心数据丢失。&lt;/p&gt;
-&lt;/blockquote&gt;&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;一个分值一个桶，给一个玩家计算排名时，统计他所在桶之前所有桶的玩家数即可。这不是一个精确的值，因为同分的没有计算在内。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;同样的思路也可以用在 &lt;strong style=&quot;font-weight: bold;&quot;&gt;在线时长排名&lt;/strong&gt; 等类似场景，只要：&lt;/p&gt;
-&lt;ol style=&quot;margin-top: 0; margin-bottom: 10px; line-height: 1.6;&quot;&gt;
-&lt;li style=&quot;line-height: 1.6;&quot;&gt;集合取值范围不大；&lt;/li&gt;
-&lt;li style=&quot;line-height: 1.6;&quot;&gt;不要求精确，因为不计入得分并列的人数&lt;/li&gt;
-&lt;/ol&gt;
 &lt;/div&gt;</description>
     </item>
     
