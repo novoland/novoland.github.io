@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>place_your_blog_title_here</title>
-    <link>place_your_blog_url_here</link>
-    <atom:link href="place_your_blog_url_here/rss.xml" rel="self" type="application/rss+xml" />
-    <description>place_your_blog_description_here</description>
-    <language>place_your_blog_language_here</language>
-    <pubDate>Tue, 29 Jul 2014 10:06:19 +0800</pubDate>
-    <lastBuildDate>Tue, 29 Jul 2014 10:06:19 +0800</lastBuildDate>
+    <title>克鲁斯卡尔的博客</title>
+    <link>http://novoland.github.io</link>
+    <atom:link href="http://novoland.github.io/rss.xml" rel="self" type="application/rss+xml" />
+    <description>一个程序员</description>
+    <language>zh-CN</language>
+    <pubDate>Tue, 29 Jul 2014 19:09:38 +0800</pubDate>
+    <lastBuildDate>Tue, 29 Jul 2014 19:09:38 +0800</lastBuildDate>
 
     
     <item>
       <title>BloomFilter</title>
-      <link>place_your_blog_url_here/%E7%AE%97%E6%B3%95/2014/07/28/BloomFilter.html</link>
+      <link>http://novoland.github.io/%E7%AE%97%E6%B3%95/2014/07/28/BloomFilter.html</link>
       <pubDate>28 Jul 2014</pubDate>
-      <author>place_your_name_here</author>
-      <guid>place_your_blog_url_here/%E7%AE%97%E6%B3%95/2014/07/28/BloomFilter</guid>
+      <author>克鲁斯卡尔</author>
+      <guid>http://novoland.github.io/%E7%AE%97%E6%B3%95/2014/07/28/BloomFilter</guid>
       <description>&lt;div style=&quot;line-height: 1.6; font-family: Helvetica Neue, Arial, Hiragino Sans GB, STHeiti, Microsoft YaHei, WenQuanYi Micro Hei, SimSun, Song, sans-serif;&quot;&gt;
 &lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;1. 原理&lt;/h2&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;BloomFilter 是一种基于 &lt;strong style=&quot;font-weight: bold;&quot;&gt;bit 数组 + 多重hash&lt;/strong&gt; 的数据结构，用于判断一个元素是否在一个集合中。&lt;/p&gt;
@@ -60,10 +60,10 @@
     
     <item>
       <title>JVM GC调优</title>
-      <link>place_your_blog_url_here/jvm/2014/07/27/gc.html</link>
+      <link>http://novoland.github.io/jvm/2014/07/27/gc.html</link>
       <pubDate>27 Jul 2014</pubDate>
-      <author>place_your_name_here</author>
-      <guid>place_your_blog_url_here/jvm/2014/07/27/gc</guid>
+      <author>克鲁斯卡尔</author>
+      <guid>http://novoland.github.io/jvm/2014/07/27/gc</guid>
       <description>&lt;p&gt; 以前写过的一个 ppt，关于 GC 的。 &lt;/p&gt;
 
 &lt;script async class=&quot;speakerdeck-embed&quot; data-id=&quot;c10db6507f000130879e1231381969d1&quot; data-ratio=&quot;1.33333333333333&quot; src=&quot;http://speakerdeck.com/assets/embed.js&quot;&gt;&lt;/script&gt;</description>
@@ -71,19 +71,19 @@
     
     <item>
       <title>高性能网络通讯笔记</title>
-      <link>place_your_blog_url_here/%E7%BD%91%E7%BB%9C/2014/07/26/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF%E7%AC%94%E8%AE%B0.html</link>
+      <link>http://novoland.github.io/%E7%BD%91%E7%BB%9C/2014/07/26/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF%E7%AC%94%E8%AE%B0.html</link>
       <pubDate>26 Jul 2014</pubDate>
-      <author>place_your_name_here</author>
-      <guid>place_your_blog_url_here/%E7%BD%91%E7%BB%9C/2014/07/26/高性能网络通讯笔记</guid>
+      <author>克鲁斯卡尔</author>
+      <guid>http://novoland.github.io/%E7%BD%91%E7%BB%9C/2014/07/26/高性能网络通讯笔记</guid>
       <description>&lt;div&gt;&lt;/div&gt;</description>
     </item>
     
     <item>
       <title>二叉树的各种遍历</title>
-      <link>place_your_blog_url_here/%E7%AE%97%E6%B3%95/2014/07/26/%E9%9D%9E%E9%80%92%E5%BD%92%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86.html</link>
+      <link>http://novoland.github.io/%E7%AE%97%E6%B3%95/2014/07/26/%E9%9D%9E%E9%80%92%E5%BD%92%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86.html</link>
       <pubDate>26 Jul 2014</pubDate>
-      <author>place_your_name_here</author>
-      <guid>place_your_blog_url_here/%E7%AE%97%E6%B3%95/2014/07/26/非递归的二叉树遍历</guid>
+      <author>克鲁斯卡尔</author>
+      <guid>http://novoland.github.io/%E7%AE%97%E6%B3%95/2014/07/26/非递归的二叉树遍历</guid>
       <description>&lt;div style=&quot;line-height: 1.6; font-family: Helvetica Neue, Arial, Hiragino Sans GB, STHeiti, Microsoft YaHei, WenQuanYi Micro Hei, SimSun, Song, sans-serif;&quot;&gt;
 &lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;1. 先序/后序/中序遍历&lt;/h2&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;递归版本的就不谈了，主要看非递归版本。&lt;/p&gt;
@@ -212,10 +212,10 @@ q.add(mark);
     
     <item>
       <title>链路层 网络层 UDP IO模型</title>
-      <link>place_your_blog_url_here/%E7%BD%91%E7%BB%9C/2014/07/26/%E9%93%BE%E8%B7%AF%E5%B1%82%20%E7%BD%91%E7%BB%9C%E5%B1%82%20UDP%20IO%E6%A8%A1%E5%9E%8B.html</link>
+      <link>http://novoland.github.io/%E7%BD%91%E7%BB%9C/2014/07/26/%E9%93%BE%E8%B7%AF%E5%B1%82%20%E7%BD%91%E7%BB%9C%E5%B1%82%20UDP%20IO%E6%A8%A1%E5%9E%8B.html</link>
       <pubDate>26 Jul 2014</pubDate>
-      <author>place_your_name_here</author>
-      <guid>place_your_blog_url_here/%E7%BD%91%E7%BB%9C/2014/07/26/链路层 网络层 UDP IO模型</guid>
+      <author>克鲁斯卡尔</author>
+      <guid>http://novoland.github.io/%E7%BD%91%E7%BB%9C/2014/07/26/链路层 网络层 UDP IO模型</guid>
       <description>&lt;div style=&quot;line-height: 1.6; font-family: Helvetica Neue, Arial, Hiragino Sans GB, STHeiti, Microsoft YaHei, WenQuanYi Micro Hei, SimSun, Song, sans-serif;&quot;&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;OSI 7层：物数网传|会表应；&lt;br/&gt;TCP/IP 5层：物理层 / 链路层 / 网络层 / 传输层 / 应用层&lt;/p&gt;
 &lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;1. 链路层&lt;/h2&gt;
@@ -457,10 +457,10 @@ Socket Send Buffer
     
     <item>
       <title>贝叶斯</title>
-      <link>place_your_blog_url_here/%E7%AE%97%E6%B3%95/2014/07/26/%E8%B4%9D%E5%8F%B6%E6%96%AF.html</link>
+      <link>http://novoland.github.io/%E7%AE%97%E6%B3%95/2014/07/26/%E8%B4%9D%E5%8F%B6%E6%96%AF.html</link>
       <pubDate>26 Jul 2014</pubDate>
-      <author>place_your_name_here</author>
-      <guid>place_your_blog_url_here/%E7%AE%97%E6%B3%95/2014/07/26/贝叶斯</guid>
+      <author>克鲁斯卡尔</author>
+      <guid>http://novoland.github.io/%E7%AE%97%E6%B3%95/2014/07/26/贝叶斯</guid>
       <description>&lt;div style=&quot;line-height: 1.6; font-family: Helvetica Neue, Arial, Hiragino Sans GB, STHeiti, Microsoft YaHei, WenQuanYi Micro Hei, SimSun, Song, sans-serif;&quot;&gt;
 &lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;1. 贝叶斯定理&lt;/h2&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;贝叶斯定理是一个关于 &lt;strong style=&quot;font-weight: bold;&quot;&gt;条件概率&lt;/strong&gt; 的公式。所谓&quot;条件概率&quot;（Conditional probability），就是指在事件B发生的情况下，事件A发生的概率，用 &lt;span style=&quot;display:inline-block;margin:0&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&quot;&quot;&gt;&lt;span style=&quot;white-space: nowrap;&quot;&gt;&lt;span style=&quot;width: 4.44em; display: inline-block;&quot;&gt;&lt;span style=&quot;display: inline-block; position: relative; width: 3.358em; height: 0px; font-size: 132%;&quot;&gt;&lt;span style=&quot;position: absolute; clip: rect(1.734em 1000.003em 3.087em -0.43em); top: -2.649em; left: 0.003em;&quot;&gt;&lt;span&gt;&lt;span style=&quot;font-family:MathJax_Math, serif; font-style: italic;&quot;&gt;P&lt;span style=&quot;display: inline-block; overflow: hidden; height: 1px; width: 0.111em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;font-family:MathJax_Main, serif;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;font-family:MathJax_Math, serif; font-style: italic;&quot;&gt;A&lt;/span&gt;&lt;span&gt;&lt;span&gt;&lt;span style=&quot;font-family:MathJax_Main, serif;&quot;&gt;|&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;font-family:MathJax_Math, serif; font-style: italic;&quot;&gt;B&lt;/span&gt;&lt;span style=&quot;font-family:MathJax_Main, serif;&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;display: inline-block; width: 0px; height: 2.654em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;border-left-width: 0.004em; border-left-style: solid; display: inline-block; overflow: hidden; width: 0px; height: 1.432em; vertical-align: -0.425em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 来表示。&lt;/p&gt;
@@ -519,10 +519,10 @@ Socket Send Buffer
     
     <item>
       <title>背包问题</title>
-      <link>place_your_blog_url_here/%E7%AE%97%E6%B3%95/2014/07/26/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98.html</link>
+      <link>http://novoland.github.io/%E7%AE%97%E6%B3%95/2014/07/26/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98.html</link>
       <pubDate>26 Jul 2014</pubDate>
-      <author>place_your_name_here</author>
-      <guid>place_your_blog_url_here/%E7%AE%97%E6%B3%95/2014/07/26/背包问题</guid>
+      <author>克鲁斯卡尔</author>
+      <guid>http://novoland.github.io/%E7%AE%97%E6%B3%95/2014/07/26/背包问题</guid>
       <description>&lt;div style=&quot;line-height: 1.6; font-family: Helvetica Neue, Arial, Hiragino Sans GB, STHeiti, Microsoft YaHei, WenQuanYi Micro Hei, SimSun, Song, sans-serif;&quot;&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;本文主要讨论01背包/完全背包/多重背包，及在此之上一些常见的变种问题，更复杂的不做讨论。&lt;/p&gt;
 &lt;h1 style=&quot;font-size: 36px; margin: 0.67em 0; font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px;&quot;&gt;一. 01背包&lt;/h1&gt;
@@ -1015,10 +1015,10 @@ j = totalC
     
     <item>
       <title>网卡中断负载均衡</title>
-      <link>place_your_blog_url_here/c%E5%92%8Cos/2014/07/26/%E7%BD%91%E5%8D%A1%E4%B8%AD%E6%96%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1.html</link>
+      <link>http://novoland.github.io/c%E5%92%8Cos/2014/07/26/%E7%BD%91%E5%8D%A1%E4%B8%AD%E6%96%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1.html</link>
       <pubDate>26 Jul 2014</pubDate>
-      <author>place_your_name_here</author>
-      <guid>place_your_blog_url_here/c%E5%92%8Cos/2014/07/26/网卡中断负载均衡</guid>
+      <author>克鲁斯卡尔</author>
+      <guid>http://novoland.github.io/c%E5%92%8Cos/2014/07/26/网卡中断负载均衡</guid>
       <description>&lt;div style=&quot;line-height: 1.6; font-family: Helvetica Neue, Arial, Hiragino Sans GB, STHeiti, Microsoft YaHei, WenQuanYi Micro Hei, SimSun, Song, sans-serif;&quot;&gt;
 &lt;h1 style=&quot;font-size: 36px; margin: 0.67em 0; font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px;&quot;&gt;1. CPU 的 Exception&lt;/h1&gt;
 &lt;ol style=&quot;margin-top: 0; margin-bottom: 10px; line-height: 1.6;&quot;&gt;
@@ -1165,10 +1165,10 @@ both     1111         f
     
     <item>
       <title>线段树</title>
-      <link>place_your_blog_url_here/%E7%AE%97%E6%B3%95/2014/07/26/%E7%BA%BF%E6%AE%B5%E6%A0%91.html</link>
+      <link>http://novoland.github.io/%E7%AE%97%E6%B3%95/2014/07/26/%E7%BA%BF%E6%AE%B5%E6%A0%91.html</link>
       <pubDate>26 Jul 2014</pubDate>
-      <author>place_your_name_here</author>
-      <guid>place_your_blog_url_here/%E7%AE%97%E6%B3%95/2014/07/26/线段树</guid>
+      <author>克鲁斯卡尔</author>
+      <guid>http://novoland.github.io/%E7%AE%97%E6%B3%95/2014/07/26/线段树</guid>
       <description>&lt;div style=&quot;line-height: 1.6; font-family: Helvetica Neue, Arial, Hiragino Sans GB, STHeiti, Microsoft YaHei, WenQuanYi Micro Hei, SimSun, Song, sans-serif;&quot;&gt;
 &lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;结构&lt;/h2&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;img alt=&quot;Alt text&quot; class=&quot;en-media&quot; longdesc=&quot;./1405924933637.png&quot; name=&quot;83469ba4-d53f-4406-829b-e0144e7e424c&quot; src=&quot;/assets/img/452338c4f7751cd55052264d8a231221.png&quot; style=&quot;border: 0; max-width: 100%; border-radius: 8px;&quot;/&gt;&lt;/p&gt;
@@ -1355,10 +1355,10 @@ both     1111         f
     
     <item>
       <title>桶排序在排行榜问题中的应用</title>
-      <link>place_your_blog_url_here/%E7%AE%97%E6%B3%95/2014/07/26/%E6%A1%B6%E6%8E%92%E5%BA%8F%E5%9C%A8%E6%8E%92%E8%A1%8C%E6%A6%9C%E9%97%AE%E9%A2%98%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8.html</link>
+      <link>http://novoland.github.io/%E7%AE%97%E6%B3%95/2014/07/26/%E6%A1%B6%E6%8E%92%E5%BA%8F%E5%9C%A8%E6%8E%92%E8%A1%8C%E6%A6%9C%E9%97%AE%E9%A2%98%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8.html</link>
       <pubDate>26 Jul 2014</pubDate>
-      <author>place_your_name_here</author>
-      <guid>place_your_blog_url_here/%E7%AE%97%E6%B3%95/2014/07/26/桶排序在排行榜问题中的应用</guid>
+      <author>克鲁斯卡尔</author>
+      <guid>http://novoland.github.io/%E7%AE%97%E6%B3%95/2014/07/26/桶排序在排行榜问题中的应用</guid>
       <description>&lt;div style=&quot;line-height: 1.6; font-family: Helvetica Neue, Arial, Hiragino Sans GB, STHeiti, Microsoft YaHei, WenQuanYi Micro Hei, SimSun, Song, sans-serif;&quot;&gt;
 &lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;基本思路&lt;/h2&gt;
 &lt;ol style=&quot;margin-top: 0; margin-bottom: 10px; line-height: 1.6;&quot;&gt;
