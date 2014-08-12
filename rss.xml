@@ -6,8 +6,8 @@
     <atom:link href="http://novoland.github.io/rss.xml" rel="self" type="application/rss+xml" />
     <description>一个程序员</description>
     <language>zh-CN</language>
-    <pubDate>Tue, 05 Aug 2014 22:28:58 +0800</pubDate>
-    <lastBuildDate>Tue, 05 Aug 2014 22:28:58 +0800</lastBuildDate>
+    <pubDate>Tue, 12 Aug 2014 11:10:19 +0800</pubDate>
+    <lastBuildDate>Tue, 12 Aug 2014 11:10:19 +0800</lastBuildDate>
 
     
     <item>
@@ -74,22 +74,22 @@
     sort(num,i+&lt;span style=&quot;color: #ae81ff;&quot;&gt;1&lt;/span&gt;,end);
 }
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;主要的难点在&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;&quot;&gt;partition()&lt;/code&gt;方法。假定选定第一个元素为 pivot，且一次 partition 后数组分为两部分，左侧&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;&quot;&gt;&amp;lt;=&lt;/code&gt;pivot，右侧&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;&quot;&gt;&amp;gt;&lt;/code&gt;pivot。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;首先考虑一般情况。根据算法，我们需要两个指针 i/j 初始指向数组的两端，i 之前的元素 &amp;lt;= pivot，j 之后的元素 &amp;gt; pivot。两个指针均向中间移动，直到找到第一个不符合条件的元素。二者均停止时，交换 i/j 指针指向的元素，并重复这个过程。&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;主要的难点在&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;&quot;&gt;partition()&lt;/code&gt;方法。假定选定第一个元素为 pivot，且一次 partition 后数组分为两部分，左侧&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;&quot;&gt;&amp;lt;=&lt;/code&gt;pivot，右侧&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;&quot;&gt;&amp;gt;=&lt;/code&gt;pivot。&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;首先考虑一般情况。根据算法，我们需要两个指针 i/j 初始指向数组的两端，i 之前的元素 &amp;lt;= pivot，j 之后的元素 &amp;gt;= pivot。两个指针均向中间移动，直到找到第一个不符合条件的元素。二者均停止时，交换 i/j 指针指向的元素，并重复这个过程。&lt;/p&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;img alt=&quot;Alt text&quot; class=&quot;en-media&quot; longdesc=&quot;./1407240921581.png&quot; name=&quot;875cdb5c-19e2-4277-a8a1-9a5a1329c143&quot; src=&quot;/assets/img/a704a724a9d9f3ac2923ade3934d0bbe.png&quot; style=&quot;border: 0; max-width: 100%; border-radius: 8px;&quot;/&gt;&lt;/p&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;很快可以写出算法的主要框架：&lt;/p&gt;
 &lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap; background: transparent;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 8px; display: block; background: #23241f; margin: 0 4px;&quot;&gt;&lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(...){
     &lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(a[i] &amp;lt;= pivot) i++;
-    &lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(a[j] &amp;gt; pivot) j--;
+    &lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(a[j] &amp;gt;= pivot) j--;
     swap(a,i,j);
 }
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;循环写出来了，自然要考虑什么时候停下来。稍微推演可知，当 i/j 两个指针穷尽了各自的区间时应当停止循环，此时 i和j 是个 &lt;strong style=&quot;font-weight: bold;&quot;&gt;交错的状态&lt;/strong&gt;，i 指向 &amp;gt; 区域的第一个元素，j 指向 &amp;lt;= 区域的最后一个元素，如下所示：&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;循环写出来了，自然要考虑什么时候停下来。稍微推演可知，当 i/j 两个指针穷尽了各自的区间时应当停止循环，此时 i和j 是个 &lt;strong style=&quot;font-weight: bold;&quot;&gt;交错的状态&lt;/strong&gt;，i 指向 &amp;gt;= 区域的第一个元素，j 指向 &amp;lt;= 区域的最后一个元素，如下所示：&lt;/p&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;img alt=&quot;Alt text&quot; class=&quot;en-media&quot; longdesc=&quot;./1407245030987.png&quot; name=&quot;f99cadc0-a6e4-42b0-8478-6b206ae293fb&quot; src=&quot;/assets/img/0568de1c5403812afa20616e65f4ca20.png&quot; style=&quot;border: 0; max-width: 100%; border-radius: 8px;&quot;/&gt;&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;这时不能再交换 i/j 上的元素，而应将 pivot 移动到 &lt;strong style=&quot;font-weight: bold;&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;&quot;&gt;j&lt;/code&gt;&lt;/strong&gt; 处，并返回该位置；至此一次 partition 就完成了。把这些想法加上，代码如下：&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;这时不能再交换 i/j 上的元素，而应将 pivot 移动到 &lt;strong style=&quot;font-weight: bold;&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;&quot;&gt;j&lt;/code&gt;&lt;/strong&gt; 处，并 return 该位置；至此一次 partition 就完成了。把这些想法加上，代码如下：&lt;/p&gt;
 &lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap; background: transparent;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 8px; display: block; background: #23241f; margin: 0 4px;&quot;&gt;&lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(i&amp;lt;j){
     &lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(a[i] &amp;lt;= pivot) i++;   &lt;span style=&quot;color: #75715e;&quot;&gt;// 1&lt;/span&gt;
-    &lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(a[j] &amp;gt; pivot) j--;    &lt;span style=&quot;color: #75715e;&quot;&gt;// 2&lt;/span&gt;
+    &lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(a[j] &amp;gt;= pivot) j--;    &lt;span style=&quot;color: #75715e;&quot;&gt;// 2&lt;/span&gt;
     &lt;span style=&quot;color: #F92672;&quot;&gt;if&lt;/span&gt;(i&amp;lt;j)
         swap(a,i,j);
 }
@@ -97,14 +97,14 @@ swap(a,start,j);
 
 &lt;span style=&quot;color: #F92672;&quot;&gt;return&lt;/span&gt; j;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;上述 1/2 处的循环看起来很有数组越界的危险，而事实也是如此。用几个 edge case 考察下，假设所有元素都 &amp;lt;= pivot，很明显循环1会越界，因此这里需要加上对边界的判断；当数组除 pivot 之外的元素都 &amp;gt; pivot 时，循环2却不会越界，因为最差情况下 j 也会在 pivot 处停下来，因此循环2可以不管。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;另一方面，这两个 edge case 最后 i/j 指针依然处于交错的状态，其他逻辑测试通过，所以把循环1的边界判断加上即可，最后&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;&quot;&gt;partition()&lt;/code&gt;的完整代码如下：&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;上述 1/2 处的循环看起来很有数组越界的危险，而事实也是如此。用几个 edge case 考察下，假设所有元素都 &amp;lt;= pivot，很明显循环1会越界，因此这里需要加上对边界的判断；当数组除 pivot 之外的元素都 &amp;gt; pivot 时，循环2也是一样的情况。这两个越界问题都可以通过 &lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;&quot;&gt;i&amp;lt;=j&lt;/code&gt; 这个判断解决。注意要加上等号，否则 i/j 不会交错，逻辑错误。&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;用 edge case 对其他逻辑测试下都没问题，因此加上数组越界的防范就够了；最后&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;&quot;&gt;partition()&lt;/code&gt;的完整代码如下：&lt;/p&gt;
 &lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap; background: transparent;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 8px; display: block; background: #23241f; margin: 0 4px;&quot;&gt;&lt;span style=&quot;color: #F92672;&quot;&gt;int&lt;/span&gt; partition(&lt;span style=&quot;color: #F92672;&quot;&gt;int&lt;/span&gt;[] a, &lt;span style=&quot;color: #F92672;&quot;&gt;int&lt;/span&gt; start, &lt;span style=&quot;color: #F92672;&quot;&gt;int&lt;/span&gt; end){
     &lt;span style=&quot;color: #F92672;&quot;&gt;int&lt;/span&gt; i = start, j = end, pivot = a[start];
 
     &lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(i &amp;lt; j){
-        &lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(i &amp;lt;= end &amp;amp;&amp;amp; a[i] &amp;lt;= pivot) i++;   &lt;span style=&quot;color: #75715e;&quot;&gt;// 加上越界判断&lt;/span&gt;
-        &lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(a[j] &amp;gt; pivot) j--;
+        &lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(i &amp;lt;= j &amp;amp;&amp;amp; a[i] &amp;lt;= pivot) i++;   &lt;span style=&quot;color: #75715e;&quot;&gt;// 加上越界判断&lt;/span&gt;
+        &lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(i &amp;lt;= j &amp;amp;&amp;amp; a[j] &amp;gt;= pivot) j--;   &lt;span style=&quot;color: #75715e;&quot;&gt;// 加上越界判断&lt;/span&gt;
         &lt;span style=&quot;color: #F92672;&quot;&gt;if&lt;/span&gt;(i &amp;lt; j){
             swap(a,i,j);
         }
@@ -165,7 +165,7 @@ swap(a,start,j);
 
 }
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h1 style=&quot;font-size: 36px; margin: 0.67em 0; font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px;&quot;&gt;2. 随机数生成器的转换&lt;/h1&gt;
+&lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;2. 随机数生成器的转换&lt;/h2&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;听名字有点绕，其实就是给你一个&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;&quot;&gt;Rand5()&lt;/code&gt;，表示随机生成 &lt;span style=&quot;display:inline-block;margin:0&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&quot;&quot;&gt;&lt;span style=&quot;white-space: nowrap;&quot;&gt;&lt;span style=&quot;width: 2.708em; display: inline-block;&quot;&gt;&lt;span style=&quot;display: inline-block; position: relative; width: 2.059em; height: 0px; font-size: 132%;&quot;&gt;&lt;span style=&quot;position: absolute; clip: rect(1.734em 1000.003em 3.087em -0.376em); top: -2.649em; left: 0.003em;&quot;&gt;&lt;span&gt;&lt;span style=&quot;font-family:MathJax_Main, serif;&quot;&gt;[&lt;/span&gt;&lt;span style=&quot;font-family:MathJax_Main, serif;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot;font-family:MathJax_Main, serif;&quot;&gt;,&lt;/span&gt;&lt;span style=&quot;font-family:MathJax_Main, serif; padding-left: 0.165em;&quot;&gt;5&lt;/span&gt;&lt;span style=&quot;font-family:MathJax_Main, serif;&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;display: inline-block; width: 0px; height: 2.654em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;border-left-width: 0.004em; border-left-style: solid; display: inline-block; overflow: hidden; width: 0px; height: 1.432em; vertical-align: -0.425em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 之间的数字，让你实现一个&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;&quot;&gt;Rand3()&lt;/code&gt;。&lt;/p&gt;
 &lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap; background: transparent;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 8px; display: block; background: #23241f; margin: 0 4px;&quot;&gt;&lt;span style=&quot;color: #F92672;&quot;&gt;int&lt;/span&gt; Rand3()  
 {  
@@ -348,7 +348,7 @@ end &lt;span style=&quot;color: #F92672;&quot;&gt;for&lt;/span&gt;
 &lt;li style=&quot;line-height: 1.6;&quot;&gt;用根的左路径初始化栈；&lt;/li&gt;
 &lt;li style=&quot;line-height: 1.6;&quot;&gt;循环从栈中 pop 节点，并将该节点&lt;strong style=&quot;font-weight: bold;&quot;&gt;右孩子的左路径&lt;/strong&gt;入栈&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;不同遍历的实现都是这个思路，只在一些细节地方不同。是不是很简单呢？&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;其实就是 &lt;strong style=&quot;font-weight: bold;&quot;&gt;深度优先遍历&lt;/strong&gt; 的思路，只在一些细节地方不同。是不是很简单呢？&lt;/p&gt;
 &lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;先序和中序&lt;/h3&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;先序遍历的过程中，每个节点的访问时机是在节点 &lt;strong style=&quot;font-weight: bold;&quot;&gt;入栈&lt;/strong&gt; 时，因此对上述代码框架，在两处 push 处加上对节点的访问逻辑即可。&lt;/p&gt;
 &lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap; background: transparent;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 8px; display: block; background: #23241f; margin: 0 4px;&quot;&gt;Stack&amp;lt;TreeNode&amp;gt; s = &lt;span style=&quot;color: #F92672;&quot;&gt;new&lt;/span&gt; Stack&amp;lt;TreeNode&amp;gt;();
@@ -395,7 +395,7 @@ end &lt;span style=&quot;color: #F92672;&quot;&gt;for&lt;/span&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;代码如下：&lt;/p&gt;
 &lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap; background: transparent;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 8px; display: block; background: #23241f; margin: 0 4px;&quot;&gt;Stack&amp;lt;TreeNode&amp;gt; s = &lt;span style=&quot;color: #F92672;&quot;&gt;new&lt;/span&gt; Stack&amp;lt;TreeNode&amp;gt;();
 
-&lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(root != &lt;span style=&quot;color: #ae81ff;&quot;&gt;null&lt;/span&gt;){
+&lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(root != &lt;span style=&quot;color: #F92672;&quot;&gt;null&lt;/span&gt;){
     s.push(root);
     root = root.left;
 }
@@ -406,11 +406,11 @@ end &lt;span style=&quot;color: #F92672;&quot;&gt;for&lt;/span&gt;
     &lt;span style=&quot;color: #F92672;&quot;&gt;if&lt;/span&gt;(tmp.poped){          &lt;span style=&quot;color: #75715e;&quot;&gt;// 1. 如果是第二次出栈，访问它&lt;/span&gt;
         visit(tmp);
     }&lt;span style=&quot;color: #F92672;&quot;&gt;else&lt;/span&gt;{
-        tmp.poped = &lt;span style=&quot;color: #ae81ff;&quot;&gt;true&lt;/span&gt;;   &lt;span style=&quot;color: #75715e;&quot;&gt;// 2. 如果是第一次出栈，标记并重新入栈&lt;/span&gt;
+        tmp.poped = &lt;span style=&quot;color: #F92672;&quot;&gt;true&lt;/span&gt;;   &lt;span style=&quot;color: #75715e;&quot;&gt;// 2. 如果是第一次出栈，标记并重新入栈&lt;/span&gt;
         s.push(tmp);
 
         tmp = tmp.right;
-        &lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(tmp != &lt;span style=&quot;color: #ae81ff;&quot;&gt;null&lt;/span&gt;){
+        &lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(tmp != &lt;span style=&quot;color: #F92672;&quot;&gt;null&lt;/span&gt;){
             s.push(tmp);
             tmp = tmp.left;
         }
@@ -426,8 +426,8 @@ LinkedList&amp;lt;TreeNode&amp;gt; q = &lt;span style=&quot;color: #F92672;&quot
 q.add(root);
 q.add(mark);
 
-&lt;span style=&quot;color: #F92672;&quot;&gt;List&lt;/span&gt;&amp;lt;Integer&amp;gt; row = &lt;span style=&quot;color: #F92672;&quot;&gt;new&lt;/span&gt; LinkedList&amp;lt;Integer&amp;gt;();
-&lt;span style=&quot;color: #F92672;&quot;&gt;List&lt;/span&gt;&amp;lt;&lt;span style=&quot;color: #F92672;&quot;&gt;List&lt;/span&gt;&amp;lt;Integer&amp;gt;&amp;gt; rows = &lt;span style=&quot;color: #F92672;&quot;&gt;new&lt;/span&gt; LinkedList&amp;lt;&lt;span style=&quot;color: #F92672;&quot;&gt;List&lt;/span&gt;&amp;lt;Integer&amp;gt;&amp;gt; ();
+List&amp;lt;Integer&amp;gt; row = &lt;span style=&quot;color: #F92672;&quot;&gt;new&lt;/span&gt; LinkedList&amp;lt;Integer&amp;gt;();
+List&amp;lt;List&amp;lt;Integer&amp;gt;&amp;gt; rows = &lt;span style=&quot;color: #F92672;&quot;&gt;new&lt;/span&gt; LinkedList&amp;lt;List&amp;lt;Integer&amp;gt;&amp;gt; ();
 
 &lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(!q.isEmpty()){
     TreeNode n = q.removeFirst();
@@ -556,10 +556,10 @@ q.add(mark);
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;UDP是IP协议在传输层暴露的一个简单接口，增加了对“端口”概念的支持。&lt;/p&gt;
 &lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;3.2 Socket缓冲区&lt;/h3&gt;
 &lt;h4 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 25px; margin-bottom: 15px; font-size: 18px;&quot;&gt;1. 发送缓冲区&lt;/h4&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;strong style=&quot;font-weight: bold;&quot;&gt;TCP&lt;/strong&gt;&lt;br/&gt;&lt;img alt=&quot;Alt text&quot; class=&quot;en-media&quot; longdesc=&quot;./1401176186205.png&quot; name=&quot;dbc4ea6e-680b-4ef5-b159-d574dcee8eed&quot; src=&quot;https://www.evernote.com/shard/s133/sh/66441092-3553-4aa0-92ab-7e6dff56fd6b/9d104928f2c0e463d29d80b621e15156/res/dbc4ea6e-680b-4ef5-b159-d574dcee8eed/1401176186205.png?resizeSmall&amp;amp;width=832&quot; style=&quot;border: 0; max-width: 100%; border-radius: 8px;&quot;/&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;strong style=&quot;font-weight: bold;&quot;&gt;TCP&lt;/strong&gt;&lt;br/&gt;&lt;img alt=&quot;Alt text&quot; class=&quot;en-media&quot; longdesc=&quot;./1401176186205.png&quot; name=&quot;dbc4ea6e-680b-4ef5-b159-d574dcee8eed&quot; src=&quot;/assets/img/e215948a4febbdaee99740765ad9b60c.png&quot; style=&quot;border: 0; max-width: 100%; border-radius: 8px;&quot;/&gt;&lt;/p&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;TCP服务器通常是并发的。每个TCP socket都有发送缓冲区，write只是将数据从应用进程缓冲区拷贝到了socket缓冲区，当发送缓冲区容量不够时，write调用被阻塞（假设是阻塞IO方式）。&lt;/p&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;TCP模块取发送缓冲区的数据并发送，报文段的长度为MSS或更小；直到收到ACK，数据才可从缓冲区中删除。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;strong style=&quot;font-weight: bold;&quot;&gt;UDP&lt;/strong&gt;&lt;br/&gt;&lt;img alt=&quot;Alt text&quot; class=&quot;en-media&quot; longdesc=&quot;./1401176413600.png&quot; name=&quot;79194caa-1fd5-428a-84c8-423249e46789&quot; src=&quot;https://www.evernote.com/shard/s133/sh/66441092-3553-4aa0-92ab-7e6dff56fd6b/9d104928f2c0e463d29d80b621e15156/res/79194caa-1fd5-428a-84c8-423249e46789/1401176413600.png?resizeSmall&amp;amp;width=832&quot; style=&quot;border: 0; max-width: 100%; border-radius: 8px;&quot;/&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;strong style=&quot;font-weight: bold;&quot;&gt;UDP&lt;/strong&gt;&lt;br/&gt;&lt;img alt=&quot;Alt text&quot; class=&quot;en-media&quot; longdesc=&quot;./1401176413600.png&quot; name=&quot;79194caa-1fd5-428a-84c8-423249e46789&quot; src=&quot;/assets/img/e7e3ae032b1dd39e408cf28ec517e9f8.png&quot; style=&quot;border: 0; max-width: 100%; border-radius: 8px;&quot;/&gt;&lt;/p&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;UDP没有发送缓冲区，socket上每次write，内核都直接将数据封装成一个UDP报文段/IP数据报，并将其或者其分片加入链路层的输出队列。UDP的发送缓冲区大小(SO_SNDBUF)其实是设置每次写到socket数据的最大值，当写数据大于该值时，返回EMSGSIZE错误。&lt;/p&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;理论上，UDP数据报的最大长度由IP数据报的最大长度决定，IP首部16bit总长度字段限制IP数据报最大长度为65535字节，但实际实现往往要小于这个值。&lt;/p&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;UDP没有MSS机制，因此更容易发生IP分片，数据更容易丢失。&lt;/p&gt;
