@@ -9,6 +9,8 @@
     <meta name="description" content="">
 
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
   </head>
   <body>
     <aside id="sidebar">
@@ -24,6 +26,7 @@
           <li id="js-label6" class="tags__li tags-btn">cache<span class="post_count"></span></li>
           <li id="js-label7" class="tags__li tags-btn">c和os<span class="post_count"></span></li>
           <li id="js-label8" class="tags__li tags-btn">网络<span class="post_count"></span></li>
+          <li id="js-label9" class="tags__li tags-btn">工作<span class="post_count"></span></li>
         </ul>
 
         <div id="tags__bottom">
@@ -40,6 +43,10 @@
         </form>
 
         <nav id="pl__container">
+        
+          <a class="工作 pl__all" href="/%E5%B7%A5%E4%BD%9C/2014/09/03/Skyline%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90.html"><span class="pl__circle"></span><span class="pl__title">Skyline监控系统工作原理分析</span><span class="pl__date">Sep 2014</span></a>
+        
+          <a class="工作 pl__all" href="/%E5%B7%A5%E4%BD%9C/2014/09/03/Skyline%20timeseries%E5%BC%82%E5%B8%B8%E5%88%A4%E5%AE%9A%E7%AE%97%E6%B3%95.html"><span class="pl__circle"></span><span class="pl__title">Skyline timeseries异常判定算法</span><span class="pl__date">Sep 2014</span></a>
         
           <a class="算法 pl__all" href="/%E7%AE%97%E6%B3%95/2014/08/05/%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93.html"><span class="pl__circle"></span><span class="pl__title">排序总结</span><span class="pl__date">Aug 2014</span></a>
         
@@ -156,11 +163,11 @@
 </code></pre>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">  需要注意的是，很多问题中（如八皇后/数独），stack中保存的部分解就可以表达当前问题的状态，此时就没有必要专门去跟踪了。</p>
 </li>
-<li style="line-height: 1.6;"><p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">函数 <code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 13px; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;">isComplete()</code> ，判断当前是否找到了完整解。  </p>
+<li style="line-height: 1.6;"><p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">函数 <code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 13px; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;">isComplete()</code> ，判断当前是否找到了 <strong style="font-weight: bold;">完整解</strong>。  </p>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">  通常根据 <strong style="font-weight: bold;">是否到达目标状态</strong>，<strong style="font-weight: bold;">当前路径的长度</strong> 判断。</p>
 </li>
-<li style="line-height: 1.6;"><p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">剪枝函数 <code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 13px; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;">isPartial()</code> ，判断当前stack中保存的路径是不是一个合法的 <strong style="font-weight: bold;">部分解</strong>。  </p>
-<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">  判断有没有必要继续向下探索。<br/>  当探索到达树的底部，该方法还负责判断当前 stack 是否合法的 <strong style="font-weight: bold;">完整解</strong>。</p>
+<li style="line-height: 1.6;"><p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">剪枝函数 <code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 13px; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;">isPartial()</code> ，判断当前stack 是不是一个合法的 <strong style="font-weight: bold;">部分解</strong>。  </p>
+<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">  判断有没有必要继续向下探索。<br/>  当探索到达树的底部，还需要判断当前是不是合法的 <strong style="font-weight: bold;">完整解</strong>。</p>
 </li>
 </ul>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">给出用回溯法（递归的方式）求 <code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 13px; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;">全部解</code> 的模板如下：</p>
@@ -291,7 +298,24 @@ explore()
     <span style="color: #75715e;"># [3, 0, 4, 1, 5, 2]</span>
     <span style="color: #75715e;"># [4, 2, 0, 5, 3, 1]</span>
 </code></pre>
-<h2 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;">4. 求最优解</h2>
+<h2 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;">4. 求任意解</h2>
+<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">如果只要求一个解，可以用一个变量维护当前解是否找到，每次探索完了先看一下，如果已经找到了解就立刻返回。</p>
+<pre style="overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap; background: transparent;" xml:space="preserve"><code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 8px; display: block; background: #23241f; margin: 0 4px;">solutionFound = <span style="color: #F92672;">False</span>           <span style="color: #75715e;"># 1</span>
+
+<span style="color: #F92672;"><span style="color: #66d9ef;">def</span> <span style="color: #a6e22e;">explore</span><span style="color: #f8f8f2;">()</span>:</span>
+    <span style="color: #F92672;">if</span> isComplete():
+        solutionFound = <span style="color: #F92672;">True</span>    <span style="color: #75715e;"># 2</span>
+        <span style="color: #F92672;">return</span>
+
+    <span style="color: #F92672;">for</span> every step <span style="color: #F92672;">in</span> Steps:
+        ...
+        <span style="color: #F92672;">if</span> isPatial():
+            explore()
+            <span style="color: #F92672;">if</span> solutionFound:   <span style="color: #75715e;"># 3</span>
+                <span style="color: #F92672;">return</span>
+        ...
+</code></pre>
+<h2 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;">5. 求最优解</h2>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">思路：</p>
 <ul style="margin-top: 0; margin-bottom: 10px; line-height: 1.6;">
 <li style="line-height: 1.6;">维护当前找到的最优（完整）解及其对应的状态；</li>
@@ -328,7 +352,7 @@ explore()
 explore()
 <span style="color: #75715e;">// 算法结束后，bestSolution就是最优解了。</span>
 </code></pre>
-<h3 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;">4.1 01背包</h3>
+<h3 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;">5.1 01背包</h3>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">01背包属于下面提到的“子集树”的情况，为了搜索，使用一个长度为n的数组作为探索时的栈，每个元素只有两种可能取值，0-不选，1-选。问题的状态由 <em>当前物品的总价值</em> 以及 <em>当前物品的总空间</em> 二者表达，在遍历时需要维护这两个状态。虽然他们可以由stack中的元素计算而得，但耗时O(n)；</p>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">为了求最优解，还需要跟踪当前最优解及其对应的问题的状态；</p>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">最后，如何利用最优解进行剪枝？ 假设考察k，物品[0..k-1]已经确定了是否选择，如果[0..k-1]得到的总价值，再加上剩余所有物品的价值总和，依然小于当前最优解，则可以放弃探索了。</p>
@@ -400,11 +424,11 @@ maxValueFound = <span style="color: #F92672;">None</span>        <span style="co
     explore()
     <span style="color: #F92672;">print</span> bestSolution,maxValueFound
 </code></pre>
-<h2 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;">5. 排列树和子集树</h2>
+<h2 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;">6. 排列树和子集树</h2>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">给定一个集合和提问，有两种特殊的情况：</p>
-<h3 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;">5.1 子集树</h3>
+<h3 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;">6.1 子集树</h3>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">从集合中挑一个满足条件的子集，解是[0,1,0,0,1]的形式，表示各个元素是否选择，解空间规模为 <span style="display:inline-block;margin:0"><span></span><span style=""><span style="white-space: nowrap;"><span style="width: 3.358em; display: inline-block;"><span style="display: inline-block; position: relative; width: 2.546em; height: 0px; font-size: 132%;"><span style="position: absolute; clip: rect(1.734em 1000.003em 3.087em -0.43em); top: -2.649em; left: 0.003em;"><span><span style="font-family:MathJax_Math, serif; font-style: italic;">O</span><span style="font-family:MathJax_Main, serif;">(</span><span><span style="display: inline-block; position: relative; width: 0.977em; height: 0px;"><span style="position: absolute; clip: rect(1.843em 1000.003em 2.817em -0.43em); top: -2.649em; left: 0.003em;"><span style="font-family:MathJax_Main, serif;">2</span><span style="display: inline-block; width: 0px; height: 2.654em;"></span></span><span style="position: absolute; top: -2.595em; left: 0.49em;"><span style="font-size: 70.7%; font-family:MathJax_Math, serif; font-style: italic;">n</span><span style="display: inline-block; width: 0px; height: 2.221em;"></span></span></span></span><span style="font-family:MathJax_Main, serif;">)</span></span><span style="display: inline-block; width: 0px; height: 2.654em;"></span></span></span><span style="border-left-width: 0.004em; border-left-style: solid; display: inline-block; overflow: hidden; width: 0px; height: 1.432em; vertical-align: -0.425em;"></span></span></span></span></span>。01背包问题就是子集树的例子：  </p>
-<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><img alt="Alt text" class="en-media" longdesc="data:image,local://1394690224453" name="d94bf7f9-bedc-4288-8c48-2dfe54d38128" src="/assets/img/c3c23757d2149a02fb84418b84a8afa9" style="border: 0; -ms-interpolation-mode: bicubic; max-width: 100%; border-radius: 8px;"/> </p>
+<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><img alt="Alt text" class="en-media" longdesc="data:image,local://1394690224453" name="d94bf7f9-bedc-4288-8c48-2dfe54d38128" src="https://www.evernote.com/shard/s133/sh/65f61b9c-550a-4766-9ca8-9096cb67617e/7eca1b119feaeca2424994615125ab32/res/d94bf7f9-bedc-4288-8c48-2dfe54d38128/1394690224453?resizeSmall&amp;width=832" style="border: 0; max-width: 100%; border-radius: 8px;"/> </p>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">子集树的处理与之前一致，每次探索只有两个选择，0和1：</p>
 <pre style="overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap; background: transparent;" xml:space="preserve"><code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 8px; display: block; background: #23241f; margin: 0 4px;"><span style="color: #75715e;">// old</span>
 <span style="color: #F92672;">for</span>(choice : choices of last node(eg. P) <span style="color: #F92672;">in</span> path){
@@ -416,9 +440,9 @@ maxValueFound = <span style="color: #F92672;">None</span>        <span style="co
     ...
 }
 </code></pre>
-<h3 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;">5.2 排列树</h3>
+<h3 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;">6.2 排列树</h3>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">求集合的满足条件的某种排列形式，解空间规模 <span style="display:inline-block;margin:0"><span></span><span style=""><span style="white-space: nowrap;"><span style="width: 3.141em; display: inline-block;"><span style="display: inline-block; position: relative; width: 2.384em; height: 0px; font-size: 132%;"><span style="position: absolute; clip: rect(1.734em 1000.003em 3.087em -0.43em); top: -2.649em; left: 0.003em;"><span><span style="font-family:MathJax_Math, serif; font-style: italic;">O</span><span style="font-family:MathJax_Main, serif;">(</span><span style="font-family:MathJax_Math, serif; font-style: italic;">n</span><span style="font-family:MathJax_Main, serif;">!</span><span style="font-family:MathJax_Main, serif;">)</span></span><span style="display: inline-block; width: 0px; height: 2.654em;"></span></span></span><span style="border-left-width: 0.004em; border-left-style: solid; display: inline-block; overflow: hidden; width: 0px; height: 1.432em; vertical-align: -0.425em;"></span></span></span></span></span>：  </p>
-<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><img alt="Alt text" class="en-media" longdesc="data:image,local://1394690256154" name="deca2065-049d-4af1-aa28-73e629ff0b95" src="/assets/img/c9590fdaa9eaafdfb3e318b1ab7e086a" style="border: 0; -ms-interpolation-mode: bicubic; max-width: 100%; border-radius: 8px;"/> </p>
+<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><img alt="Alt text" class="en-media" longdesc="data:image,local://1394690256154" name="deca2065-049d-4af1-aa28-73e629ff0b95" src="https://www.evernote.com/shard/s133/sh/65f61b9c-550a-4766-9ca8-9096cb67617e/7eca1b119feaeca2424994615125ab32/res/deca2065-049d-4af1-aa28-73e629ff0b95/1394690256154?resizeSmall&amp;width=832" style="border: 0; max-width: 100%; border-radius: 8px;"/> </p>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">每次探索都只能选择之前没出现过的元素，这个限制可以用一个简单的方式实现：  </p>
 <ol style="margin-top: 0; margin-bottom: 10px; line-height: 1.6;">
 <li style="line-height: 1.6;">保存探索路径的 <em>stack</em> 和 <em>初始集合</em> 共用同一个数组；</li>
@@ -446,7 +470,7 @@ maxValueFound = <span style="color: #F92672;">None</span>        <span style="co
 </code></pre>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">用两个swap也可以达到同样的效果且更简洁，但不太好理解。</p>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><strong style="font-weight: bold;">排列树</strong> 和 <strong style="font-weight: bold;">子集树</strong> 是很常见的两类问题，且都不会出现重复状态，属于比较简单的情况，一定要好好理解。</p>
-<h2 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;">6. 状态记录和判重</h2>
+<h2 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;">7. 状态记录和判重</h2>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">在稍微复杂的问题中，经常会出现状态重复的情况，即经过若干步探索后到达了一个之前已经探索过的状态，这种情况在讨论八皇后问题时已经看到过了。</p>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">通常用<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 13px; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;">hashset</code>保存所有已经访问过的状态，并且利用它们进行剪枝。当求<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 13px; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;">最优解</code>时，不仅要保存状态，还要保存到达该状态的路径的某些信息如长度；进行<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 13px; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;">状态重复剪枝</code>时，当状态重复但 <em>当前的部分解</em> 优于 <em>记录的部分解</em> 时，是不能剪枝的。</p>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">代码的改动有：</p>
@@ -473,7 +497,7 @@ maxValueFound = <span style="color: #F92672;">None</span>        <span style="co
     // 状态重复剪枝     &lt;<span style="color: #F92672;">----</span> <span style="color: #F92672;">3</span>
 }</span></span>
 </code></pre>
-<h3 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;">6.1 传教士和野人问题</h3>
+<h3 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;">7.1 传教士和野人问题</h3>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">题目如下：</p>
 <blockquote style="padding: 15px 20px; margin: 0 0 15px 0; font-size: 14px; border-left: 5px solid #ddd; background-color: rgba(102, 128, 153, 0.05);">
 <p style="margin: 0 0 10px; margin-bottom: 0; line-height: 1.6; font-size: 14px; font-weight: 300; white-space: pre-wrap; word-wrap: break-word;">有P个牧师和C个野人过河，只有一条能装下两个人的船，在河的任何一方或者船上，如果野人的人数大于牧师的人数，那么牧师就会有危险. 你能不能找出一种安全的渡河方法呢（P&gt;=C）？</p>
@@ -598,16 +622,21 @@ statuses = {}
 
 <p id="copyright">Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Theme <a href="https://github.com/P233/3-Jekyll" target="_blank">3-Jekyll</a></p>
       </div> <!-- end #pjax -->
-
+<!-- 
       <div id="post__toc-trigger">
         <div id="post__toc">
           <span id="post__toc-title">目录</span>
           <ul id="post__toc-ul"></ul>
         </div>
-      </div>
+      </div> -->
     </div> <!-- end #post -->
 
     <button id="js-fullscreen"><span id="icon-arrow" class="fontello"></span></button>
+    <button id="js-toc"><span id="icon-list" class="fa fa-list-ul"></span></button>
+    <div id="post__toc">
+      <span id="post__toc-title">目录</span>
+      <ul id="post__toc-ul"></ul>
+    </div>
 
     <script src="/assets/js/jquery-2.0.3.min.js"></script>
     <script src="/assets/js/jquery.pjax.js"></script>

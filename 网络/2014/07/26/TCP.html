@@ -9,6 +9,8 @@
     <meta name="description" content="">
 
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
   </head>
   <body>
     <aside id="sidebar">
@@ -24,6 +26,7 @@
           <li id="js-label6" class="tags__li tags-btn">cache<span class="post_count"></span></li>
           <li id="js-label7" class="tags__li tags-btn">c和os<span class="post_count"></span></li>
           <li id="js-label8" class="tags__li tags-btn">网络<span class="post_count"></span></li>
+          <li id="js-label9" class="tags__li tags-btn">工作<span class="post_count"></span></li>
         </ul>
 
         <div id="tags__bottom">
@@ -40,6 +43,10 @@
         </form>
 
         <nav id="pl__container">
+        
+          <a class="工作 pl__all" href="/%E5%B7%A5%E4%BD%9C/2014/09/03/Skyline%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90.html"><span class="pl__circle"></span><span class="pl__title">Skyline监控系统工作原理分析</span><span class="pl__date">Sep 2014</span></a>
+        
+          <a class="工作 pl__all" href="/%E5%B7%A5%E4%BD%9C/2014/09/03/Skyline%20timeseries%E5%BC%82%E5%B8%B8%E5%88%A4%E5%AE%9A%E7%AE%97%E6%B3%95.html"><span class="pl__circle"></span><span class="pl__title">Skyline timeseries异常判定算法</span><span class="pl__date">Sep 2014</span></a>
         
           <a class="算法 pl__all" href="/%E7%AE%97%E6%B3%95/2014/08/05/%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93.html"><span class="pl__circle"></span><span class="pl__title">排序总结</span><span class="pl__date">Aug 2014</span></a>
         
@@ -141,8 +148,8 @@
 <li style="line-height: 1.6;">半关闭。通过半关闭向另一端告知数据发送完毕。</li>
 </ol>
 <h2 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;">状态变换：</h2>
-<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><img alt="Alt text" class="en-media" longdesc="./1401174323234.png" name="c6428ae2-b0b5-4fc5-835a-01b6b0e551dc" src="/assets/img/1b7d77e4bd3391e09d1ada152392c072.png" style="border: 0; max-width: 100%; border-radius: 8px;"/></p>
-<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><img alt="Alt text" class="en-media" longdesc="./1401174353330.png" name="e8c6cd20-be3f-4c5e-b2f6-be429eff673d" src="/assets/img/6d971061f8715b70ddb1b19ff0397478.png" style="border: 0; max-width: 100%; border-radius: 8px;"/></p>
+<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><img alt="Alt text" class="en-media" longdesc="./1401174323234.png" name="c6428ae2-b0b5-4fc5-835a-01b6b0e551dc" src="https://www.evernote.com/shard/s133/sh/9389230e-c3eb-415c-baa1-83114a8709c1/5715d770bd474dc0ae4460d15a3b7870/res/c6428ae2-b0b5-4fc5-835a-01b6b0e551dc/1401174323234.png?resizeSmall&amp;width=832" style="border: 0; max-width: 100%; border-radius: 8px;"/></p>
+<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><img alt="Alt text" class="en-media" longdesc="./1401174353330.png" name="e8c6cd20-be3f-4c5e-b2f6-be429eff673d" src="https://www.evernote.com/shard/s133/sh/9389230e-c3eb-415c-baa1-83114a8709c1/5715d770bd474dc0ae4460d15a3b7870/res/e8c6cd20-be3f-4c5e-b2f6-be429eff673d/1401174353330.png?resizeSmall&amp;width=832" style="border: 0; max-width: 100%; border-radius: 8px;"/></p>
 <h2 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;">MSS</h2>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">根据物理层的MTU计算，避免IP层分段</p>
 <h2 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;">2MSL（TIME_WAIT）状态</h2>
@@ -282,7 +289,7 @@
 </ol>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">分开处理的原因正如前所述，两种情况表达的拥塞程度不同。对超时表达的严重堵塞，需严厉地立刻降低发送速率，因此直接进入慢启动阶段；对重复ACK，说明双方仍然有数据流动，我们不希望执行slow start突然减少数据流。</p>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">如果在slow start阶段就出现丢失数据，则slow start立刻开始，ssthresh更新为cwnd的一半。</p>
-<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><img alt="Alt text" class="en-media" longdesc="./1400765487595.png" name="4c1097c3-df4b-4994-a311-eca5c6892e64" src="/assets/img/4a26ce1a352129b148ba26f27f53016d.png" style="border: 0; max-width: 100%; border-radius: 8px;"/></p>
+<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><img alt="Alt text" class="en-media" longdesc="./1400765487595.png" name="4c1097c3-df4b-4994-a311-eca5c6892e64" src="https://www.evernote.com/shard/s133/sh/9389230e-c3eb-415c-baa1-83114a8709c1/5715d770bd474dc0ae4460d15a3b7870/res/4c1097c3-df4b-4994-a311-eca5c6892e64/1400765487595.png?resizeSmall&amp;width=832" style="border: 0; max-width: 100%; border-radius: 8px;"/></p>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">总体来说，拥塞窗口的状态变迁是一个试探性的过程。slow start阶段起步速度低，不太可能出现拥塞，因此发送速度可以快速攀升；congestion avoidance阶段速度接近饱和，采用更保守的方式，速度缓慢增长逼近极限。一旦探测到拥塞，就将slow start的拐点降低为当前拥塞窗口的一半，且如果是严重堵塞，则立即重置，避免网络负担；如果是轻微拥塞，则快速恢复。</p>
 </div>
 </article> <!-- end #post__content -->
@@ -300,16 +307,21 @@
 
 <p id="copyright">Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Theme <a href="https://github.com/P233/3-Jekyll" target="_blank">3-Jekyll</a></p>
       </div> <!-- end #pjax -->
-
+<!-- 
       <div id="post__toc-trigger">
         <div id="post__toc">
           <span id="post__toc-title">目录</span>
           <ul id="post__toc-ul"></ul>
         </div>
-      </div>
+      </div> -->
     </div> <!-- end #post -->
 
     <button id="js-fullscreen"><span id="icon-arrow" class="fontello"></span></button>
+    <button id="js-toc"><span id="icon-list" class="fa fa-list-ul"></span></button>
+    <div id="post__toc">
+      <span id="post__toc-title">目录</span>
+      <ul id="post__toc-ul"></ul>
+    </div>
 
     <script src="/assets/js/jquery-2.0.3.min.js"></script>
     <script src="/assets/js/jquery.pjax.js"></script>

@@ -9,6 +9,8 @@
     <meta name="description" content="">
 
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
   </head>
   <body>
     <aside id="sidebar">
@@ -24,6 +26,7 @@
           <li id="js-label6" class="tags__li tags-btn">cache<span class="post_count"></span></li>
           <li id="js-label7" class="tags__li tags-btn">c和os<span class="post_count"></span></li>
           <li id="js-label8" class="tags__li tags-btn">网络<span class="post_count"></span></li>
+          <li id="js-label9" class="tags__li tags-btn">工作<span class="post_count"></span></li>
         </ul>
 
         <div id="tags__bottom">
@@ -40,6 +43,10 @@
         </form>
 
         <nav id="pl__container">
+        
+          <a class="工作 pl__all" href="/%E5%B7%A5%E4%BD%9C/2014/09/03/Skyline%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90.html"><span class="pl__circle"></span><span class="pl__title">Skyline监控系统工作原理分析</span><span class="pl__date">Sep 2014</span></a>
+        
+          <a class="工作 pl__all" href="/%E5%B7%A5%E4%BD%9C/2014/09/03/Skyline%20timeseries%E5%BC%82%E5%B8%B8%E5%88%A4%E5%AE%9A%E7%AE%97%E6%B3%95.html"><span class="pl__circle"></span><span class="pl__title">Skyline timeseries异常判定算法</span><span class="pl__date">Sep 2014</span></a>
         
           <a class="算法 pl__all" href="/%E7%AE%97%E6%B3%95/2014/08/05/%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93.html"><span class="pl__circle"></span><span class="pl__title">排序总结</span><span class="pl__date">Aug 2014</span></a>
         
@@ -127,7 +134,7 @@
   <h1 id="post__title" data-identifier="20140726">Executor 之 线程池及定时器</h1>
   <div style="line-height: 1.6; font-family: Helvetica Neue, Arial, Hiragino Sans GB, STHeiti, Microsoft YaHei, WenQuanYi Micro Hei, SimSun, Song, sans-serif;">
 <h2 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;">1. Executor系列接口</h2>
-<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><img alt="Alt text" class="en-media" longdesc="./1405070577041.png" name="79b9c390-a3d2-412b-892e-54b0cc0efec4" src="/assets/img/dacf292cba972f398489ca1a64001269.png" style="border: 0; max-width: 100%; border-radius: 8px;"/></p>
+<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><img alt="Alt text" class="en-media" longdesc="./1405070577041.png" name="79b9c390-a3d2-412b-892e-54b0cc0efec4" src="https://www.evernote.com/shard/s133/sh/a1359513-c482-4e3c-a6e6-ae8c5c1e72f4/696c794f2c63bc621758e5f1ac5b9e97/res/79b9c390-a3d2-412b-892e-54b0cc0efec4/1405070577041.png?resizeSmall&amp;width=832" style="border: 0; max-width: 100%; border-radius: 8px;"/></p>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;">Executor</code>用于解耦任务（<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;">Runnable</code>）提交者和执行者，它只有一个方法<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;">void execute(Runnable command)</code>，通过调用它向执行者提交任务，但无法知道执行的结果/进度，也无法拿到任务返回值。</p>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;">ExecutorService</code> 继承<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;">Executor</code>，是一个更具体的接口。它额外提供了以下方法：</p>
 <ol style="margin-top: 0; margin-bottom: 10px; line-height: 1.6;">
@@ -143,7 +150,7 @@
 </code></pre>
 </li>
 <li style="line-height: 1.6;"><p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;">submit</code>和<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;">invokeall</code>系列方法<br/> 接受<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;">Runnable/Callable</code>类型的参数，返回<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;">Future</code>，让提交者可以了解任务执行的进度/拿到执行结果。</p>
-<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"> <code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;">Future</code>是提交者和执行者之间的通信手段，它代表任务的执行情况：<br/> <img alt="Alt text" class="en-media" longdesc="./1405066079429.png" name="6e5954eb-c15d-4977-a4cc-2587a0ca9a89" src="/assets/img/3f68dfa9bd9ac873340c28e701c18508.png" style="border: 0; max-width: 100%; border-radius: 8px;"/><br/> 其中，<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;">get</code>方法会阻塞直到任务被完成，常用于异步转同步的场景。   </p>
+<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"> <code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;">Future</code>是提交者和执行者之间的通信手段，它代表任务的执行情况：<br/> <img alt="Alt text" class="en-media" longdesc="./1405066079429.png" name="6e5954eb-c15d-4977-a4cc-2587a0ca9a89" src="https://www.evernote.com/shard/s133/sh/a1359513-c482-4e3c-a6e6-ae8c5c1e72f4/696c794f2c63bc621758e5f1ac5b9e97/res/6e5954eb-c15d-4977-a4cc-2587a0ca9a89/1405066079429.png?resizeSmall&amp;width=832" style="border: 0; max-width: 100%; border-radius: 8px;"/><br/> 其中，<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;">get</code>方法会阻塞直到任务被完成，常用于异步转同步的场景。   </p>
 </li>
 </ol>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;">ScheduledExecutorService</code>是一个定时器，它在<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;">ExecutorService</code>的基础上增加了若干定时/延迟/循环调度任务的方法：</p>
@@ -211,7 +218,7 @@
 <li style="line-height: 1.6;"><code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;">DiscardOldestPolicy</code>：移除任务队列里呆的最久的任务(<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin: 0 4px;">poll()</code>)，重新提交。</li>
 </ol>
 <h3 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;">2.4 状态管理</h3>
-<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">线程池的状态图如下：<br/><img alt="Alt text" class="en-media" longdesc="./1405154174067.png" name="e55d9ee5-b428-4e94-a099-8148a92da48a" src="/assets/img/5646cfa30d7cec46c10a3eaabc7273b5.png" style="border: 0; max-width: 100%; border-radius: 8px;"/></p>
+<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">线程池的状态图如下：<br/><img alt="Alt text" class="en-media" longdesc="./1405154174067.png" name="e55d9ee5-b428-4e94-a099-8148a92da48a" src="https://www.evernote.com/shard/s133/sh/a1359513-c482-4e3c-a6e6-ae8c5c1e72f4/696c794f2c63bc621758e5f1ac5b9e97/res/e55d9ee5-b428-4e94-a099-8148a92da48a/1405154174067.png?resizeSmall&amp;width=832" style="border: 0; max-width: 100%; border-radius: 8px;"/></p>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">初始状态为 running；</p>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">进入 shutDown 和 stop 区别是：</p>
 <ul style="margin-top: 0; margin-bottom: 10px; line-height: 1.6;">
@@ -262,16 +269,21 @@
 
 <p id="copyright">Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Theme <a href="https://github.com/P233/3-Jekyll" target="_blank">3-Jekyll</a></p>
       </div> <!-- end #pjax -->
-
+<!-- 
       <div id="post__toc-trigger">
         <div id="post__toc">
           <span id="post__toc-title">目录</span>
           <ul id="post__toc-ul"></ul>
         </div>
-      </div>
+      </div> -->
     </div> <!-- end #post -->
 
     <button id="js-fullscreen"><span id="icon-arrow" class="fontello"></span></button>
+    <button id="js-toc"><span id="icon-list" class="fa fa-list-ul"></span></button>
+    <div id="post__toc">
+      <span id="post__toc-title">目录</span>
+      <ul id="post__toc-ul"></ul>
+    </div>
 
     <script src="/assets/js/jquery-2.0.3.min.js"></script>
     <script src="/assets/js/jquery.pjax.js"></script>

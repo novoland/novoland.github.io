@@ -9,6 +9,8 @@
     <meta name="description" content="">
 
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
   </head>
   <body>
     <aside id="sidebar">
@@ -24,6 +26,7 @@
           <li id="js-label6" class="tags__li tags-btn">cache<span class="post_count"></span></li>
           <li id="js-label7" class="tags__li tags-btn">c和os<span class="post_count"></span></li>
           <li id="js-label8" class="tags__li tags-btn">网络<span class="post_count"></span></li>
+          <li id="js-label9" class="tags__li tags-btn">工作<span class="post_count"></span></li>
         </ul>
 
         <div id="tags__bottom">
@@ -40,6 +43,10 @@
         </form>
 
         <nav id="pl__container">
+        
+          <a class="工作 pl__all" href="/%E5%B7%A5%E4%BD%9C/2014/09/03/Skyline%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90.html"><span class="pl__circle"></span><span class="pl__title">Skyline监控系统工作原理分析</span><span class="pl__date">Sep 2014</span></a>
+        
+          <a class="工作 pl__all" href="/%E5%B7%A5%E4%BD%9C/2014/09/03/Skyline%20timeseries%E5%BC%82%E5%B8%B8%E5%88%A4%E5%AE%9A%E7%AE%97%E6%B3%95.html"><span class="pl__circle"></span><span class="pl__title">Skyline timeseries异常判定算法</span><span class="pl__date">Sep 2014</span></a>
         
           <a class="算法 pl__all" href="/%E7%AE%97%E6%B3%95/2014/08/05/%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93.html"><span class="pl__circle"></span><span class="pl__title">排序总结</span><span class="pl__date">Aug 2014</span></a>
         
@@ -136,13 +143,13 @@
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"> 从元素 i 向上回溯找树根即可。一个集合由其根元素标识。</p>
 </li>
 <li style="line-height: 1.6;"><p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><strong style="font-weight: bold;">合并集合 <code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;">union(i,j)</code>：合并元素 i，j 所在集合</strong></p>
-<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"> 分别找到 i，j 所在集合的根，将其中一个挂在另一个下即可。<br/> <img alt="Alt text" class="en-media" longdesc="./1406021715912.png" name="d9566fd0-0fc9-4666-bac0-939131a65bc9" src="/assets/img/7925cf5f655305353e7c6b8d9b31af8c.png" style="border: 0; max-width: 100%; border-radius: 8px;"/></p>
+<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"> 分别找到 i，j 所在集合的根，将其中一个挂在另一个下即可。<br/> <img alt="Alt text" class="en-media" longdesc="./1406021715912.png" name="d9566fd0-0fc9-4666-bac0-939131a65bc9" src="https://www.evernote.com/shard/s133/sh/1e4ce1b1-2318-4243-bb53-162c0d148ab6/1c788860444ecae74892f5cc7b517cdd/res/d9566fd0-0fc9-4666-bac0-939131a65bc9/1406021715912.png?resizeSmall&amp;width=832" style="border: 0; max-width: 100%; border-radius: 8px;"/></p>
 </li>
 </ol>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><strong style="font-weight: bold;">初始化：每个元素独立成为一个集合。</strong></p>
 <h2 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;">优化</h2>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><strong style="font-weight: bold;">1. <code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;">findSet</code> 路径压缩</strong><br/>极端情况下一棵集合树退化成一个链表，此时查找根节点耗时O(n)。<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;">findSet</code>中可以做这样一个优化：在找到根后，将路上碰到的节点都直接挂在根下，树的高度被压缩成了2，之后的查询都是O(1)的。这是一个扁平化树的过程：</p>
-<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><img alt="Alt text" class="en-media" longdesc="./1406022231178.png" name="663a7ee2-8dff-42c6-988f-f36dc92eb9ef" src="/assets/img/ffe478553d67a080217085fdc6779ef9.png" style="border: 0; max-width: 100%; border-radius: 8px;"/></p>
+<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><img alt="Alt text" class="en-media" longdesc="./1406022231178.png" name="663a7ee2-8dff-42c6-988f-f36dc92eb9ef" src="https://www.evernote.com/shard/s133/sh/1e4ce1b1-2318-4243-bb53-162c0d148ab6/1c788860444ecae74892f5cc7b517cdd/res/663a7ee2-8dff-42c6-988f-f36dc92eb9ef/1406022231178.png?resizeSmall&amp;width=832" style="border: 0; max-width: 100%; border-radius: 8px;"/></p>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><strong style="font-weight: bold;">2. <code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;">union</code> 按集合大小合并</strong><br/>合并的时候将元素少的集合合并到元素多的集合中，这样合并之后树的高度会相对较小。</p>
 <p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">这两个动作都可以认为是<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 0 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 8px; margin: 0 4px;">O(1)</code>的。</p>
 <h2 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;">实现</h2>
@@ -203,16 +210,21 @@ test()
 
 <p id="copyright">Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Theme <a href="https://github.com/P233/3-Jekyll" target="_blank">3-Jekyll</a></p>
       </div> <!-- end #pjax -->
-
+<!-- 
       <div id="post__toc-trigger">
         <div id="post__toc">
           <span id="post__toc-title">目录</span>
           <ul id="post__toc-ul"></ul>
         </div>
-      </div>
+      </div> -->
     </div> <!-- end #post -->
 
     <button id="js-fullscreen"><span id="icon-arrow" class="fontello"></span></button>
+    <button id="js-toc"><span id="icon-list" class="fa fa-list-ul"></span></button>
+    <div id="post__toc">
+      <span id="post__toc-title">目录</span>
+      <ul id="post__toc-ul"></ul>
+    </div>
 
     <script src="/assets/js/jquery-2.0.3.min.js"></script>
     <script src="/assets/js/jquery.pjax.js"></script>
