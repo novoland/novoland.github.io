@@ -6,9 +6,179 @@
     <atom:link href="http://novoland.github.io/rss.xml" rel="self" type="application/rss+xml" />
     <description>一个程序员</description>
     <language>zh-CN</language>
-    <pubDate>Thu, 04 Sep 2014 09:19:14 +0800</pubDate>
-    <lastBuildDate>Thu, 04 Sep 2014 09:19:14 +0800</lastBuildDate>
+    <pubDate>Thu, 04 Sep 2014 20:18:27 +0800</pubDate>
+    <lastBuildDate>Thu, 04 Sep 2014 20:18:27 +0800</lastBuildDate>
 
+    
+    <item>
+      <title>MapReduce Algorithms</title>
+      <link>http://novoland.github.io/%E5%B7%A5%E4%BD%9C/2014/09/04/MapReduce%20Algorithms.html</link>
+      <pubDate>04 Sep 2014</pubDate>
+      <author>克鲁斯卡尔</author>
+      <guid>http://novoland.github.io/%E5%B7%A5%E4%BD%9C/2014/09/04/MapReduce Algorithms</guid>
+      <description>&lt;div style=&quot;line-height: 1.6; font-family: Helvetica Neue, Arial, Hiragino Sans GB, STHeiti, Microsoft YaHei, WenQuanYi Micro Hei, SimSun, Song, sans-serif;&quot;&gt;
+&lt;h1 style=&quot;font-size: 36px; margin: 0.67em 0; font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px;&quot;&gt;1. MapReduce 工作原理&lt;/h1&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;一图胜千言：&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;img alt=&quot;Alt text&quot; class=&quot;en-media&quot; longdesc=&quot;./1409802041299.png&quot; name=&quot;1a6b1e79-166a-4285-84f2-0128d87d409f&quot; src=&quot;/assets/img/3b6dc283d85bb557aa3ad7b9974069fd.png&quot; style=&quot;border: 0; margin-top: 0px; max-width: 100%;&quot;/&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;strong style=&quot;font-weight: bold; margin-top: 0px;&quot;&gt;Mapper&lt;/strong&gt;:&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0; margin-bottom: 10px; line-height: 1.6;&quot;&gt;
+&lt;li style=&quot;line-height: 1.6; margin-top: 0px;&quot;&gt;Mapper 主要做些信息抽取、过滤等工作&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;Mapper 数量由输入的 split 数决定，hadoop 会尽量选择靠近数据的节点运行 mapper 任务，因此可以认为 mapper 是 data-local 的&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;生成的 &amp;lt;k,v&amp;gt; 键值对首先进入内存缓冲区，当达到一定饱和度时开始写出到磁盘，这个过程被称为 spill&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;spill 到磁盘前先进行以下处理：&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0; line-height: 1.6;&quot;&gt;
+&lt;li style=&quot;line-height: 1.6; margin-top: 0px;&quot;&gt;partition，根据数据最终被传送到的 reducer 分区&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;sort，保证每个 partition 内有序&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;combine，在每个 partition 上调用配置的 combiner，合并数据&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;将所有 spill files 多路归并成一个文件&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;Mapper 默认输出到本地文件，而非 hdfs &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;strong style=&quot;font-weight: bold; margin-top: 0px;&quot;&gt;Partitioner&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0; margin-bottom: 10px; line-height: 1.6;&quot;&gt;
+&lt;li style=&quot;line-height: 1.6; margin-top: 0px;&quot;&gt;决定将 kv 键值对分配到哪个 reducer 上处理。默认算法是 hash，用 key 的 hashcode % reducer 个数&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;有时 mapper 的工作不重要，重要的是 partition 阶段提供的 group by 功能，及 partition 内部有序的特性&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;strong style=&quot;font-weight: bold; margin-top: 0px;&quot;&gt;Combiner&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0; margin-bottom: 10px; line-height: 1.6;&quot;&gt;
+&lt;li style=&quot;line-height: 1.6; margin-top: 0px;&quot;&gt;Combiner 是工作在 mapper 端的 reducer，目的是合并 mapper 输出，减少 mapper 到 reducer 间的数据传输&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;Combiner 是一种优化手段，要求无论是否调用 combiner，调用几次，都不影响任务结果。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;strong style=&quot;font-weight: bold; margin-top: 0px;&quot;&gt;Reducer&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0; margin-bottom: 10px; line-height: 1.6;&quot;&gt;
+&lt;li style=&quot;line-height: 1.6; margin-top: 0px;&quot;&gt;Reducer 先从所有 Mapper 那儿获取自己负责处理的 partition，并多路归并成一个大文件；这个过程中，所有 key 相同的 value 被合并成一个 list&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;Mapper 和 Reducer 之间存在大量数据交换，很可能成为性能瓶颈，应尽量利用压缩或 Combiner 减少在网络上传输的数据量&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;Reducer 默认输出到 HDFS&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 style=&quot;font-size: 36px; margin: 0.67em 0; font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px;&quot;&gt;2. 常见算法的 MapReduce 实现&lt;/h1&gt;
+&lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;2.1 count / distinct&lt;/h2&gt;
+&lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;问题描述&lt;/h3&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;其实就是 Hadoop wordcount 的例子：一堆文档，每个文档内一堆单词，统计每个单词出现次数。&lt;/p&gt;
+&lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;解决&lt;/h3&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;Mapper：&lt;/p&gt;
+&lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 0; display: block; background: #23241f; margin-top: 0px;&quot;&gt;raw data    --&amp;gt;    对每个碰到的单词，输出 &amp;lt;word,&lt;span style=&quot;color: #ae81ff; margin-top: 0px;&quot;&gt;1&lt;/span&gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;Shuffle 后可以保证同一个单词的所有键值对被一个 Reducer 处理&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;Reducer：&lt;/p&gt;
+&lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 0; display: block; background: #23241f; margin-top: 0px;&quot;&gt;&amp;lt;word,[&lt;span style=&quot;color: #ae81ff; margin-top: 0px;&quot;&gt;1&lt;/span&gt;,&lt;span style=&quot;color: #ae81ff;&quot;&gt;1&lt;/span&gt;,&lt;span style=&quot;color: #ae81ff;&quot;&gt;1.&lt;/span&gt;..]&amp;gt;   --(sum)--&amp;gt;    &amp;lt;word,&lt;span style=&quot;color: #ae81ff;&quot;&gt;5&lt;/span&gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;优化&lt;/h3&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;用 combiner 合并 mapper 的输出，减少传输数据量：&lt;br style=&quot;margin-top: 0px;&quot;/&gt;Mapper：&lt;/p&gt;
+&lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 0; display: block; background: #23241f; margin-top: 0px;&quot;&gt;raw data 
+&lt;span style=&quot;color: #ae81ff; margin-top: 0px;&quot;&gt;1.&lt;/span&gt; --(mapper)--&amp;gt;    &amp;lt;word1,&lt;span style=&quot;color: #ae81ff;&quot;&gt;1&lt;/span&gt;&amp;gt; &amp;lt;word1,&lt;span style=&quot;color: #ae81ff;&quot;&gt;1&lt;/span&gt;&amp;gt; &amp;lt;word2,&lt;span style=&quot;color: #ae81ff;&quot;&gt;1&lt;/span&gt;&amp;gt; 
+&lt;span style=&quot;color: #ae81ff;&quot;&gt;2.&lt;/span&gt; --(combine)--&amp;gt;   &amp;lt;word1,&lt;span style=&quot;color: #ae81ff;&quot;&gt;2&lt;/span&gt;&amp;gt; &amp;lt;word2,&lt;span style=&quot;color: #ae81ff;&quot;&gt;1&lt;/span&gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;distinct&lt;/h3&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;distinct 就是集合去重，解决思路和 count 问题一样，不过不需要记录单词出现次数，键值对的 value 用 null 就可以了：&lt;/p&gt;
+&lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 0; display: block; background: #23241f; margin-top: 0px;&quot;&gt;Mapper:
+raw data    --&amp;gt;    &amp;lt;word,&lt;span style=&quot;color: #F92672; margin-top: 0px;&quot;&gt;null&lt;/span&gt;&amp;gt;
+
+Reducer:
+&amp;lt;word,[&lt;span style=&quot;color: #F92672;&quot;&gt;null&lt;/span&gt;,&lt;span style=&quot;color: #F92672;&quot;&gt;null&lt;/span&gt;...]&amp;gt;   --&amp;gt;    &amp;lt;word,&lt;span style=&quot;color: #F92672;&quot;&gt;null&lt;/span&gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;2.2 group by / aggregation&lt;/h2&gt;
+&lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;问题&lt;/h3&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;实现类似数据库的 group by 及聚合函数的功能&lt;/p&gt;
+&lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;实现&lt;/h3&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;Mapreduce 的 shuffle 过程其实已经帮我们做了 group by 的工作，Reducer 拿到的输入就是 group by 后的结果，对其 value 应用聚合函数即可。&lt;/p&gt;
+&lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;2.3 inverted index&lt;/h2&gt;
+&lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;问题&lt;/h3&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;一堆文档，构造对应的倒排索引。&lt;/p&gt;
+&lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;解决&lt;/h3&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;思路和 wordcount 是一样的。&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;Mapper：&lt;/p&gt;
+&lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 0; display: block; background: #23241f; margin-top: 0px;&quot;&gt;对一个文档中的每个单词，输出 &amp;lt;word,fileName&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;优化：可以用 Combiner 合并 Mapper 的输出。&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;Reducer:&lt;/p&gt;
+&lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 0; display: block; background: #23241f; margin-top: 0px;&quot;&gt;Rducuer 的输入是 &amp;lt;word,[file1,file2...]&amp;gt;，直接输出就好了
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;2.4 sort&lt;/h2&gt;
+&lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;问题&lt;/h3&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;一堆文件，每个文件都有若干行，一行是一个数字，数字的范围是确定的，要求对其排序。&lt;/p&gt;
+&lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;解决&lt;/h3&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;利用 Reducer 拿到的输入是有序的这一特性，Mapper 和 Recuder 如果都用 identity function，那么每个 Reducer 的输出都是有序的，但 Reducer 之间无法保证有序。&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;如果用归并排序的思路， 那么最后还需要一个只有一个 Reducer 的 Mapreduce 任务对所有数据做一次 merge，这显然是无法接受的。&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;真正可行的算法是 &lt;strong style=&quot;font-weight: bold; margin-top: 0px;&quot;&gt;桶排序&lt;/strong&gt;。回顾桶排序的过程，它首先将数据分布范围划分为若干个桶，接着遍历一遍元素并分配到对应的桶中，然后对每个桶做一次排序，因为桶之间是有序的，所以不需要 merge。&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;在 Mapreduce 中，Partitioner 负责划分桶。举个例子，假设数据分布在 1 到 1w 之间，我们可以将其划分为 10 个桶，同时用 10 个 Reducer 处理每个桶内的数据，这样 Reducer 间就是有序的。为了实现这个效果，可以用一个自定义的Partitioner，将 Mapper 输出划分到上述 10 个桶内即可。&lt;/p&gt;
+&lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;2.5 median / 第 k 大数&lt;/h2&gt;
+&lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;问题&lt;/h3&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;一堆数字，找中位数或第 k 大数。&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;工作中遇见过一个类似的问题，场景是：&lt;/p&gt;
+&lt;blockquote style=&quot;padding: 15px 20px; margin: 0 0 15px 0; font-size: 14px; border-left: 5px solid #ddd; background-color: rgba(102, 128, 153, 0.05);&quot;&gt;
+&lt;p style=&quot;margin: 0 0 10px; margin-bottom: 0; line-height: 1.6; font-size: 14px; font-weight: 300; white-space: pre-wrap; word-wrap: break-word; margin-top: 0px;&quot;&gt;有一堆 Nginx 登陆日志，每条 log 都有一个时间点，要求找到一个时间点，使得该时间点之前的日志数占总日志数的 30%。&lt;/p&gt;
+&lt;/blockquote&gt;&lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;解决&lt;/h3&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;在小数据量场景下，反复利用快速排序的分割可以在 O(n) 范围内找到第 K 大数。我们可以将这个思路扩展到分布式环境下：&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0; margin-bottom: 10px; line-height: 1.6;&quot;&gt;
+&lt;li style=&quot;line-height: 1.6; margin-top: 0px;&quot;&gt;用一个 MapReduce 任务统计所有日志的时间范围和日志总数；&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;随机选一个时间点，用一个新的任务统计该时间点之前和之后的日志数；&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;如果该时间点不满足要求，则根据 2 的结果找一个新的时间点，重复步骤2。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;通常这类统计需求不要求非常精确，得到一个差不多的值就可以了。&lt;/p&gt;
+&lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;2.6 top k&lt;/h2&gt;
+&lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;问题&lt;/h3&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;求一堆数前 k 大的数。&lt;/p&gt;
+&lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;解决&lt;/h3&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;其实这个问题和上面的第 k 大数是一样的，可以用上面的思路解决，这里介绍一种 k 比较小时效率更高的算法。&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;如果数据量很小，求 top k 可以用一个小根堆维护 top k，堆顶为这最大的 k 个数中的最小元素，把所有数据过一遍，最后堆内就是所求值了。这个算法可以很容易地扩展到分布式的环境中：先求出每个 split 的 top k，合并这些元素再求一次 top k 即得结果。&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;Mapper：&lt;/p&gt;
+&lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 0; display: block; background: #23241f; margin-top: 0px;&quot;&gt;维护一个小根堆，任务结束后对堆内每个元素输出一个键值对 &amp;lt;&lt;span style=&quot;color: #e6db74; margin-top: 0px;&quot;&gt;&quot;&quot;&lt;/span&gt;,num1&amp;gt;, &amp;lt;&lt;span style=&quot;color: #e6db74;&quot;&gt;&quot;&quot;&lt;/span&gt;,num2&amp;gt; ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;Reducer（数量为 1）：&lt;/p&gt;
+&lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 0; display: block; background: #23241f; margin-top: 0px;&quot;&gt;得到的输入为 &amp;lt;&lt;span style=&quot;color: #e6db74; margin-top: 0px;&quot;&gt;&quot;&quot;&lt;/span&gt;,[每个 split 的 top k]&amp;gt;，对 value 求一次 top k 就可以了。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;该算法的优势在于只要一次 Mapreduce 任务即可，但缺点是只适用于 k 比较小的情况，如果 k 很大：&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0; margin-bottom: 10px; line-height: 1.6;&quot;&gt;
+&lt;li style=&quot;line-height: 1.6; margin-top: 0px;&quot;&gt;如果 k 大于每个 split 内包含的记录数，算法失效；&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;Reducer 可能没有足够的内存容纳输入&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;2.7 join&lt;/h2&gt;
+&lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;问题&lt;/h3&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;join！&lt;/p&gt;
+&lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;解决&lt;/h3&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;通常有以下两种算法：&lt;/p&gt;
+&lt;h4 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 25px; margin-bottom: 15px; font-size: 18px;&quot;&gt;Replicated Join (Map Join, Hash Join)&lt;/h4&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;如果 join 的一方数据量较小，可以载入内存，则可以用 Hadoop 的 Distributed Cache 将其分发到每个 Mapper 节点，在 Mapper 端进行 join。较小数据集在 Mapper 端通常被构造成一个 HashMap 以加速查找，因此 Mapper Join 实质上是一种 Hash join。&lt;/p&gt;
+&lt;h4 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 25px; margin-bottom: 15px; font-size: 18px;&quot;&gt;Repartition Join (Reduce Join, Sort-Merge Join)&lt;/h4&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;如果两个数据集都很大，可在 Reducer 侧做 join：&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;Mapper 同时处理两个集合的数据，为遇到的每个记录生成一个键值对，key 是 join 的列值，value 除了该记录还需要一个 tag 表明它来自哪个集合:&lt;/p&gt;
+&lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 0; display: block; background: #23241f; margin-top: 0px;&quot;&gt;raw data    --&amp;gt;    &amp;lt;key,(record,fromA)&amp;gt;, &amp;lt;key,(record,fromB)&amp;gt; ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;Shuffle 后 Reducer 得到一个 key 对应的所有记录，无论是来自集合 A 还是 B。接下来 Reducer 用循环，根据 join 的类型对这些记录做连接即可。&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;该算法的关键在于 shuffle 阶段的排序，因此本质上是一种 Sort-Merge join。&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;Reducer 侧 join 是一种通用的 join 算法，但它有以下缺点：&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0; margin-bottom: 10px; line-height: 1.6;&quot;&gt;
+&lt;li style=&quot;line-height: 1.6; margin-top: 0px;&quot;&gt;Mapper 侧根本不过滤数据，所有数据，即使是那些无法 join 的记录，都会被传输到 Reducer 侧，再由 Reducer 过滤，这样性能很差；&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;Reducer 侧可能没有足够的内存装下一个 key 对应的所有记录。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;join 优化&lt;/h2&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;考虑这样一个场景：有两个数据集，Customer 和 Order，要求对他们进行 join，但仅限于地区在上海的顾客。&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;有几种可能的优化方式：&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0; margin-bottom: 10px; line-height: 1.6;&quot;&gt;
+&lt;li style=&quot;line-height: 1.6; margin-top: 0px;&quot;&gt;&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word; margin-top: 0px;&quot;&gt;&lt;strong style=&quot;font-weight: bold; margin-top: 0px;&quot;&gt;预先过滤一个集合，使用 Replicated Join&lt;/strong&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;利用“地区为上海”这个约束过滤 Customer，如果过滤后的数据集足够小，则可以采用 Replicated Join；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word; margin-top: 0px;&quot;&gt;&lt;strong style=&quot;font-weight: bold; margin-top: 0px;&quot;&gt;用半连接(semi join)优化 Reduce Join：在 Mapper 处过滤数据后再在 Reducer 处 Join&lt;/strong&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;如果过滤后的数据集依然很大，那么只能采用低效率的 Reduce join。优化 Reduce join 的主要策略是 &lt;strong style=&quot;font-weight: bold; margin-top: 0px;&quot;&gt;尽量将数据过滤动作放在 Mapper 进行&lt;/strong&gt;（这也是一个通用准则），在上述例子中， Mapper 在处理某个 Order 时，如果知道其对应的 Customer 不在 Customer 集合中，或者不在上海地区，那么就可以跳过它而不用传输到 Reducer 侧。为了达到这一点，我们可以先对 Customer 过滤（就像1一样），将上海的顾客&lt;strong style=&quot;font-weight: bold;&quot;&gt;的 ID &lt;/strong&gt;选出来，这样得到的文件比1得到的文件更小（因为它只有一个 ID），很有可能可以被装入内存。用 Distributed Cache 将该 ID 文件分发到所有 Mapper 节点，Mapper 在处理 Customer 或 Order 的记录时就可以根据这个集合过滤所有非上海的顾客了。&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;如果过滤得到的 ID 文件依然很大，这时判重利器 &lt;a href=&quot;http://novoland.github.io/%E7%AE%97%E6%B3%95/2014/07/28/BloomFilter.html&quot; style=&quot;background: transparent; margin-top: 0px;&quot; target=&quot;_blank&quot;&gt;&lt;strong style=&quot;font-weight: bold; margin-top: 0px;&quot;&gt;BloomFilter&lt;/strong&gt;&lt;/a&gt; 就派上用场了。我们可以建立一个 BloomFilter 表示过滤后的顾客 ID 集合，它的尺寸要远小于原始集合。BloomFilter 存在的误判率也不是问题，它只会把不存在的元素误判为存在，Reducer 处也会进行过滤，可以把误判的元素剔除掉。&lt;/p&gt;
+&lt;blockquote style=&quot;padding: 15px 20px; margin: 0 0 15px 0; font-size: 14px; border-left: 5px solid #ddd; background-color: rgba(102, 128, 153, 0.05);&quot;&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; font-size: 14px; font-weight: 300; white-space: pre-wrap; word-wrap: break-word; margin-top: 0px;&quot;&gt;&lt;strong style=&quot;font-weight: bold; margin-top: 0px;&quot;&gt;用 Mapreduce 思想建立 BloomFilter&lt;/strong&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; font-size: 14px; font-weight: 300; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;每个 Mapper 对自己负责的 split 建立 BloomFilter，用一个 Reducer 接收它们并两两相“或”，即得到整体集合的 BloomFilter。&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; font-size: 14px; font-weight: 300; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;这利用了 BloomFilter 的性质：&lt;/p&gt;
+&lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: #fff; white-space: pre-wrap; border-radius: 3px; display: block; background: #23241f; margin-top: 0px;&quot;&gt;filter1 | filter2 == 并集
+filter1 &amp;amp; filter2 == 交集
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 style=&quot;font-size: 36px; margin: 0.67em 0; font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px;&quot;&gt;3. 参考&lt;/h1&gt;
+&lt;ol style=&quot;margin-top: 0; margin-bottom: 10px; line-height: 1.6;&quot;&gt;
+&lt;li style=&quot;line-height: 1.6; margin-top: 0px;&quot;&gt;&lt;a href=&quot;http://highlyscalable.wordpress.com/2012/02/01/mapreduce-patterns/&quot; style=&quot;background: transparent; margin-top: 0px;&quot; target=&quot;_blank&quot;&gt;Mapreduce patterns&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;&lt;a href=&quot;http://blog.cloudera.com/wp-content/uploads/2010/01/5-MapReduceAlgorithms.pdf&quot; style=&quot;background: transparent; margin-top: 0px;&quot; target=&quot;_blank&quot;&gt;Mapreduce algorithms.pdf&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;《Hadoop in action》&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;《Hadoop 权威指南》&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+    </item>
     
     <item>
       <title>高性能网络通讯笔记</title>
@@ -820,15 +990,6 @@ end &lt;span style=&quot;color: #F92672;&quot;&gt;for&lt;/span&gt;
       <description>&lt;p&gt; 以前写过的一个 ppt，关于 GC 的。 &lt;/p&gt;
 
 &lt;iframe width=&quot;100%&quot; height=&quot;578&quot; src=&quot;http://slideonline.com/embed/17901&quot; scrollbars=no scrolling=no webkitAllowFullScreen mozallowfullscreen allowFullScreen&gt;&lt;/iframe&gt;</description>
-    </item>
-    
-    <item>
-      <title>高性能网络通讯笔记</title>
-      <link>http://novoland.github.io/%E7%BD%91%E7%BB%9C/2014/07/26/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF%E7%AC%94%E8%AE%B0.html</link>
-      <pubDate>26 Jul 2014</pubDate>
-      <author>克鲁斯卡尔</author>
-      <guid>http://novoland.github.io/%E7%BD%91%E7%BB%9C/2014/07/26/高性能网络通讯笔记</guid>
-      <description>&lt;div&gt;&lt;/div&gt;</description>
     </item>
     
   </channel>
