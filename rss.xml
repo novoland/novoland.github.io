@@ -6,9 +6,117 @@
     <atom:link href="http://novoland.github.io/rss.xml" rel="self" type="application/rss+xml" />
     <description>一个程序员</description>
     <language>zh-CN</language>
-    <pubDate>Wed, 03 Sep 2014 14:36:18 +0800</pubDate>
-    <lastBuildDate>Wed, 03 Sep 2014 14:36:18 +0800</lastBuildDate>
+    <pubDate>Thu, 04 Sep 2014 09:19:14 +0800</pubDate>
+    <lastBuildDate>Thu, 04 Sep 2014 09:19:14 +0800</lastBuildDate>
 
+    
+    <item>
+      <title>高性能网络通讯笔记</title>
+      <link>http://novoland.github.io/%E7%BD%91%E7%BB%9C/2014/09/03/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF%E7%AC%94%E8%AE%B0.html</link>
+      <pubDate>03 Sep 2014</pubDate>
+      <author>克鲁斯卡尔</author>
+      <guid>http://novoland.github.io/%E7%BD%91%E7%BB%9C/2014/09/03/高性能网络通讯笔记</guid>
+      <description>&lt;div style=&quot;line-height: 1.6; font-family: Helvetica Neue, Arial, Hiragino Sans GB, STHeiti, Microsoft YaHei, WenQuanYi Micro Hei, SimSun, Song, sans-serif;&quot;&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;前几天看了下阿里巴巴 RPC 框架 Dubbo 作者的内部分享，这里记下笔记。&lt;/p&gt;
+&lt;h1 style=&quot;font-size: 36px; margin: 0.67em 0; font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px;&quot;&gt;传统rpc的问题&lt;/h1&gt;
+&lt;ol style=&quot;margin-top: 0; margin-bottom: 10px; line-height: 1.6;&quot;&gt;
+&lt;li style=&quot;line-height: 1.6; margin-top: 0px;&quot;&gt;java序列化，性能低&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;每连接每线程，BIO有性能问题&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;jdk代理性能低&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 style=&quot;font-size: 36px; margin: 0.67em 0; font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px;&quot;&gt;数据协议&lt;/h1&gt;
+&lt;ol style=&quot;margin-top: 0; margin-bottom: 10px; line-height: 1.6;&quot;&gt;
+&lt;li style=&quot;line-height: 1.6; margin-top: 0px;&quot;&gt;应用层协议&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;header字段：&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0; line-height: 1.6;&quot;&gt;
+&lt;li style=&quot;line-height: 1.6; margin-top: 0px;&quot;&gt;magic high&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;magic low  --- 端口复用，多协议支持；兼容其他协议。&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;序列化方式&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;event&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;是否双向&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;请求还是响应&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;status&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;id  -- futureMap保存所有发送的请求，响应中携带请求id，实现一一对应&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0; line-height: 1.6;&quot;&gt;
+&lt;li style=&quot;line-height: 1.6; margin-top: 0px;&quot;&gt;使用int id替换long，实现id轮转+超时（？？）&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;剩下来的位数可以用来扩展，存储服务器状态&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;使用future机制把客户端的同步调用转成异步的&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;data length&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;序列化协议&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0; line-height: 1.6;&quot;&gt;
+&lt;li style=&quot;line-height: 1.6; margin-top: 0px;&quot;&gt;web应用cpu负载低，网络负载高。数据包大小比压缩时间更重要。网络传输的时间远远大于cpu压缩时间，过于追求低压缩时间没有意义。&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;发送前压缩数据包。&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;另一个考虑的因素：工具使用的方便程度、适用场景是否广泛。protobuf用起来麻烦、hession/fastjson有些情况会序列化失败、java serialize最安全和普适。如果这里不是一个明显的瓶颈，可以直接使用java内置的序列化方式。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;序列化策略&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0; line-height: 1.6;&quot;&gt;
+&lt;li style=&quot;line-height: 1.6; margin-top: 0px;&quot;&gt;chunk stream&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;一个连接上承载多个请求发送。如果一个请求过大发送时间过长会造成其他请求不能及时得到处理，容易出现超时。--- 将这些大的数据包拆分成多片，穿插发送。server端自己拼装。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 style=&quot;font-size: 36px; margin: 0.67em 0; font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px;&quot;&gt;IO模型&lt;/h1&gt;
+&lt;ol style=&quot;margin-top: 0; margin-bottom: 10px; line-height: 1.6;&quot;&gt;
+&lt;li style=&quot;line-height: 1.6; margin-top: 0px;&quot;&gt;Unix的5种IO模型&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;IO的两个阶段&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;是否阻塞 -- 异步、同步&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;Blocking IO、Non-Blocking IO（non-blocking的意义：当需要睡眠当前线程时才能完成请求时，不睡眠，只做部分操作并返回；从内核拷贝数据到用户空间时依然会阻塞）、IO multiplexing（事件驱动，一般和non blocking IO搭配使用）、Signal-Driven IO&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;Asynchronous IO&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;NIO的优势&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0; line-height: 1.6;&quot;&gt;
+&lt;li style=&quot;line-height: 1.6; margin-top: 0px;&quot;&gt;避免多线程&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;基于block的传输比基于流的传输更高效&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;基于mmap的zero-copy&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;TCP的调优&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0; line-height: 1.6;&quot;&gt;
+&lt;li style=&quot;line-height: 1.6; margin-top: 0px;&quot;&gt;正确设置socket缓冲区，接收/发送缓冲区大小应该至少 = Bandwidth Delay Product = 带宽 * 往返时间，这样才能把两端之间的通信链路填满数据，充分利用带宽。&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0; line-height: 1.6;&quot;&gt;
+&lt;li style=&quot;line-height: 1.6; margin-top: 0px;&quot;&gt;减少进程读写缓冲区的系统调用；&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;充分利用带宽&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;关闭nagle算法，RPC 调用不允许延迟&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;在应用层做心跳检测，关闭tcp的keep-alive（这是全局设置）&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;网卡中断负载均衡&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 style=&quot;font-size: 36px; margin: 0.67em 0; font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px;&quot;&gt;线程模型&lt;/h1&gt;
+&lt;ol style=&quot;margin-top: 0; margin-bottom: 10px; line-height: 1.6;&quot;&gt;
+&lt;li style=&quot;line-height: 1.6; margin-top: 0px;&quot;&gt;MainReactor &lt;em style=&quot;margin-top: 0px;&quot;&gt; 1负责接受连接 + SubReactor &lt;/em&gt; N (thread pool，“IO线程”, 负责监听读写事件. 一个线程负责多个连接)的方式，和Netty一样。&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;业务处理时也引入线程池&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word; margin-top: 0px;&quot;&gt;codec（数据收集/拼装）/serialize（序列化/反序列化）在什么线程里做&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0; margin-bottom: 0; line-height: 1.6;&quot;&gt;
+&lt;li style=&quot;line-height: 1.6; margin-top: 0px;&quot;&gt;Netty中codec直接在IO线程中做，dubbo也一样；&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word; margin-top: 0px;&quot;&gt;Serialize/deserialize 分开了，在业务线程（池）中做；&lt;br style=&quot;margin-top: 0px;&quot;/&gt;原因原文没说，猜测：&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0; margin-bottom: 0; line-height: 1.6;&quot;&gt;
+&lt;li style=&quot;line-height: 1.6; margin-top: 0px;&quot;&gt;serialize是比较耗时的，所有耗时的操作都应该放在业务线程中做，IO线程必须快速返回以便处理下一个连接，否则容易造成后续连接过很久才能得到处理，易超时；&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word; margin-top: 0px;&quot;&gt;codec为什么不放在业务线程中做？一是职责分离，业务线程的输入是有意义的完整数据包；二是在数据包不完整时，业务线程基本上会快速退出继续阻塞，这会导致业务线程池的不稳定和频繁的线程切换。&lt;/p&gt;
+&lt;blockquote style=&quot;padding: 15px 20px; margin: 0 0 15px 0; font-size: 14px; border-left: 5px solid #ddd; background-color: rgba(102, 128, 153, 0.05);&quot;&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; font-size: 14px; font-weight: 300; white-space: pre-wrap; word-wrap: break-word; margin-top: 0px;&quot;&gt;任务的合理切分。&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; font-size: 14px; font-weight: 300; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;在NIO的客户端，接受数据的事件将会写得很轻量级，但是接受到数据然后分析数据还原成业务对象，之后则会通过线程池的方式来分别处理。就好比监听连接到来，和实际的去建立连接分成了两个阶段的任务，让事件型的任务单纯，快速执行，让与业务相关的部分通过多线程并行的方式提高处理效率。总的来说就是把任务划分成为 &lt;strong style=&quot;font-weight: bold; margin-top: 0px;&quot;&gt;系统性的任务&lt;/strong&gt; 和 &lt;strong style=&quot;font-weight: bold;&quot;&gt;业务性的任务&lt;/strong&gt;，前者消耗时间少，设计尽量简单高效，采用单线程处理即可，后者通常情况下在处理流程和资源上不冲突的情况可以通过多线程并行提高效率。（后者IO bound时多线程可以提高效率[依赖]，CPU bound时均分计算资源，要慢一起慢，不会出现一个任务耗时导致别的任务超时，此时处理总时间由于线程切换的开销反而会更大）&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; margin-bottom: 0; line-height: 1.6; font-size: 14px; font-weight: 300; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;--- 放翁 《优化杂谈》&lt;/p&gt;
+&lt;/blockquote&gt;&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word; margin-top: 0px;&quot;&gt;多线程的目的: 1. 阻塞时可以利用CPU;  2. 均分计算资源, 让多个任务都得以推进&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word; margin-top: 0px;&quot;&gt;业务线程池应该多大？&lt;br style=&quot;margin-top: 0px;&quot;/&gt;这一部分来自淘宝的《前台系统性能调优》&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0; margin-bottom: 0; line-height: 1.6;&quot;&gt;
+&lt;li style=&quot;line-height: 1.6; margin-top: 0px;&quot;&gt;根据业务的CPU/IO类型不同，充分利用IO阻塞与CPU执行的overlapping（交错执行）&lt;/li&gt;
+&lt;li style=&quot;line-height: 1.6;&quot;&gt;&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word; margin-top: 0px;&quot;&gt;公式 --- 从CPU角度：&lt;/p&gt;
+&lt;div style=&quot;margin: 20px 0; text-align: center;&quot;&gt;&lt;span style=&quot;margin-top: 0px;&quot;&gt;&lt;/span&gt;&lt;span&gt;&lt;div style=&quot;white-space: nowrap; margin-top: 0px;&quot;&gt;&lt;span style=&quot;width: 23.158em; display: inline-block; margin-top: 0px;&quot;&gt;&lt;span style=&quot;display: inline-block; position: relative; width: 19.289em; height: 0px; font-size: 120%; margin-top: 0px;&quot;&gt;&lt;span style=&quot;position: absolute; clip: rect(0.896em 1000.003em 3.753em -0.473em); top: -2.557em; left: 0.003em; margin-top: 0px;&quot;&gt;&lt;span style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;font-family: STIXGeneral-Italic, serif; margin-top: 0px;&quot;&gt;t&lt;span style=&quot;display: inline-block; overflow: hidden; height: 1px; width: 0.003em; margin-top: 0px;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;font-family:STIXGeneral-Italic, serif;&quot;&gt;h&lt;/span&gt;&lt;span style=&quot;font-family:STIXGeneral-Italic, serif;&quot;&gt;r&lt;span style=&quot;display: inline-block; overflow: hidden; height: 1px; width: 0.003em; margin-top: 0px;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;font-family:STIXGeneral-Italic, serif;&quot;&gt;e&lt;/span&gt;&lt;span style=&quot;font-family:STIXGeneral-Italic, serif;&quot;&gt;a&lt;/span&gt;&lt;span style=&quot;font-family:STIXGeneral-Italic, serif;&quot;&gt;d&lt;span style=&quot;display: inline-block; overflow: hidden; height: 1px; width: 0.003em; margin-top: 0px;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;font-family:STIXGeneral-Italic, serif;&quot;&gt;s&lt;/span&gt;&lt;span style=&quot;font-family:STIXGeneral-Regular, serif; padding-left: 0.301em;&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;padding-left: 0.301em;&quot;&gt;&lt;span style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;padding-left: 0.122em; padding-right: 0.122em; margin-top: 0px;&quot;&gt;&lt;span style=&quot;display: inline-block; position: relative; width: 10.003em; height: 0px; margin-top: 0px;&quot;&gt;&lt;span style=&quot;position: absolute; clip: rect(1.61em 1000.003em 2.92em -0.473em); top: -3.271em; left: 50%; margin-left: -4.938em; margin-top: 0px;&quot;&gt;&lt;span style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;font-family: STIXGeneral-Italic, serif; margin-top: 0px;&quot;&gt;C&lt;span style=&quot;display: inline-block; overflow: hidden; height: 1px; width: 0.003em; margin-top: 0px;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;font-family:STIXGeneral-Italic, serif;&quot;&gt;P&lt;/span&gt;&lt;span style=&quot;font-family:STIXGeneral-Italic, serif;&quot;&gt;U&lt;span style=&quot;display: inline-block; overflow: hidden; height: 1px; width: 0.063em; margin-top: 0px;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span&gt;&lt;span style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;font-family: STIXGeneral, Arial Unicode MS, serif, serif; font-size: 83%; font-style: normal; font-weight: normal; margin-top: 0px;&quot;&gt;时&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span&gt;&lt;span style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;font-family: STIXGeneral, Arial Unicode MS, serif, serif; font-size: 83%; font-style: normal; font-weight: normal; margin-top: 0px;&quot;&gt;间&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;font-family:STIXGeneral-Regular, serif; padding-left: 0.241em;&quot;&gt;+&lt;/span&gt;&lt;span style=&quot;font-family:STIXGeneral-Italic, serif; padding-left: 0.241em;&quot;&gt;I&lt;span style=&quot;display: inline-block; overflow: hidden; height: 1px; width: 0.063em; margin-top: 0px;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;font-family:STIXGeneral-Italic, serif;&quot;&gt;O&lt;/span&gt;&lt;span style=&quot;font-family:STIXGeneral-Italic, serif;&quot;&gt;b&lt;/span&gt;&lt;span style=&quot;font-family:STIXGeneral-Italic, serif;&quot;&gt;l&lt;span style=&quot;display: inline-block; overflow: hidden; height: 1px; width: 0.003em; margin-top: 0px;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;font-family:STIXGeneral-Italic, serif;&quot;&gt;o&lt;/span&gt;&lt;span style=&quot;font-family:STIXGeneral-Italic, serif;&quot;&gt;c&lt;/span&gt;&lt;span style=&quot;font-family:STIXGeneral-Italic, serif;&quot;&gt;k&lt;span style=&quot;display: inline-block; overflow: hidden; height: 1px; width: 0.003em; margin-top: 0px;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span&gt;&lt;span style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;font-family: STIXGeneral, Arial Unicode MS, serif, serif; font-size: 83%; font-style: normal; font-weight: normal; margin-top: 0px;&quot;&gt;时&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span&gt;&lt;span style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;font-family: STIXGeneral, Arial Unicode MS, serif, serif; font-size: 83%; font-style: normal; font-weight: normal; margin-top: 0px;&quot;&gt;间&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;display: inline-block; width: 0px; height: 2.562em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;position: absolute; clip: rect(1.61em 1000.003em 2.92em -0.473em); top: -1.783em; left: 50%; margin-left: -1.842em;&quot;&gt;&lt;span style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;font-family: STIXGeneral-Italic, serif; margin-top: 0px;&quot;&gt;C&lt;span style=&quot;display: inline-block; overflow: hidden; height: 1px; width: 0.003em; margin-top: 0px;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;font-family:STIXGeneral-Italic, serif;&quot;&gt;P&lt;/span&gt;&lt;span style=&quot;font-family:STIXGeneral-Italic, serif;&quot;&gt;U&lt;span style=&quot;display: inline-block; overflow: hidden; height: 1px; width: 0.063em; margin-top: 0px;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span&gt;&lt;span style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;font-family: STIXGeneral, Arial Unicode MS, serif, serif; font-size: 83%; font-style: normal; font-weight: normal; margin-top: 0px;&quot;&gt;时&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span&gt;&lt;span style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;font-family: STIXGeneral, Arial Unicode MS, serif, serif; font-size: 83%; font-style: normal; font-weight: normal; margin-top: 0px;&quot;&gt;间&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;display: inline-block; width: 0px; height: 2.562em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;position: absolute; clip: rect(0.836em 1000.003em 1.253em -0.533em); top: -1.307em; left: 0.003em;&quot;&gt;&lt;span style=&quot;border-left-width: 10.003em; border-left-style: solid; display: inline-block; overflow: hidden; width: 0px; height: 1.25px; vertical-align: 0.003em; margin-top: 0px;&quot;&gt;&lt;/span&gt;&lt;span style=&quot;display: inline-block; width: 0px; height: 1.074em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;font-family:STIXGeneral-Regular, serif; padding-left: 0.241em;&quot;&gt;∗&lt;/span&gt;&lt;span style=&quot;font-family:STIXGeneral-Italic, serif; padding-left: 0.241em;&quot;&gt;C&lt;span style=&quot;display: inline-block; overflow: hidden; height: 1px; width: 0.003em; margin-top: 0px;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;font-family:STIXGeneral-Italic, serif;&quot;&gt;P&lt;/span&gt;&lt;span style=&quot;font-family:STIXGeneral-Italic, serif;&quot;&gt;U&lt;span style=&quot;display: inline-block; overflow: hidden; height: 1px; width: 0.063em; margin-top: 0px;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span&gt;&lt;span style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;font-family: STIXGeneral, Arial Unicode MS, serif, serif; font-size: 83%; font-style: normal; font-weight: normal; margin-top: 0px;&quot;&gt;核&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span&gt;&lt;span style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;font-family: STIXGeneral, Arial Unicode MS, serif, serif; font-size: 83%; font-style: normal; font-weight: normal; margin-top: 0px;&quot;&gt;数&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;display: inline-block; width: 0px; height: 2.562em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;border-left-width: 0.004em; border-left-style: solid; display: inline-block; overflow: hidden; width: 0px; height: 3.146em; vertical-align: -1.282em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul style=&quot;margin-top: 0; margin-bottom: 0; line-height: 1.6;&quot;&gt;
+&lt;li style=&quot;line-height: 1.6; margin-top: 0px;&quot;&gt;鸵鸟策略：设置多线程数，保证能充分利用CPU；线程切换开销假装没有，的确是瓶颈时再调。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+    </item>
     
     <item>
       <title>Skyline监控系统工作原理分析</title>
@@ -20,14 +128,14 @@
 &lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;概述&lt;/h2&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;Skyline是一个实时的异常监测系统，它被动地接收metrics数据，并使用一系列算法自动地判断metrics是否异常，此外，用户可以很容易地根据自己应用数据的特点，提供自己的异常检测算法。Skyline还提供了一个web Ui接口，异常的metrics会在webapp中得到展示。&lt;/p&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;Skyline内部由3个组件组成：Horizon/Analyzer/Webapp：&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;img alt=&quot;Alt text&quot; class=&quot;en-media&quot; longdesc=&quot;./1409638905577.png&quot; name=&quot;d7f1c2c1-b7c6-49c8-bca0-0bc1499c7f0b&quot; src=&quot;/assets/img/7ef2b048d05333ff5ca6e5cf5be92dc9.png&quot; style=&quot;border: 0; margin-top: 0px; max-width: 100%;&quot;/&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;img alt=&quot;Alt text&quot; class=&quot;en-media&quot; longdesc=&quot;./1409638905577.png&quot; name=&quot;d7f1c2c1-b7c6-49c8-bca0-0bc1499c7f0b&quot; src=&quot;https://www.evernote.com/shard/s133/sh/1bb42885-61d2-4d6f-a135-6ce41c4f30e1/6967a17731dbbc7ad79bc532dcfa7ba3/res/d7f1c2c1-b7c6-49c8-bca0-0bc1499c7f0b/1409638905577.png?resizeSmall&amp;amp;width=832&quot; style=&quot;border: 0; margin-top: 0px; max-width: 100%;&quot;/&gt;&lt;/p&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;它们的工作方式如下：&lt;/p&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;Horizon负责接收外部发送过来的datapoint并转发到Redis，同时从Redis中删除过时的datapoint（所谓datapoint是指某个metric在一个特定时间点的数据，它包含timestamp和value）。Analyzer从Redis获取metrics数据，并使用算法判断是否异常。最后Webapp以图表的方式向用户展示异常的metrics。&lt;/p&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;Horizon和Analyzer的工作流程如下图所示，红色字体标注的是settings.py中定义的配置项：&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;img alt=&quot;Alt text&quot; class=&quot;en-media&quot; longdesc=&quot;./1409638939192.png&quot; name=&quot;b55f09cd-526f-45c2-8ffd-497ff6cfa837&quot; src=&quot;/assets/img/d3f0fc8692ffd01d09d7f7b12d6f4b90.png&quot; style=&quot;border: 0; margin-top: 0px; max-width: 100%;&quot;/&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;img alt=&quot;Alt text&quot; class=&quot;en-media&quot; longdesc=&quot;./1409638939192.png&quot; name=&quot;b55f09cd-526f-45c2-8ffd-497ff6cfa837&quot; src=&quot;https://www.evernote.com/shard/s133/sh/1bb42885-61d2-4d6f-a135-6ce41c4f30e1/6967a17731dbbc7ad79bc532dcfa7ba3/res/b55f09cd-526f-45c2-8ffd-497ff6cfa837/1409638939192.png?resizeSmall&amp;amp;width=832&quot; style=&quot;border: 0; margin-top: 0px; max-width: 100%;&quot;/&gt;&lt;/p&gt;
 &lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;Horizon&lt;/h2&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;Horizon是Skyline的数据收集器，它由3个角色组成：Listener/Worker/Roomba。Horizon通过bin/horizon.d启停。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;img alt=&quot;Alt text&quot; class=&quot;en-media&quot; longdesc=&quot;./1409638965027.png&quot; name=&quot;270f4d0c-9f18-4e2d-8b41-51164796a5a1&quot; src=&quot;/assets/img/8e250921c3dbeee4f233ca21e6991fdc.png&quot; style=&quot;border: 0; margin-top: 0px; max-width: 100%;&quot;/&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;img alt=&quot;Alt text&quot; class=&quot;en-media&quot; longdesc=&quot;./1409638965027.png&quot; name=&quot;270f4d0c-9f18-4e2d-8b41-51164796a5a1&quot; src=&quot;https://www.evernote.com/shard/s133/sh/1bb42885-61d2-4d6f-a135-6ce41c4f30e1/6967a17731dbbc7ad79bc532dcfa7ba3/res/270f4d0c-9f18-4e2d-8b41-51164796a5a1/1409638965027.png?resizeSmall&amp;amp;width=832&quot; style=&quot;border: 0; margin-top: 0px; max-width: 100%;&quot;/&gt;&lt;/p&gt;
 &lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;Listener&lt;/h3&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;Listener负责接收外部发送过来的数据，每个Listener是一个进程，目前会启动两种类型的Listener：TCP和UDP，它们使用的应用层协议不同，且数据的序列化方式也不同。应用向horizon发送metric数据时是以tuple为单位的，一个tuple的格式如下所示，表示某个metric在某个时刻的值：&lt;/p&gt;
 &lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 0; display: block; background: #23241f; margin-top: 0px;&quot;&gt;&lt;span style=&quot;color: #F92672; margin-top: 0px;&quot;&gt;tuple&lt;/span&gt; == (metric_name, datapoint) == (metric_name, [timestamp,value])
@@ -62,7 +170,7 @@
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;所有进程都退出后，Roomba线程继续循环，即将进行下一轮进程的创建。为了防止Redis中数据很少时，进程快速的创建和退出带来的性能消耗，每个进程在退出时都会判断运行的时间，如果小于30s，则休眠10s。&lt;/p&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;因此，Roomba的工作其实就是保证Redis两个namespace下各个timeseries始终是“最近的”一段数据，其时间跨度由FULL_DURATION/MINI_DURATION（以及ROOMBA_GRACE_TIME）指定。FULL命名空间下的timeseries是Analyzer分析的对象，MINI下的并不会被分析，它的作用只在于在web UI中为用户提供某个metric最近一个小时间段（MINI_DURATION）内的概览。此外，MINI namespace还用于和Oculus配合工作，Oculus是Esty公司出品的另一个系统，我们这里忽略掉。&lt;/p&gt;
 &lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;Analyzer&lt;/h2&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;img alt=&quot;Alt text&quot; class=&quot;en-media&quot; longdesc=&quot;./1409639087710.png&quot; name=&quot;fb060ac0-5f65-42dc-8899-2d05bb7bdedf&quot; src=&quot;/assets/img/d0530f215b0ef90ab0087ffd5f72931f.png&quot; style=&quot;border: 0; margin-top: 0px; max-width: 100%;&quot;/&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;img alt=&quot;Alt text&quot; class=&quot;en-media&quot; longdesc=&quot;./1409639087710.png&quot; name=&quot;fb060ac0-5f65-42dc-8899-2d05bb7bdedf&quot; src=&quot;https://www.evernote.com/shard/s133/sh/1bb42885-61d2-4d6f-a135-6ce41c4f30e1/6967a17731dbbc7ad79bc532dcfa7ba3/res/fb060ac0-5f65-42dc-8899-2d05bb7bdedf/1409639087710.png?resizeSmall&amp;amp;width=832&quot; style=&quot;border: 0; margin-top: 0px; max-width: 100%;&quot;/&gt;&lt;/p&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;经过Horizon的处理，Redis中已经保存了若干timeseries，Analyzer负责对其进行分析，同时提供了一系列算法判断timeseries是否异常的（anomalous）。&lt;/p&gt;
 &lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;Analyzer&lt;/h3&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;Analyzer也是一个线程，它的工作方式和Roomba几乎一致，启动后创建ANALYZER_PROCESSES个进程，平均分配FULL_NAMESPACE下的所有timeseries，每个timeseries被送入Algorithms模块处理，判断是否异常并返回异常的datapoint、报告异常的算法。&lt;/p&gt;
@@ -80,7 +188,7 @@
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;验证后将timeseries送入所选算法中进行异常判断。每个算法都会返回Boolean值，true表示异常，false表示正常。当有&amp;gt;CONSENSUS个算法判断为异常时，该timeseries才会被认为是anomalous的。最终返回3个值：是否异常 | 判定为异常的算法集合 | 异常datapoint，异常datapoint目前统一为序列最后3个datapoint的平均值，这和判断异常的算法是相关的，关于Skyline内置的9个算法的分析参见这里。&lt;/p&gt;
 &lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;Webapp&lt;/h2&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;Webapp基于Flask框架提供异常metrics的图表展现，是一个比较简单的模块，就不展开了。基本原理是向后台轮询anomalies.json，得到异常的metrics名称及对应的异常datapoint，之后根据metrics name向后台请求Redis中的timeseries序列（包括FULL/MINI namespace），并用图表展示出来。借用官网的一张图：&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;img alt=&quot;Alt text&quot; class=&quot;en-media&quot; longdesc=&quot;./1409639146495.png&quot; name=&quot;ab5b5a19-7738-4d52-b489-7b27c5bdea45&quot; src=&quot;/assets/img/f45b6095218bcc1ffd34bc662c7d0404.png&quot; style=&quot;border: 0; margin-top: 0px; max-width: 100%;&quot;/&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;img alt=&quot;Alt text&quot; class=&quot;en-media&quot; longdesc=&quot;./1409639146495.png&quot; name=&quot;ab5b5a19-7738-4d52-b489-7b27c5bdea45&quot; src=&quot;https://www.evernote.com/shard/s133/sh/1bb42885-61d2-4d6f-a135-6ce41c4f30e1/6967a17731dbbc7ad79bc532dcfa7ba3/res/ab5b5a19-7738-4d52-b489-7b27c5bdea45/1409639146495.png?resizeSmall&amp;amp;width=832&quot; style=&quot;border: 0; margin-top: 0px; max-width: 100%;&quot;/&gt;&lt;/p&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;需要一提的是，图中所示1 hour和24 hour下的图表，分别是从MINI和FULL NAMESPACE中取得的timeseries数据，它们的时间跨度分别由参数MINI_DURATION和FULL_DURATION决定，并非固定的1小时或24小时，只不过页面上是这么写死的。&lt;/p&gt;
 &lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;问题&lt;/h2&gt;
 &lt;ol style=&quot;margin-top: 0; margin-bottom: 10px; line-height: 1.6;&quot;&gt;
@@ -107,14 +215,14 @@
       <guid>http://novoland.github.io/%E5%B7%A5%E4%BD%9C/2014/09/03/Skyline timeseries异常判定算法</guid>
       <description>&lt;div style=&quot;line-height: 1.6; font-family: Helvetica Neue, Arial, Hiragino Sans GB, STHeiti, Microsoft YaHei, WenQuanYi Micro Hei, SimSun, Song, sans-serif;&quot;&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;Skyline内部提供了9个预定义的算法，这些算法要解决这样一个问题：&lt;/p&gt;
-&lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 0; color: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; margin-top: 0px;&quot;&gt;input：一个timeseries
-output：是否异常
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;3-sigma&lt;/h2&gt;
+&lt;blockquote style=&quot;padding: 15px 20px; margin: 0 0 15px 0; font-size: 14px; border-left: 5px solid #ddd; background-color: rgba(102, 128, 153, 0.05);&quot;&gt;
+&lt;p style=&quot;margin: 0 0 10px; margin-bottom: 0; line-height: 1.6; font-size: 14px; font-weight: 300; white-space: pre-wrap; word-wrap: break-word; margin-top: 0px;&quot;&gt;input：一个timeseries&lt;br style=&quot;margin-top: 0px;&quot;/&gt;output：是否异常&lt;/p&gt;
+&lt;/blockquote&gt;&lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;3-sigma&lt;/h2&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;一个很直接的异常判定思路是，拿最新3个datapoint的平均值（tail_avg方法）和整个序列比较，看是否偏离总体平均水平太多。怎样算“太多”呢，因为standard deviation表示集合中元素到mean的平均偏移距离，因此最简单就是和它进行比较。这里涉及到3-sigma理论：&lt;/p&gt;
 &lt;blockquote style=&quot;padding: 15px 20px; margin: 0 0 15px 0; font-size: 14px; border-left: 5px solid #ddd; background-color: rgba(102, 128, 153, 0.05);&quot;&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; font-size: 14px; font-weight: 300; white-space: pre-wrap; word-wrap: break-word; margin-top: 0px;&quot;&gt;In statistics, the 68–95–99.7 rule, also known as the three-sigma rule or empirical rule, states that nearly all values lie within 3 standard deviations of the mean in a normal distribution.&lt;/p&gt;
 &lt;p style=&quot;margin: 0 0 10px; margin-bottom: 0; line-height: 1.6; font-size: 14px; font-weight: 300; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;About 68.27% of the values lie within 1 standard deviation of the mean. Similarly, about 95.45% of the values lie within 2 standard deviations of the mean. Nearly all (99.73%) of the values lie within 3 standard deviations of the mean.&lt;/p&gt;
-&lt;/blockquote&gt;&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;img alt=&quot;Alt text&quot; class=&quot;en-media&quot; longdesc=&quot;./1409640582929.png&quot; name=&quot;3ce62d68-9a4d-4626-9c82-0d6345a5fd46&quot; src=&quot;/assets/img/14112089f9338deb39688c3e27bfddc1.png&quot; style=&quot;border: 0; margin-top: 0px; max-width: 100%;&quot;/&gt;&lt;/p&gt;
+&lt;/blockquote&gt;&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;img alt=&quot;Alt text&quot; class=&quot;en-media&quot; longdesc=&quot;./1409640582929.png&quot; name=&quot;3ce62d68-9a4d-4626-9c82-0d6345a5fd46&quot; src=&quot;https://www.evernote.com/shard/s133/sh/e48b3f98-0360-4460-9423-e4b7bfcb3d8c/1ebbe14c822a78d2669c3712ad9cc6e2/res/3ce62d68-9a4d-4626-9c82-0d6345a5fd46/1409640582929.png?resizeSmall&amp;amp;width=832&quot; style=&quot;border: 0; margin-top: 0px; max-width: 100%;&quot;/&gt;&lt;/p&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;简单来说就是：在normal distribution（正态分布）中，99.73%的数据都在偏离mean 3个σ (standard deviation 标准差) 的范围内。如果某些datapoint到mean的距离超过这个范围，则认为是异常的。Skyline初始内置的7个算法几乎都是基于该理论的：&lt;/p&gt;
 &lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;stddev_from_average&lt;/h2&gt;
 &lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 0; display: block; background: #23241f; margin-top: 0px;&quot;&gt;&lt;span style=&quot;color: #F92672; margin-top: 0px;&quot;&gt;&lt;span style=&quot;color: #66d9ef; margin-top: 0px;&quot;&gt;def&lt;/span&gt; &lt;span style=&quot;color: #a6e22e;&quot;&gt;stddev_from_average&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2;&quot;&gt;(timeseries)&lt;/span&gt;:&lt;/span&gt;
@@ -403,7 +511,7 @@ EWMA(i) = α * p(i) + (&lt;span style=&quot;color: #ae81ff;&quot;&gt;1&lt;/span&
 &lt;/blockquote&gt;&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;现在算法很好理解了：求出序列的MAD，看最后datapoint与MAD的距离是否 &amp;gt; 6个MAD。同样的，这里用最后一个datapoint判定，依然存在之前提到的问题；其次，6 是个“magic number”，需要根据自己metrics数据特点调整。&lt;/p&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;该算法的优势在于对异常更加敏感：假设metric突然变很高并保持一段时间，基于标准差的算法可能在异常出现较短时间后即判断为正常，因为少量outlier对标准差的计算是有影响的；而计算MAD时，若异常datapoint较少会直接忽略，因此感知异常的时间会更长。&lt;/p&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;但正如Median的局限性，该算法对于由多个cluster组成的数据集，即数据分布在几个差距较大的区间内，效果很差，很容易误判。比如下图：&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;img alt=&quot;Alt text&quot; class=&quot;en-media&quot; longdesc=&quot;./1409641576810.png&quot; name=&quot;6cf349c1-221b-4238-90bc-3dcf26e03b6e&quot; src=&quot;/assets/img/5feab8dcfcc970bb9a568cccc928fe69.png&quot; style=&quot;border: 0; margin-top: 0px; max-width: 100%;&quot;/&gt;&lt;/p&gt;
+&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;&lt;img alt=&quot;Alt text&quot; class=&quot;en-media&quot; longdesc=&quot;./1409641576810.png&quot; name=&quot;6cf349c1-221b-4238-90bc-3dcf26e03b6e&quot; src=&quot;https://www.evernote.com/shard/s133/sh/e48b3f98-0360-4460-9423-e4b7bfcb3d8c/1ebbe14c822a78d2669c3712ad9cc6e2/res/6cf349c1-221b-4238-90bc-3dcf26e03b6e/1409641576810.png?resizeSmall&amp;amp;width=832&quot; style=&quot;border: 0; margin-top: 0px; max-width: 100%;&quot;/&gt;&lt;/p&gt;
 &lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;该曲线在两个区间内来回震荡，此时median为58，如红线所示。MAD计算则为9，很明显均不能准确描述数据集，最后节点的deviation=55，此时误判了。&lt;/p&gt;
 &lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;参考资料&lt;/h2&gt;
 &lt;ul style=&quot;margin-top: 0; margin-bottom: 10px; line-height: 1.6;&quot;&gt;
@@ -711,7 +819,7 @@ end &lt;span style=&quot;color: #F92672;&quot;&gt;for&lt;/span&gt;
       <guid>http://novoland.github.io/jvm/2014/07/27/gc</guid>
       <description>&lt;p&gt; 以前写过的一个 ppt，关于 GC 的。 &lt;/p&gt;
 
-&lt;script async class=&quot;speakerdeck-embed&quot; data-id=&quot;c10db6507f000130879e1231381969d1&quot; data-ratio=&quot;1.33333333333333&quot; src=&quot;http://speakerdeck.com/assets/embed.js&quot;&gt;&lt;/script&gt;</description>
+&lt;iframe width=&quot;100%&quot; height=&quot;578&quot; src=&quot;http://slideonline.com/embed/17901&quot; scrollbars=no scrolling=no webkitAllowFullScreen mozallowfullscreen allowFullScreen&gt;&lt;/iframe&gt;</description>
     </item>
     
     <item>
@@ -721,138 +829,6 @@ end &lt;span style=&quot;color: #F92672;&quot;&gt;for&lt;/span&gt;
       <author>克鲁斯卡尔</author>
       <guid>http://novoland.github.io/%E7%BD%91%E7%BB%9C/2014/07/26/高性能网络通讯笔记</guid>
       <description>&lt;div&gt;&lt;/div&gt;</description>
-    </item>
-    
-    <item>
-      <title>二叉树的各种遍历</title>
-      <link>http://novoland.github.io/%E7%AE%97%E6%B3%95/2014/07/26/%E9%9D%9E%E9%80%92%E5%BD%92%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86.html</link>
-      <pubDate>26 Jul 2014</pubDate>
-      <author>克鲁斯卡尔</author>
-      <guid>http://novoland.github.io/%E7%AE%97%E6%B3%95/2014/07/26/非递归的二叉树遍历</guid>
-      <description>&lt;div style=&quot;line-height: 1.6; font-family: Helvetica Neue, Arial, Hiragino Sans GB, STHeiti, Microsoft YaHei, WenQuanYi Micro Hei, SimSun, Song, sans-serif;&quot;&gt;
-&lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;1. 先序/后序/中序遍历&lt;/h2&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;递归版本的就不谈了，主要看非递归版本。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;首先定义一个术语 &lt;strong style=&quot;font-weight: bold;&quot;&gt;左路径&lt;/strong&gt;，它指的是从某个节点开始（包括该节点），沿着左孩子向下走直到叶子节点，所形成的路径。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;3个顺序的遍历都遵循以下代码框架：&lt;/p&gt;
-&lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap; background: transparent;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 8px; display: block; background: #23241f; margin: 0 4px;&quot;&gt;Node root = ... ;
-
-&lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(root != null){        &lt;span style=&quot;color: #75715e;&quot;&gt;// 1. 用以 root 为起点的左路径初始化栈&lt;/span&gt;
-    &lt;span style=&quot;color: #e6db74;&quot;&gt;stack&lt;/span&gt;.push(root);
-    root = root.left;
-}
-
-&lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(&lt;span style=&quot;color: #e6db74;&quot;&gt;stack&lt;/span&gt;不为空){         &lt;span style=&quot;color: #75715e;&quot;&gt;// 当栈不为空，循环：&lt;/span&gt;
-    Node n = &lt;span style=&quot;color: #e6db74;&quot;&gt;stack&lt;/span&gt;.pop();   &lt;span style=&quot;color: #75715e;&quot;&gt;// 2. 从栈中 pop 一个节点出来&lt;/span&gt;
-
-    Node tmp = n.right;     &lt;span style=&quot;color: #75715e;&quot;&gt;// 3. 将该节点 *右孩子* 的左路径入栈&lt;/span&gt;
-    &lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(tmp != null){
-        &lt;span style=&quot;color: #e6db74;&quot;&gt;stack&lt;/span&gt;.push(tmp);
-        tmp = tmp.left;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;简单来说就是下面两步：&lt;/p&gt;
-&lt;ol style=&quot;margin-top: 0; margin-bottom: 10px; line-height: 1.6;&quot;&gt;
-&lt;li style=&quot;line-height: 1.6;&quot;&gt;用根的左路径初始化栈；&lt;/li&gt;
-&lt;li style=&quot;line-height: 1.6;&quot;&gt;循环从栈中 pop 节点，并将该节点&lt;strong style=&quot;font-weight: bold;&quot;&gt;右孩子的左路径&lt;/strong&gt;入栈&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;其实就是 &lt;strong style=&quot;font-weight: bold;&quot;&gt;深度优先遍历&lt;/strong&gt; 的思路，只在一些细节地方不同。是不是很简单呢？&lt;/p&gt;
-&lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;先序和中序&lt;/h3&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;先序遍历的过程中，每个节点的访问时机是在节点 &lt;strong style=&quot;font-weight: bold;&quot;&gt;入栈&lt;/strong&gt; 时，因此对上述代码框架，在两处 push 处加上对节点的访问逻辑即可。&lt;/p&gt;
-&lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap; background: transparent;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 8px; display: block; background: #23241f; margin: 0 4px;&quot;&gt;Stack&amp;lt;TreeNode&amp;gt; s = &lt;span style=&quot;color: #F92672;&quot;&gt;new&lt;/span&gt; Stack&amp;lt;TreeNode&amp;gt;();
-
-&lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(root != &lt;span style=&quot;color: #F92672;&quot;&gt;null&lt;/span&gt;){
-    visit(root);    &lt;span style=&quot;color: #75715e;&quot;&gt;// &amp;lt;-- 1 visit when push&lt;/span&gt;
-    s.push(root);
-    root = root.left;
-}
-
-&lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(!s.isEmpty()){
-    TreeNode tmp = s.pop();
-
-    tmp = tmp.right;
-    &lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(tmp != &lt;span style=&quot;color: #F92672;&quot;&gt;null&lt;/span&gt;){
-        visit(tmp); &lt;span style=&quot;color: #75715e;&quot;&gt;// &amp;lt;-- 2 visit when push&lt;/span&gt;
-        s.push(tmp);
-        tmp = tmp.left;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;对于中序，每个节点的访问时机是在节点 &lt;strong style=&quot;font-weight: bold;&quot;&gt;出栈&lt;/strong&gt; 时，因此应当在 while 循环内每次 pop 时对节点进行访问。&lt;/p&gt;
-&lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap; background: transparent;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 8px; display: block; background: #23241f; margin: 0 4px;&quot;&gt;Stack&amp;lt;TreeNode&amp;gt; s = &lt;span style=&quot;color: #F92672;&quot;&gt;new&lt;/span&gt; Stack&amp;lt;TreeNode&amp;gt;();
-
-&lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(root != &lt;span style=&quot;color: #F92672;&quot;&gt;null&lt;/span&gt;){
-    s.push(root);
-    root = root.left;
-}
-
-&lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(!s.isEmpty()){
-    TreeNode tmp = s.pop();
-    visit(tmp);  &lt;span style=&quot;color: #75715e;&quot;&gt;// &amp;lt;-- visit when pop&lt;/span&gt;
-
-    tmp = tmp.right;
-    &lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(tmp != &lt;span style=&quot;color: #F92672;&quot;&gt;null&lt;/span&gt;){
-        s.push(tmp);
-        tmp = tmp.left;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 24px;&quot;&gt;后序&lt;/h3&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;后序稍微复杂一些，当一个节点从 stack pop 出来时，意味着 &lt;strong style=&quot;font-weight: bold;&quot;&gt;它的左子树已经访问完毕&lt;/strong&gt; 了，先序和中序此时都可以直接去处理它的右子树；但是后序遍历要求访问完它的右子树后，再访问该节点。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;因此对于后序遍历，节点第一次出栈时，必须将其重新入栈，再走后续流程（将右孩子的左路径入栈）；当节点第二次出栈，说明 &lt;strong style=&quot;font-weight: bold;&quot;&gt;它的右子树也访问完了&lt;/strong&gt;，这时才可以访问该节点。所以，对每个节点都必须用一个额外的标志位，记录它是初次还是第二次出栈。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;代码如下：&lt;/p&gt;
-&lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap; background: transparent;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 8px; display: block; background: #23241f; margin: 0 4px;&quot;&gt;Stack&amp;lt;TreeNode&amp;gt; s = &lt;span style=&quot;color: #F92672;&quot;&gt;new&lt;/span&gt; Stack&amp;lt;TreeNode&amp;gt;();
-
-&lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(root != &lt;span style=&quot;color: #F92672;&quot;&gt;null&lt;/span&gt;){
-    s.push(root);
-    root = root.left;
-}
-
-&lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(!s.isEmpty()){
-    TreeNode tmp = s.pop();
-
-    &lt;span style=&quot;color: #F92672;&quot;&gt;if&lt;/span&gt;(tmp.poped){          &lt;span style=&quot;color: #75715e;&quot;&gt;// 1. 如果是第二次出栈，访问它&lt;/span&gt;
-        visit(tmp);
-    }&lt;span style=&quot;color: #F92672;&quot;&gt;else&lt;/span&gt;{
-        tmp.poped = &lt;span style=&quot;color: #F92672;&quot;&gt;true&lt;/span&gt;;   &lt;span style=&quot;color: #75715e;&quot;&gt;// 2. 如果是第一次出栈，标记并重新入栈&lt;/span&gt;
-        s.push(tmp);
-
-        tmp = tmp.right;
-        &lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(tmp != &lt;span style=&quot;color: #F92672;&quot;&gt;null&lt;/span&gt;){
-            s.push(tmp);
-            tmp = tmp.left;
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 style=&quot;font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;&quot;&gt;2. 层序遍历&lt;/h2&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;基本的层序遍历用一个队列，循环出队并将其左右孩子依次入队，比较简单。&lt;/p&gt;
-&lt;p style=&quot;margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;&quot;&gt;如果要区分每一行，则可以用一个标记节点标记一行的结束。遍历的过程中，如果出队的是标记节点，说明已经访问完了一行；此外也意味着这一行的孩子都已入队，标记节点应当重新入队。队列为空时遍历完成。&lt;/p&gt;
-&lt;pre style=&quot;overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap; background: transparent;&quot; xml:space=&quot;preserve&quot;&gt;&lt;code style=&quot;font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 8px; display: block; background: #23241f; margin: 0 4px;&quot;&gt;TreeNode mark = &lt;span style=&quot;color: #F92672;&quot;&gt;new&lt;/span&gt; TreeNode(&lt;span style=&quot;color: #ae81ff;&quot;&gt;0&lt;/span&gt;);        &lt;span style=&quot;color: #75715e;&quot;&gt;// 行末标记&lt;/span&gt;
-
-LinkedList&amp;lt;TreeNode&amp;gt; q = &lt;span style=&quot;color: #F92672;&quot;&gt;new&lt;/span&gt; LinkedList&amp;lt;TreeNode&amp;gt;();
-q.add(root);
-q.add(mark);
-
-List&amp;lt;Integer&amp;gt; row = &lt;span style=&quot;color: #F92672;&quot;&gt;new&lt;/span&gt; LinkedList&amp;lt;Integer&amp;gt;();
-List&amp;lt;List&amp;lt;Integer&amp;gt;&amp;gt; rows = &lt;span style=&quot;color: #F92672;&quot;&gt;new&lt;/span&gt; LinkedList&amp;lt;List&amp;lt;Integer&amp;gt;&amp;gt; ();
-
-&lt;span style=&quot;color: #F92672;&quot;&gt;while&lt;/span&gt;(!q.isEmpty()){
-    TreeNode n = q.removeFirst();
-
-    &lt;span style=&quot;color: #F92672;&quot;&gt;if&lt;/span&gt;(n == mark){                  &lt;span style=&quot;color: #75715e;&quot;&gt;// 碰到行末标记了&lt;/span&gt;
-        rows.add(row);              &lt;span style=&quot;color: #75715e;&quot;&gt;// 说明访问完了一行&lt;/span&gt;
-        &lt;span style=&quot;color: #F92672;&quot;&gt;if&lt;/span&gt;(q.isEmpty()) &lt;span style=&quot;color: #F92672;&quot;&gt;break&lt;/span&gt;;      &lt;span style=&quot;color: #75715e;&quot;&gt;// 队列为空则遍历完成&lt;/span&gt;
-        q.add(mark);                &lt;span style=&quot;color: #75715e;&quot;&gt;// 这一行的全部孩子也已入队，将标记节点重新入队&lt;/span&gt;
-        row = &lt;span style=&quot;color: #F92672;&quot;&gt;new&lt;/span&gt; LinkedList&amp;lt;Integer&amp;gt;();
-    }&lt;span style=&quot;color: #F92672;&quot;&gt;else&lt;/span&gt;{
-        row.add(n.val);
-        &lt;span style=&quot;color: #F92672;&quot;&gt;if&lt;/span&gt;(n.left != &lt;span style=&quot;color: #F92672;&quot;&gt;null&lt;/span&gt;) q.add(n.left);
-        &lt;span style=&quot;color: #F92672;&quot;&gt;if&lt;/span&gt;(n.right != &lt;span style=&quot;color: #F92672;&quot;&gt;null&lt;/span&gt;) q.add(n.right);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</description>
     </item>
     
   </channel>
