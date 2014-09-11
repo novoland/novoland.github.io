@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
+
+    <title>ThreadLocal 分析</title>
+    <meta name="description" content="">
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
+  </head>
+  <body>
+    <aside id="sidebar">
+      <nav id="tags">
+        <a href="/index.html" id="avatar"></a>
+
+        <ul id="tags__ul">
+          <li id="js-label1" class="tags__li tags-btn active">所有文章 <span class="post_count"></span></li>
+          <li id="js-label2" class="tags__li tags-btn">并发<span class="post_count"></span></li>
+          <li id="js-label3" class="tags__li tags-btn">jvm<span class="post_count"></span></li>
+          <li id="js-label4" class="tags__li tags-btn">算法<span class="post_count"></span></li>
+          <li id="js-label5" class="tags__li tags-btn">数据库<span class="post_count"></span></li>
+          <li id="js-label6" class="tags__li tags-btn">cache<span class="post_count"></span></li>
+          <li id="js-label7" class="tags__li tags-btn">c和os<span class="post_count"></span></li>
+          <li id="js-label8" class="tags__li tags-btn">网络<span class="post_count"></span></li>
+          <li id="js-label9" class="tags__li tags-btn">工作<span class="post_count"></span></li>
+        </ul>
+
+        <div id="tags__bottom">
+          <a href="mailto:novohust@163.com" id="icon-email" class="tags-btn fontello"></a>
+          <a href="/rss.xml" id="icon-feed" class="tags-btn fontello"></a>
+        </div>
+      </nav> <!-- end #tags -->
+
+      <div id="posts-list">
+        <form action="" id="search-form">
+          <a href="/index.html" id="mobile-avatar"></a>
+          <!-- NOTE: input field is disabled by default -->
+          <input id="search-input" type="text" placeholder="Search..." disabled >
+        </form>
+
+        <nav id="pl__container">
+        
+          <a class="并发 pl__all" href="/%E5%B9%B6%E5%8F%91/2014/09/11/ThreadLocal%20%E5%88%86%E6%9E%90.html"><span class="pl__circle"></span><span class="pl__title">ThreadLocal 分析</span><span class="pl__date">Sep 2014</span></a>
+        
+          <a class="工作 pl__all" href="/%E5%B7%A5%E4%BD%9C/2014/09/04/MapReduce%20Algorithms.html"><span class="pl__circle"></span><span class="pl__title">MapReduce Algorithms</span><span class="pl__date">Sep 2014</span></a>
+        
+          <a class="网络 pl__all" href="/%E7%BD%91%E7%BB%9C/2014/09/03/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF%E7%AC%94%E8%AE%B0.html"><span class="pl__circle"></span><span class="pl__title">高性能网络通讯笔记</span><span class="pl__date">Sep 2014</span></a>
+        
+          <a class="工作 pl__all" href="/%E5%B7%A5%E4%BD%9C/2014/09/03/Skyline%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90.html"><span class="pl__circle"></span><span class="pl__title">Skyline监控系统工作原理分析</span><span class="pl__date">Sep 2014</span></a>
+        
+          <a class="工作 pl__all" href="/%E5%B7%A5%E4%BD%9C/2014/09/03/Skyline%20timeseries%E5%BC%82%E5%B8%B8%E5%88%A4%E5%AE%9A%E7%AE%97%E6%B3%95.html"><span class="pl__circle"></span><span class="pl__title">Skyline timeseries异常判定算法</span><span class="pl__date">Sep 2014</span></a>
+        
+          <a class="算法 pl__all" href="/%E7%AE%97%E6%B3%95/2014/08/05/%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93.html"><span class="pl__circle"></span><span class="pl__title">排序总结</span><span class="pl__date">Aug 2014</span></a>
+        
+          <a class="算法 pl__all" href="/%E7%AE%97%E6%B3%95/2014/08/05/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F.html"><span class="pl__circle"></span><span class="pl__title">快速排序</span><span class="pl__date">Aug 2014</span></a>
+        
+          <a class="算法 pl__all" href="/%E7%AE%97%E6%B3%95/2014/08/05/%E5%87%A0%E4%B8%AA%E5%B8%B8%E8%A7%81%E7%9A%84%E6%A6%82%E7%8E%87%E9%97%AE%E9%A2%98.html"><span class="pl__circle"></span><span class="pl__title">几个常见的概率问题</span><span class="pl__date">Aug 2014</span></a>
+        
+          <a class="网络 pl__all" href="/%E7%BD%91%E7%BB%9C/2014/07/31/%E5%B8%B8%E8%A7%81%E7%9A%84HTTP%E7%8A%B6%E6%80%81%E7%A0%81.html"><span class="pl__circle"></span><span class="pl__title">常见的HTTP状态码</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="算法 pl__all" href="/%E7%AE%97%E6%B3%95/2014/07/28/BloomFilter.html"><span class="pl__circle"></span><span class="pl__title">BloomFilter</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="jvm pl__all" href="/jvm/2014/07/27/gc.html"><span class="pl__circle"></span><span class="pl__title">JVM GC调优</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="网络 pl__all" href="/%E7%BD%91%E7%BB%9C/2014/07/26/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF%E7%AC%94%E8%AE%B0.html"><span class="pl__circle"></span><span class="pl__title">高性能网络通讯笔记</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="算法 pl__all" href="/%E7%AE%97%E6%B3%95/2014/07/26/%E9%9D%9E%E9%80%92%E5%BD%92%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86.html"><span class="pl__circle"></span><span class="pl__title">二叉树的各种遍历</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="网络 pl__all" href="/%E7%BD%91%E7%BB%9C/2014/07/26/%E9%93%BE%E8%B7%AF%E5%B1%82%20%E7%BD%91%E7%BB%9C%E5%B1%82%20UDP%20IO%E6%A8%A1%E5%9E%8B.html"><span class="pl__circle"></span><span class="pl__title">链路层 网络层 UDP IO模型</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="算法 pl__all" href="/%E7%AE%97%E6%B3%95/2014/07/26/%E8%B4%9D%E5%8F%B6%E6%96%AF.html"><span class="pl__circle"></span><span class="pl__title">贝叶斯</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="算法 pl__all" href="/%E7%AE%97%E6%B3%95/2014/07/26/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98.html"><span class="pl__circle"></span><span class="pl__title">背包问题</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="c和os pl__all" href="/c%E5%92%8Cos/2014/07/26/%E7%BD%91%E5%8D%A1%E4%B8%AD%E6%96%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1.html"><span class="pl__circle"></span><span class="pl__title">网卡中断负载均衡</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="算法 pl__all" href="/%E7%AE%97%E6%B3%95/2014/07/26/%E7%BA%BF%E6%AE%B5%E6%A0%91.html"><span class="pl__circle"></span><span class="pl__title">线段树</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="算法 pl__all" href="/%E7%AE%97%E6%B3%95/2014/07/26/%E6%A1%B6%E6%8E%92%E5%BA%8F%E5%9C%A8%E6%8E%92%E8%A1%8C%E6%A6%9C%E9%97%AE%E9%A2%98%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8.html"><span class="pl__circle"></span><span class="pl__title">桶排序在排行榜问题中的应用</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="算法 pl__all" href="/%E7%AE%97%E6%B3%95/2014/07/26/%E5%B9%B6%E6%9F%A5%E9%9B%86.html"><span class="pl__circle"></span><span class="pl__title">并查集</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="并发 pl__all" href="/%E5%B9%B6%E5%8F%91/2014/07/26/%E5%B9%B6%E5%8F%91%E9%9B%86%E5%90%88.html"><span class="pl__circle"></span><span class="pl__title">并发集合</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="并发 pl__all" href="/%E5%B9%B6%E5%8F%91/2014/07/26/%E5%AE%9A%E6%97%B6%E5%99%A8%EF%BC%88Timer%EF%BC%89%E7%9A%84%E5%AE%9E%E7%8E%B0.html"><span class="pl__circle"></span><span class="pl__title">定时器（Timer）的实现</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="算法 pl__all" href="/%E7%AE%97%E6%B3%95/2014/07/26/%E5%A0%86.html"><span class="pl__circle"></span><span class="pl__title">堆</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="算法 pl__all" href="/%E7%AE%97%E6%B3%95/2014/07/26/%E5%9B%9E%E6%BA%AF.html"><span class="pl__circle"></span><span class="pl__title">回溯</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="算法 pl__all" href="/%E7%AE%97%E6%B3%95/2014/07/26/%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%B4%A2%E5%BC%95%E6%A0%91(%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84).html"><span class="pl__circle"></span><span class="pl__title">二进制索引树(树状数组)</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="网络 pl__all" href="/%E7%BD%91%E7%BB%9C/2014/07/26/TCP.html"><span class="pl__circle"></span><span class="pl__title">TCP</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="网络 pl__all" href="/%E7%BD%91%E7%BB%9C/2014/07/26/RST%E5%8F%8Ajava%20socket%E5%85%B3%E9%97%AD%E5%90%8E%E8%AF%BB%E5%86%99%E7%9A%84%E5%90%84%E7%A7%8D%E5%BC%82%E5%B8%B8.html"><span class="pl__circle"></span><span class="pl__title">RST及java socket关闭后读写的各种异常</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="网络 pl__all" href="/%E7%BD%91%E7%BB%9C/2014/07/26/Netty3%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90.html"><span class="pl__circle"></span><span class="pl__title">Netty3 源码分析</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="网络 pl__all" href="/%E7%BD%91%E7%BB%9C/2014/07/26/Netty3%204%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%8C%BA%E5%88%AB.html"><span class="pl__circle"></span><span class="pl__title">Netty3 4线程模型的区别</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="数据库 pl__all" href="/%E6%95%B0%E6%8D%AE%E5%BA%93/2014/07/26/MySQL%E6%80%BB%E7%BB%93.html"><span class="pl__circle"></span><span class="pl__title">MySQL总结</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="c和os pl__all" href="/c%E5%92%8Cos/2014/07/26/Mode%20Switch%20%E5%92%8C%20Context%20Switch.html"><span class="pl__circle"></span><span class="pl__title">Mode Switch 和 Context Switch</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="并发 pl__all" href="/%E5%B9%B6%E5%8F%91/2014/07/26/Lock-Free%20%E7%AE%97%E6%B3%95.html"><span class="pl__circle"></span><span class="pl__title">Lock-Free 算法</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="算法 pl__all" href="/%E7%AE%97%E6%B3%95/2014/07/26/LCA%20%E5%92%8C%20RMQ.html"><span class="pl__circle"></span><span class="pl__title">LCA 和 RMQ</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="算法 pl__all" href="/%E7%AE%97%E6%B3%95/2014/07/26/KMP.html"><span class="pl__circle"></span><span class="pl__title">KMP</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="并发 pl__all" href="/%E5%B9%B6%E5%8F%91/2014/07/26/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.html"><span class="pl__circle"></span><span class="pl__title">Java内存模型</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="并发 pl__all" href="/%E5%B9%B6%E5%8F%91/2014/07/26/Java%20%E5%B9%B6%E5%8F%91%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86.html"><span class="pl__circle"></span><span class="pl__title">Java 并发基本知识</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="cache pl__all" href="/cache/2014/07/26/Http%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84cache%E6%9C%BA%E5%88%B6.html"><span class="pl__circle"></span><span class="pl__title">Http协议中的cache机制</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="算法 pl__all" href="/%E7%AE%97%E6%B3%95/2014/07/26/Hash%20&%20Rabin-Karp%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95.html"><span class="pl__circle"></span><span class="pl__title">Hash & Rabin-Karp字符串查找算法</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="并发 pl__all" href="/%E5%B9%B6%E5%8F%91/2014/07/26/Executor%20%E4%B9%8B%20%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8F%8A%E5%AE%9A%E6%97%B6%E5%99%A8.html"><span class="pl__circle"></span><span class="pl__title">Executor 之 线程池及定时器</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="c和os pl__all" href="/c%E5%92%8Cos/2014/07/26/C%E6%80%BB%E7%BB%93%20+%20%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98.html"><span class="pl__circle"></span><span class="pl__title">C总结 + 虚拟内存</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="cache pl__all" href="/cache/2014/07/26/Cache%20%E7%9B%B8%E5%85%B3%E7%90%86%E8%AE%BA.html"><span class="pl__circle"></span><span class="pl__title">Cache 相关理论</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="c和os pl__all" href="/c%E5%92%8Cos/2014/07/26/CPU%20Cache%20%E4%B8%8E%20%E5%AD%98%E5%82%A8%E5%99%A8%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84.html"><span class="pl__circle"></span><span class="pl__title">CPU Cache 与 存储器层次结构</span><span class="pl__date">Jul 2014</span></a>
+        
+          <a class="并发 pl__all" href="/%E5%B9%B6%E5%8F%91/2014/07/26/AQS%20%E5%92%8C%20%E9%AB%98%E7%BA%A7%E5%90%8C%E6%AD%A5%E5%99%A8.html"><span class="pl__circle"></span><span class="pl__title">AQS 和 高级同步器</span><span class="pl__date">Jul 2014</span></a>
+        
+        </nav>
+      </div> <!-- end #posts-list -->
+    </aside> <!-- end #sidebar -->
+
+    <div id="post">
+      <div id="pjax">
+        <article id="post__content">
+  <h1 id="post__title" data-identifier="20140911">ThreadLocal 分析</h1>
+  <div style="line-height: 1.6; font-family: Helvetica Neue, Arial, Hiragino Sans GB, STHeiti, Microsoft YaHei, WenQuanYi Micro Hei, SimSun, Song, sans-serif;">
+<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">从功能上来说，它类似一个全局的Map，key是线程。不同线程get时拿到的都是专属于自己的那个对象，互相隔离，完全不存在并发问题。</p>
+<h2 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;">典型的使用方式</h2>
+<pre style="overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap;" xml:space="preserve"><code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 0; display: block; background: #23241f; margin-top: 0px;"><span style="color: #75715e; margin-top: 0px;">// 摘自 j.u.c.ThreadLocalRandom</span>
+<span style="color: #F92672;">private</span> <span style="color: #F92672;">static</span> final ThreadLocal&lt;ThreadLocalRandom&gt; localRandom =  <span style="color: #75715e;">// ThreadLocal对象都是static的，全局共享</span>
+    <span style="color: #F92672;">new</span> ThreadLocal&lt;ThreadLocalRandom&gt;() {      <span style="color: #75715e;">// 初始值</span>
+        <span style="color: #F92672;">protected</span> ThreadLocalRandom <span style="color: #a6e22e;">initialValue</span>() {
+            <span style="color: #F92672;">return</span> <span style="color: #F92672;">new</span> ThreadLocalRandom();
+        }
+};
+
+localRandom.<span style="color: #F92672;">get</span>();      <span style="color: #75715e;">// 拿当前线程对应的对象</span>
+localRandom.put(...);   <span style="color: #75715e;">// put</span>
+</code></pre>
+<h2 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;">典型使用场景</h2>
+<ol style="margin-top: 0; margin-bottom: 10px; line-height: 1.6;">
+<li style="line-height: 1.6; margin-top: 0px;">用空间换并发度；</li>
+<li style="line-height: 1.6;">在线程范围内传参，如 hibernate 的 session；</li>
+</ol>
+<h2 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;">实现</h2>
+<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">一个非常自然想法是用一个线程安全的 <code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin-top: 0px;">Map&lt;Thread,Object&gt;</code> 实现：</p>
+<pre style="overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap;" xml:space="preserve"><code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 0; display: block; background: #23241f; margin-top: 0px;">class ThreadLocal { 
+  <span style="color: #F92672; margin-top: 0px;">private</span> Map values = Collections.synchronizedMap(<span style="color: #F92672;">new</span> HashMap());
+
+  <span style="color: #F92672;">public</span> Object <span style="color: #a6e22e;">get</span>() {
+    Thread curThread = Thread.currentThread();
+    Object o = values.<span style="color: #F92672;">get</span>(curThread);
+    <span style="color: #F92672;">if</span> (o == <span style="color: #F92672;">null</span> &amp;&amp; !values.containsKey(curThread)) {
+      o = initialValue();
+      values.put(curThread, o);
+    }
+    <span style="color: #F92672;">return</span> o;
+  }
+
+  <span style="color: #F92672;">public</span> <span style="color: #F92672;">void</span> <span style="color: #a6e22e;">set</span>(Object newValue) {
+    values.put(Thread.currentThread(), newValue);
+  }
+}
+</code></pre>
+<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">但这是非常naive的：</p>
+<ol style="margin-top: 0; margin-bottom: 10px; line-height: 1.6;">
+<li style="line-height: 1.6; margin-top: 0px;"><code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin-top: 0px;">ThreadLocal</code>本意是避免并发，用一个全局Map显然违背了这一初衷；</li>
+<li style="line-height: 1.6;">用<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin-top: 0px;">Thread</code>当key，除非手动调用<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px;">remove</code>，否则即使线程退出了 1)该<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px;">Thread</code>对象无法回收； 2)该线程在所有<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px;">ThreadLocal</code>中对应的value也无法回收。</li>
+</ol>
+<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">JDK 的实现刚好是反过来的：<br style="margin-top: 0px;"/><img alt="Alt text" class="en-media" longdesc="./1404916039768.png" name="7adc9cbf-24e8-4274-887c-45862c1925c5" src="/assets/img/3603e633a6095f8aaf63273ed133a2e8.png" style="border: 0; max-width: 100%; border-radius: 8px;"/></p>
+<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">每个Thread对象内都存在一个<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin-top: 0px;">ThreadLocal.ThreadLocalMap</code>对象，保存着该线程所有用到的<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px;">ThreadLocal</code>及其value。</p>
+<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin-top: 0px;">ThreadLocalMap</code>是定义在<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px;">ThreadLocal</code>类内部的私有类，它是采用“开放定址法”解决冲突的hashmap。key是<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px;">ThreadLocal</code>对象。当调用某个<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px;">ThreadLocal</code>对象的<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px;">get</code>或<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px;">put</code>方法时，首先会从当前线程中取出ThreadLocalMap，然后查找对应的value：</p>
+<pre style="overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap;" xml:space="preserve"><code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 0; display: block; background: #23241f; margin-top: 0px;"><span style="color: #F92672; margin-top: 0px;">public</span> T <span style="color: #a6e22e;">get</span>() {
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = getMap(t);     <span style="color: #75715e;">//拿到当前线程的ThreadLocalMap</span>
+    <span style="color: #F92672;">if</span> (map != <span style="color: #F92672;">null</span>) {
+        ThreadLocalMap.Entry e = map.getEntry(<span style="color: #F92672;">this</span>);    <span style="color: #75715e;">// 以该ThreadLocal对象为key取value</span>
+        <span style="color: #F92672;">if</span> (e != <span style="color: #F92672;">null</span>)
+            <span style="color: #F92672;">return</span> (T)e.<span style="color: #F92672;">value</span>;
+    }
+    <span style="color: #F92672;">return</span> setInitialValue();
+}
+ThreadLocalMap getMap(Thread t) {
+    <span style="color: #F92672;">return</span> t.threadLocals;
+}
+</code></pre>
+<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">现在来看看它的哈希策略。所有<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin-top: 0px;">ThreadLocal</code>对象共享一个<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px;">AtomicInteger</code>对象<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px;">nextHashCode</code>用于计算hashcode，一个新对象产生时它的hashcode就确定了，算法是从0开始，以<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px;">HASH_INCREMENT = 0x61c88647</code>为间隔递增，这是<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px;">ThreadLocal</code>唯一需要同步的地方。根据hashcode定位桶的算法是将其与数组长度-1进行与操作：<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px;">key.threadLocalHashCode &amp; (table.length - 1)</code>。</p>
+<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin-top: 0px;">0x61c88647</code>这个魔数是怎么确定的呢？</p>
+<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin-top: 0px;">ThreadLocalMap</code>的初始长度为16，每次扩容都增长为原来的2倍，即它的长度始终是2的n次方，上述算法中使用<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px;">0x61c88647</code>可以让hash的结果在2的n次方内尽可能均匀分布，减少冲突的概率。具体原因我也不知道，不过这是一个好的参考。</p>
+<h2 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 30px; margin-bottom: 20px; font-size: 30px;">内存管理</h2>
+<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;"><code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin-top: 0px;">ThreadLocalMap.Entry</code>继承自<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px;">WeakReference</code>，是 key（ThreadLocal 对象） 和 value 的容器：</p>
+<pre style="overflow: initial; font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 14px; display: block; padding: 0; margin: 0 0 10px; line-height: 1.6; word-break: break-all; word-wrap: break-word; color: #333333; background-color: #f5f5f5; border: none; border-radius: 0; white-space: pre-wrap;" xml:space="preserve"><code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: inherit; padding: 1em; color: #f8f8f2; background-color: transparent; white-space: pre-wrap; border-radius: 0; display: block; background: #23241f; margin-top: 0px;"><span style="color: #F92672; margin-top: 0px;">static</span> <span><span style="color: #66d9ef; margin-top: 0px;">class</span> <span style="color: #f8f8f2;">Entry</span> <span style="color: #F92672;">extends</span> <span style="color: #f8f8f2;">WeakReference</span>&lt;<span style="color: #a6e22e; font-style: italic;">ThreadLocal</span>&gt; </span>{
+    <span style="color: #75715e;">/** The value associated with this ThreadLocal. */</span>
+    Object value;
+
+    Entry(ThreadLocal k, Object v) {
+        super(k);
+        value = v;
+    }
+}
+</code></pre>
+<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">一旦某个<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin-top: 0px;">ThreadLocal</code>对象没有强引用了，它在所有线程内部的<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px;">ThreadLocalMap</code>中的key都将被GC掉（此时value还未回收），在map后续的<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px;">get/set</code>中会探测到key被回收的entry，将其 value 设置为 null 以帮助GC，因此 value 在 key 被 GC 后可能还会存活一段时间，但最终也会被回收。这个过程和<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px;">java.util.WeakHashMap</code>的实现几乎是一样的。</p>
+<p style="margin: 0 0 10px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">因此<code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px; margin-top: 0px;">ThreadLocal</code>本身是没有内存泄露问题的，通常由它引发的内存泄露问题都是线程只 put 而忘了 remove 导致的，从上面分析可知，即使线程退出了，只要 <code style="font-family: Menlo, Monaco, Consolas, Courier New, monospace; font-size: 90%; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: nowrap; border-radius: 4px;">ThreadLocal</code> 还有强引用，该线程曾经 put 过的东西是不会被回收掉的（如果是 naive 的那种实现方式倒可以实现）。</p>
+</div>
+</article> <!-- end #post__content -->
+
+<div id="post__share">
+  <a id="icon-twitter" class="fontello" href="https://twitter.com/intent/tweet?url=http://novoland.github.io/%E5%B9%B6%E5%8F%91/2014/09/11/ThreadLocal%20%E5%88%86%E6%9E%90.html&text=ThreadLocal 分析" target="_blank"></a>
+  <a id="icon-cc" class="fontello" href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"></a>
+  <a id="icon-weibo" class="fontello" href="http://v.t.sina.com.cn/share/share.php?url=http://novoland.github.io/%E5%B9%B6%E5%8F%91/2014/09/11/ThreadLocal%20%E5%88%86%E6%9E%90.html&title=ThreadLocal 分析" target="_blank"></a>
+</div> <!-- end #post__share -->
+
+<div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink" target="_blank">Loading Disqus comments...</a>
+</div> <!-- end #disqus_thread -->
+
+<p id="copyright">Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Theme <a href="https://github.com/P233/3-Jekyll" target="_blank">3-Jekyll</a></p>
+      </div> <!-- end #pjax -->
+<!-- 
+      <div id="post__toc-trigger">
+        <div id="post__toc">
+          <span id="post__toc-title">目录</span>
+          <ul id="post__toc-ul"></ul>
+        </div>
+      </div> -->
+    </div> <!-- end #post -->
+
+    <button id="js-fullscreen"><span id="icon-arrow" class="fontello"></span></button>
+    <button id="js-toc"><span id="icon-list" class="fa fa-list-ul"></span></button>
+    <div id="post__toc">
+      <span id="post__toc-title">目录</span>
+      <ul id="post__toc-ul"></ul>
+    </div>
+
+    <script src="/assets/js/jquery-2.0.3.min.js"></script>
+    <script src="/assets/js/jquery.pjax.js"></script>
+    <script src="/assets/js/nprogress.js"></script>
+    <script src="/assets/js/script.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  </body>
+</html>
