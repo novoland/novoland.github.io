@@ -45,6 +45,8 @@
 
         <nav id="pl__container">
         
+          <a class="工作 pl__all" href="/%E5%B7%A5%E4%BD%9C/2015/05/05/GIT%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C.html"><span class="pl__circle"></span><span class="pl__title">GIT常用操作</span><span class="pl__date">May 2015</span></a>
+        
           <a class="设计 pl__all" href="/%E8%AE%BE%E8%AE%A1/2015/04/02/%E5%B8%B8%E7%94%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%80%BB%E7%BB%93.html"><span class="pl__circle"></span><span class="pl__title">常用设计模式的总结</span><span class="pl__date">Apr 2015</span></a>
         
           <a class="并发 pl__all" href="/%E5%B9%B6%E5%8F%91/2014/09/11/ThreadLocal%20%E5%88%86%E6%9E%90.html"><span class="pl__circle"></span><span class="pl__title">ThreadLocal 分析</span><span class="pl__date">Sep 2014</span></a>
@@ -77,7 +79,7 @@
         
           <a class="算法 pl__all" href="/%E7%AE%97%E6%B3%95/2014/07/26/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98.html"><span class="pl__circle"></span><span class="pl__title">背包问题</span><span class="pl__date">Jul 2014</span></a>
         
-          <a class="c和os pl__all" href="/c%E5%92%8Cos/2014/07/26/%E7%BD%91%E5%8D%A1%E4%B8%AD%E6%96%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1.html"><span class="pl__circle"></span><span class="pl__title">网卡中断负载均衡</span><span class="pl__date">Jul 2014</span></a>
+          <a class="网络 pl__all" href="/%E7%BD%91%E7%BB%9C/2014/07/26/%E7%BD%91%E5%8D%A1%E4%B8%AD%E6%96%AD%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1.html"><span class="pl__circle"></span><span class="pl__title">网卡中断负载均衡</span><span class="pl__date">Jul 2014</span></a>
         
           <a class="算法 pl__all" href="/%E7%AE%97%E6%B3%95/2014/07/26/%E7%BA%BF%E6%AE%B5%E6%A0%91.html"><span class="pl__circle"></span><span class="pl__title">线段树</span><span class="pl__date">Jul 2014</span></a>
         
@@ -127,7 +129,7 @@
         
           <a class="cache pl__all" href="/cache/2014/07/26/Cache%20%E7%9B%B8%E5%85%B3%E7%90%86%E8%AE%BA.html"><span class="pl__circle"></span><span class="pl__title">Cache 相关理论</span><span class="pl__date">Jul 2014</span></a>
         
-          <a class="c和os pl__all" href="/c%E5%92%8Cos/2014/07/26/CPU%20Cache%20%E4%B8%8E%20%E5%AD%98%E5%82%A8%E5%99%A8%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84.html"><span class="pl__circle"></span><span class="pl__title">CPU Cache 与 存储器层次结构</span><span class="pl__date">Jul 2014</span></a>
+          <a class="c和os pl__all" href="/c%E5%92%8Cos/2014/07/26/CPU%20Cache%20%E4%B8%8E%20%E5%AD%98%E5%82%A8%E5%99%A8%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84.html"><span class="pl__circle"></span><span class="pl__title">CPU Cache & False Sharing & 存储器层次结构</span><span class="pl__date">Jul 2014</span></a>
         
           <a class="并发 pl__all" href="/%E5%B9%B6%E5%8F%91/2014/07/26/AQS%20%E5%92%8C%20%E9%AB%98%E7%BA%A7%E5%90%8C%E6%AD%A5%E5%99%A8.html"><span class="pl__circle"></span><span class="pl__title">AQS 和 高级同步器</span><span class="pl__date">Jul 2014</span></a>
         
@@ -139,7 +141,7 @@
       <div id="pjax">
         <article id="post__content">
   <h1 id="post__title" data-identifier="20140726">MySQL总结</h1>
-  <div style="line-height: 1.5; color: #2c3f51;">
+  <div style="line-height: 1.5; color: #2c3f51; font-family: Helvetica Neue, Arial, Hiragino Sans GB, STHeiti, Microsoft YaHei, WenQuanYi Micro Hei, SimSun, Song, sans-serif;">
 <div></div>
 <div>
 </div><div>
@@ -290,12 +292,11 @@
 <li><p style="margin: 0 0 1.1em;">幻读（<code style="font-family: Source Code Pro,monospace; font-size: .9em; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: normal; border-radius: 4px;">Phantom Read</code>）：</p>
 <p style="margin: 0 0 1.1em;">A 查询一批数据，B 插入或删除了某些记录并提交，A 再次查询，发现结果集中出现了上次没有的记录，或者上次有的记录消失了。</p></li>
 <li><p style="margin: 0 0 1.1em;">第二类丢失更新 (<code style="font-family: Source Code Pro,monospace; font-size: .9em; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: normal; border-radius: 4px;">覆盖丢失</code>)：</p>
-<p style="margin: 0 0 1.1em;">A 和 B 查询同样的记录，各自 <strong style="font-weight: bold;">基于最初查询的结果</strong> 更新记录并提交，后提交的数据将覆盖先提交的，导致最终数据错误。</p>
+<p style="margin: 0 0 1.1em;">A 和 B 查询同样的记录，进行 “读取、计算、更新”，即各自 <del><strong style="font-weight: bold;">基于最初查询的结果</strong> </del>（非必须） 更新记录并提交，后提交的数据将覆盖先提交的，导致最终数据错误。</p>
 <p style="margin: 0 0 1.1em;">并发进行自增 / 自减是发生覆盖丢失的一个典型场景：</p>
 <p style="margin: 0 0 1.1em;"><img alt="Alt text" class="en-media" longdesc="./1409971482166.png" name="4ab7a1fa-077a-4de4-bfb8-f54b5baae0ea" src="/assets/img/a532fd94ccd31a031bd3700865b231c9.png" style="border: 0; vertical-align: middle; max-width: 100%;" title=""/></p>
 <p style="margin: 0 0 1.1em;">其中一个事务的更新被另外一个覆盖了，最终导致 i 错误。</p></li>
-</ol>
-</div><div>
+</ol></div><div>
 <h2 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 21px; margin-bottom: 10.5px; font-size: 2.15em; margin: 1.2em 0; text-align: start;">3. 4个事务隔离级别</h2>
 <ol style="margin-top: 0; margin-bottom: 1.1em;"><li><p style="margin: 0 0 1.1em;">read uncommited</p>
 <p style="margin: 0 0 1.1em;">最弱，事务的所有动作对其他事务都是立即可见的。存在脏读、不可重复读、第二类丢失更新、幻读问题（全部并发问题都有）。</p></li>
@@ -317,9 +318,9 @@
 <thead>
 <tr>
 <th style="padding: .5em; line-height: 1.5; vertical-align: bottom; border-top: 0; font-weight: bold; border: 1px solid #ddd;">.</th>
-<th align="center" style="padding: .5em; line-height: 1.5; vertical-align: bottom; border-top: 0; font-weight: bold; border: 1px solid #ddd;">dirty read</th>
-<th align="center" style="padding: .5em; line-height: 1.5; vertical-align: bottom; border-top: 0; font-weight: bold; border: 1px solid #ddd;">non-repeatable read</th>
-<th align="center" style="padding: .5em; line-height: 1.5; vertical-align: bottom; border-top: 0; font-weight: bold; border: 1px solid #ddd;">phantom read</th>
+<th align="center" style="padding: .5em; line-height: 1.5; vertical-align: bottom; border-top: 0; font-weight: bold; border: 1px solid #ddd;">脏读</th>
+<th align="center" style="padding: .5em; line-height: 1.5; vertical-align: bottom; border-top: 0; font-weight: bold; border: 1px solid #ddd;">不可重复读</th>
+<th align="center" style="padding: .5em; line-height: 1.5; vertical-align: bottom; border-top: 0; font-weight: bold; border: 1px solid #ddd;">幻读</th>
 <th align="center" style="padding: .5em; line-height: 1.5; vertical-align: bottom; border-top: 0; font-weight: bold; border: 1px solid #ddd;">第二类丢失更新</th>
 </tr>
 </thead>
@@ -352,8 +353,7 @@
 <td align="center" style="padding: .5em; line-height: 1.5; vertical-align: top; border-top: 1px solid #ddd; border: 1px solid #ddd;"><code style="font-family: Source Code Pro,monospace; font-size: .9em; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: normal; border-radius: 4px;">X</code></td>
 </tr>
 </tbody></table>
-<hr style="-moz-box-sizing: content-box; box-sizing: content-box; height: 0; margin-top: 21px; margin-bottom: 21px; border: 0; border-top: 1px solid rgba(102,128,153,0.1); margin: 2em 0;"/>
-</div><div>
+<hr style="-moz-box-sizing: content-box; box-sizing: content-box; height: 0; margin-top: 21px; margin-bottom: 21px; border: 0; border-top: 1px solid rgba(102,128,153,0.1); margin: 2em 0;"/></div><div>
 <h1 style="font-size: 2.6em; margin: 1.2em 0; font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 21px; margin-bottom: 10.5px; text-align: start;">二. 并发控制</h1>
 <p style="margin: 0 0 1.1em;">数据库通常通过锁来实现上述隔离级别。MySQL能够根据设置的隔离级别自动管理事务内的锁，不需要开发人员关心，用户写的普通SQL语句就能获得上述并发保障。不过数据库也支持显式加锁，对于当前隔离级别无法解决的并发问题（对InnoDB的默认<code style="font-family: Source Code Pro,monospace; font-size: .9em; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: normal; border-radius: 4px;">RR</code>隔离级别而言，并发问题指的是<code style="font-family: Source Code Pro,monospace; font-size: .9em; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: normal; border-radius: 4px;">幻读</code>和<code style="font-family: Source Code Pro,monospace; font-size: .9em; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: normal; border-radius: 4px;">第二类丢失更新</code>），通常有以下两种解决方式：</p>
 <ol style="margin-top: 0; margin-bottom: 1.1em;"><li><p style="margin: 0 0 1.1em;"><strong style="font-weight: bold;">悲观锁</strong>：在数据库事务中显式加锁。这种方法的逻辑是，假定每次访问资源都会出现冲突，每次均以排他形式访问数据库记录，因此称为<strong style="font-weight: bold;">悲观锁</strong>。在并发程度低的时候加的锁可能是不必要的，会浪费资源降低性能。</p></li>
@@ -361,27 +361,37 @@
 </ol>
 <p style="margin: 0 0 1.1em;">InnoDB 在锁的基础上还搭配了 MVCC 作为优化，实现以上事务隔离级别。</p></div><div>
 <h2 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 21px; margin-bottom: 10.5px; font-size: 2.15em; margin: 1.2em 0; text-align: start;">1. 锁</h2>
+<p style="margin: 0 0 1.1em;"><code style="font-family: Source Code Pro,monospace; font-size: .9em; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: normal; border-radius: 4px;">two-phase locking protocol</code>：事务内部只加锁不释放，在提交时一起释放</p>
 </div><div>
 <h3 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 21px; margin-bottom: 10.5px; font-size: 1.7em; margin: 1.2em 0; text-align: start;">锁优化1：拆分，读写锁</h3>
 <p style="margin: 0 0 1.1em;">读锁 – 共享锁 – shared <br/>
 写锁 – 排他锁 – exclusive</p>
+<p style="margin: 0 0 1.1em;">工作方式和 JUC 里的读写锁一样。</p>
 </div><div>
 <h3 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 21px; margin-bottom: 10.5px; font-size: 1.7em; margin: 1.2em 0; text-align: start;">锁优化2：降低粒度，表锁 &amp; 行锁</h3>
-<p style="margin: 0 0 1.1em;"><em>表锁由 mysql服务器 实现，行锁由 存储引擎 实现。</em></p>
+<p style="margin: 0 0 1.1em;"><em>表锁由 mysql服务器 实现，行锁由 存储引擎 实现。表锁行锁又细分成读写锁。</em></p>
 </div><div>
 <h4 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 1.25em; margin: 1.2em 0; text-align: start;">表锁</h4>
 <p style="margin: 0 0 1.1em;">显式的表锁： <br/>
 <code style="font-family: Source Code Pro,monospace; font-size: .9em; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: normal; border-radius: 4px;">lock table xxx read/write;</code></p>
-<p style="margin: 0 0 1.1em;">MyISAM几乎完全依赖MySQL服务器提供的表锁机制。</p>
+<p style="margin: 0 0 1.1em;">MyISAM几乎完全依赖MySQL服务器提供的表锁机制，查询自动加S表锁，更新自动加X表锁。</p>
 </div><div>
 <h4 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 1.25em; margin: 1.2em 0; text-align: start;">使用MyISAM时注意对表锁的优化：</h4>
 <ol style="margin-top: 0; margin-bottom: 1.1em;"><li>缩短锁定时间：拆分query / 索引</li>
-<li>打开concurrent insert(在尾部并发insert)</li>
+<li>打开concurrent insert(在尾部并发insert) <br/>
+<ul style="margin-top: 0; margin-bottom: 1.1em;"><li>0 关闭尾部并发insert</li>
+<li>1 如果MyISAM表中没有空洞（即表的中间没有被删除的行），MyISAM允许在一个事务读表的同时，另一个事务从表尾插入记录。这也是MySQL的默认设置。</li>
+<li>2 无论MyISAM表中有没有空洞，都允许在表尾并发插入记录</li></ul></li>
 <li>根据需要设置读写的优先级。默认写大于读</li>
 </ol>
 </div><div>
 <h4 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 1.25em; margin: 1.2em 0; text-align: start;">行锁</h4>
 <p style="margin: 0 0 1.1em;">InnoDB实现了行锁，基于索引的 index-row locking，<strong style="font-weight: bold;">如果锁了次级索引中的记录，则对应主索引中的记录也会被锁住</strong>。</p>
+<p style="margin: 0 0 1.1em;">update/delete/insert 动作会自动加x锁。</p>
+<p style="margin: 0 0 1.1em;">查询时也可以设置显式加锁：</p>
+<ol style="margin-top: 0; margin-bottom: 1.1em;"><li><code style="font-family: Source Code Pro,monospace; font-size: .9em; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: normal; border-radius: 4px;">select... lock in shared mode</code>: s lock</li>
+<li><code style="font-family: Source Code Pro,monospace; font-size: .9em; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: normal; border-radius: 4px;">select... for update</code>: x lock</li>
+</ol>
 </div><div>
 <h4 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 1.25em; margin: 1.2em 0; text-align: start;">查询锁的争用情况</h4>
 <ol style="margin-top: 0; margin-bottom: 1.1em;"><li>表锁 <br/>
@@ -396,12 +406,6 @@ time: <br/>
 time_avg: <br/>
 time_max:</li>
 </ol>
-<p style="margin: 0 0 1.1em;">update/delete/insert 动作会自动加x锁。</p>
-<p style="margin: 0 0 1.1em;">查询时也可以设置显式加锁：</p>
-<ol style="margin-top: 0; margin-bottom: 1.1em;"><li><code style="font-family: Source Code Pro,monospace; font-size: .9em; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: normal; border-radius: 4px;">select... lock in shared mode</code>: s lock</li>
-<li><code style="font-family: Source Code Pro,monospace; font-size: .9em; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: normal; border-radius: 4px;">select... for update</code>: x lock</li>
-</ol>
-<p style="margin: 0 0 1.1em;"><code style="font-family: Source Code Pro,monospace; font-size: .9em; padding: 2px 4px; color: #c7254e; background-color: #f9f2f4; white-space: normal; border-radius: 4px;">two-phase locking protocol</code>：事务内部获得的锁在提交时一起释放</p>
 </div><div>
 <h2 style="font-family: inherit; font-weight: bold; line-height: 1.1; color: inherit; margin-top: 21px; margin-bottom: 10.5px; font-size: 2.15em; margin: 1.2em 0; text-align: start;">2. MVCC</h2>
 <p style="margin: 0 0 1.1em;">InnoDB 并不仅仅使用上述的锁机制控制并发，它还搭配了另外一种用于提高并发度的被称为 “Multi-Version Concurrency Control 多版本并发控制” 机制一起使用。简单的说，MVCC为某条记录创建多个snapshot，不同事务读取各自的snapshot，互不影响，它可以认为是对锁机制的一种优化，它在很多情况下避免了锁的使用：</p>
