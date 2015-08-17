@@ -56,6 +56,10 @@ noteList = {
     '数据库' : [
     	# MYSQL
     	'https://www.evernote.com/shard/s133/sh/d308cb41-961f-433d-ae84-98bc3015ed13/68ef39ac3bcb6b1fd5a72a8c657bacca',
+        # InnoDB 锁
+        'https://www.evernote.com/shard/s133/sh/10534c4a-d77d-4352-853b-33b84c330f72/df0d9fd51cc9c084',
+        # Insert On Dup Key Update
+        'https://www.evernote.com/shard/s133/sh/c479a74c-94af-4f9a-bf9a-c527c0ad29ed/3a3771dcb03b6979',
     ],
     'cache' :[
     	# HTTP cache
@@ -98,12 +102,19 @@ noteList = {
         # Mapreduce algorithms
         'https://www.evernote.com/shard/s133/sh/793a96a2-fe2b-4147-a054-ef60da105c8c/e09a91062c3a4cbc751a0b47383a2c0f',
         # GIT
-        'https://www.evernote.com/shard/s133/sh/f37bda8d-7036-4d88-90fd-8faa08ef9a54/bae0246d7584385c'
+        'https://www.evernote.com/shard/s133/sh/f37bda8d-7036-4d88-90fd-8faa08ef9a54/bae0246d7584385c',
+        # 消息中心开发过程中踩的几个(常识)坑
+        'https://www.evernote.com/shard/s133/sh/7c9c7c8e-53fe-4df2-9129-aa92d5581a18/e0361ebc567bb2da',
     ],
     '设计':[
         # 常见设计模式总结
-        'https://www.evernote.com/shard/s133/sh/edfa1774-6329-4c94-9cbc-b3afe951ca9b/7ce87045640b9ba2'
+        'https://www.evernote.com/shard/s133/sh/edfa1774-6329-4c94-9cbc-b3afe951ca9b/7ce87045640b9ba2',
+        # restful API
+        'https://www.evernote.com/shard/s133/sh/67b4ed0d-2e78-4c8d-8a3d-d5f14388b259/86403895336147ec',
+        # 异常
+        'https://www.evernote.com/shard/s133/sh/81ac7d73-5818-4aec-b133-ff283a31fd18/fbd8d6d963a7e439'
+
     ]
 }
 
-expire = 0 * 24 * 3600 # seconds, 1 day
+expire = 24 * 3600 # seconds, 1 day
